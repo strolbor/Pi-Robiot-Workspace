@@ -5,6 +5,7 @@ import os
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
+from flask_mail import Mail
 from wtforms.fields.core import Label
 from flask_cors import *
 from flask_bootstrap import Bootstrap
@@ -22,9 +23,20 @@ import urs_config as hF
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
 
+#FLASK API
 app = Flask(__name__)
-app.secret_key = 'developer-key-is-secret'
+app.secret_key = 'ey0pX0EuIbB%wq4ey0pX0EuIbB%wq4ey0pX0EuIbB%wq4ey0pX0EuIbB%wq4'
+#Flask Konfig
+app.config['MAIL_SERVER']='smtp.1blu.de'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'b242501_0-marsrover'
+app.config['MAIL_PASSWORD'] = 'tlMKzcehnrV)7Ed'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+
 bootstrap = Bootstrap(app)
+
 CORS(app, supports_credentials=True)
 camera = Camera()
 

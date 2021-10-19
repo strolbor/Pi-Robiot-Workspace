@@ -2,6 +2,7 @@
 from flask import Flask
 from PIL import Image
 
+
 # System
 import base64
 from io import BytesIO
@@ -16,9 +17,17 @@ import os
 # Recognization
 import detection as detect
 
+# Flask API
 app = Flask(__name__)
+
+
 log = logging.getLogger('werkzeug')
+mail = Mail(app)
+
+#Logging
 log.setLevel(logging.ERROR)
+
+# Routing
 @app.route('/')
 def home():
     return 'It works! by Urs'
