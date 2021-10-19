@@ -554,7 +554,11 @@ class Functions(threading.Thread):
 		""" Sammelprozess Funktionen starter"""
 		global lastObject, Strategien,sammler_gefunden,sammler_target
 		fDrive.configure_head(scGear)
-		print("Suche: "+sammler_target[sammler_gefunden])
+		try:
+			print("Suche: "+sammler_target[sammler_gefunden])
+		except IndexError:
+			self.pause()
+			return	
 		if sammler_target[sammler_gefunden] == "" or sammler_target[sammler_gefunden] == " ":
 			print("Empty String")
 			self.pause()
