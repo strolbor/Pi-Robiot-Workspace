@@ -5,7 +5,7 @@ import os
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
-from flask_mail import Mail
+
 from wtforms.fields.core import Label
 from flask_cors import *
 from flask_bootstrap import Bootstrap

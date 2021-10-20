@@ -409,6 +409,7 @@ class Functions(threading.Thread):
 		fDrive.configure_head(scGear)
 
 		# Gegenstands Datei lesen und einspielen
+		# Wir können nur ein Gegenstand in diesen Modus tracken.
 		gegenstand = ""
 		try:
 			datei = open(cof.YOLO_CONF)

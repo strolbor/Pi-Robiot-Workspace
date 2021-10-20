@@ -22,7 +22,6 @@ app = Flask(__name__)
 
 
 log = logging.getLogger('werkzeug')
-mail = Mail(app)
 
 #Logging
 log.setLevel(logging.ERROR)
