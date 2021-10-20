@@ -21,7 +21,7 @@ from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachric
 
 from camera_opencv import Camera
 import threading
-from server.functionHelper import delete_file
+from functionHelper import delete_file
 
 import urs_config as cof
 
