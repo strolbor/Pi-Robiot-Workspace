@@ -281,7 +281,6 @@ def send_mail(text):
     msg.body = text
     msg.html = text
     mail.send(msg)
-    flash('E-Mail erfolgreich gesendet"')
     return "OK!"
 
 @app.route('/api/send/telegram/<text>', methods=['GET','POST'])
