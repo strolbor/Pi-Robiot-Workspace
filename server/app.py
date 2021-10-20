@@ -246,6 +246,8 @@ def change_mcp(name):
             Arraystr = Arraystr + 'book'+ "," 
         if form.btn12.data:
             Arraystr = Arraystr + 'vase'+ ","
+        if form.btn13.data:
+            Arraystr = Arraystr + 'laptop'+ ","
         
         # Einstellungsdatei löschen
         try:

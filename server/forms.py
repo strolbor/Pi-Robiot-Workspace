@@ -4,7 +4,7 @@ from wtforms.fields.core import BooleanField
 from wtforms.fields.simple import TextField
 
 class ChangeSammlerForm(FlaskForm):
-    dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase']
+    dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
     textarea1= SelectField('Gegenstand 1', choices=dropdown_list, default=1)
     textarea2= SelectField('Gegenstand 2', choices=dropdown_list, default=1)
     textarea3= SelectField('Gegenstand 3', choices=dropdown_list, default=1)
@@ -24,6 +24,7 @@ class ChangeSammlerMCP(FlaskForm):
     btn10 = BooleanField('mouse')
     btn11 = BooleanField('book')
     btn12 = BooleanField('vase')
+    btn13 = BooleanField('laptop')
     submit = SubmitField('Speichern')
 
 class YoloChangeSC(FlaskForm):
