@@ -51,12 +51,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sammel Modus <span class="caret"></span></a>
               <ul class="dropdown-menu">
+                <li><a href="{{url_for('sammler_liste')}}">Liste</a></li>
+                <li role="separator" class="divider"></li>
                 <li><a href="{{url_for('change_sc',name='0')}}">Single Choice</a></li>
                 <li><a href="{{url_for('change_mcp',name='0')}}">Multiple Choice</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="{{url_for('sammler_liste')}}">Liste</a></li>
-                <!--<li role="separator" class="divider"></li>
-                <li><a href="#">One more separated link</a></li>-->
               </ul><!-- End of Dropdown Menu -->
             </li><!-- End of Dropdown  -->
             
@@ -70,7 +68,7 @@
 
         </ul><!-- End of navbar-nav navbar-right -->
       </div><!-- /.navbar-collapse -->
-    </div><!-- /.container fluid -->
+    </div><!-- /.container -->
   </nav>
  {% endblock %}
 

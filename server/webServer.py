@@ -168,15 +168,15 @@ def speech_off(response,modeSelect):
 
 def kreis(response,modeSelect): # Kreisfahrmodus
 	RL.breath(0,85,128) # Dark cerulean
-	fuc.kreisFahrmodus()
+	fuc.kreis_fahrmodus()
 
 def konst(response,modeSelect):
 	RL.breath(251,255,230) # Light yellow
-	fuc.konstFahrmodus()
+	fuc.konst_fahrmodus_v()
 
 def konst2(response,modeSelect):
 	RL.breath(150,0,4) # rot
-	fuc.konstFahrmodus2()
+	fuc.konst_fahrmodus_r()
 
 def turnRight(response,modeSelect):
 	RL.breath(255,153,187) # Pastel magenta
@@ -214,10 +214,10 @@ def man(response,modeSelect):
 
 def room_scan(response,modeSelect):
 	RL.breath(204,0,102)
-	fuc.roomScanStart()
+	fuc.room_scan_start()
 
 def smart_scan(response,modeSelect):
-	fuc.smartRoomScanStart()
+	fuc.drive_room_scan_start()
 	
 def init_function_entscheider():
 	if len(FuncEntscheider) == 0:
@@ -311,7 +311,7 @@ def forward():
 	if manPlusModus == 1:
 		if einrasten == 0:
 			einrasten = 1
-			fuc.konstFahrmodus()
+			fuc.konst_fahrmodus_v()
 		else:
 			einrasten = 0
 			fuc.pause()
@@ -327,7 +327,7 @@ def backward():
 	if manPlusModus == 1:
 		if einrasten == 0:
 			einrasten = 1
-			fuc.konstFahrmodus2()
+			fuc.konst_fahrmodus_r()
 		else:
 			einrasten = 0
 			fuc.pause()

@@ -212,17 +212,17 @@ class Functions(threading.Thread):
 		self.functionMode = 'speechRecProcessing'
 		self.resume()
 
-	def kreisFahrmodus(self):
+	def kreis_fahrmodus(self):
 		"""Kreisfahr Modus"""
 		self.functionMode = 'kreis'
 		self.resume()
 	
-	def konstFahrmodus(self):
+	def konst_fahrmodus_v(self):
 		"""Konstanter Fahrmodus nach Vorne"""
 		self.functionMode = 'konst'
 		self.resume()
 
-	def konstFahrmodus2(self):
+	def konst_fahrmodus_r(self):
 		"""Konstanter Fahrmodus nach Hinten"""
 		self.functionMode = 'konst2'
 		self.resume()
@@ -249,7 +249,7 @@ class Functions(threading.Thread):
 		self.yolo_init()
 		self.resume()
 	
-	def roomScanStart(self):
+	def room_scan_start(self):
 		""" fast stationärer Raumscan """
 		self.functionMode = 'roomScan'
 		fH.delete_geg()
@@ -257,11 +257,17 @@ class Functions(threading.Thread):
 		self.yolo_init()
 		self.resume()
 
-	def smartRoomScanStart(self):
+	def drive_room_scan_start(self):
 		""" Fahrender Raum Scanner """
 		self.functionMode = 'roomScanSmart'
 		fH.delete_geg()
 		fH.init_scan_log()
+		self.yolo_init()
+		self.resume()
+
+	def alarm_start(self):
+		""" Alarm Raum Scanner """
+		self.functionMode = 'alarm'
 		self.yolo_init()
 		self.resume()
 
@@ -411,8 +417,11 @@ class Functions(threading.Thread):
 			pass
 
 		# File Not found oder ist leer
+		# Es wird anhand der String länge gemessen.
+		# cup hat 3 Buchstaben also habe ich 3-1 genommen. Damit ich auf Nummer sicher gehe
 		if len(gegenstand) <= 2:
 			self.pause()
+			return
 
 		# Modus starten
 		print("[YOLO] Suche:",gegenstand)
@@ -422,7 +431,22 @@ class Functions(threading.Thread):
 			if entry.ispossible(xkordinate, self.functionMode, lastObject):
 				entry.runs()
 				break
-
+	
+	def alarm_process(self):
+		"""Der Alarm Process wird gestartet"""
+		gegenstand = []
+		try:
+			datei = open(cof.ALARM_CONF)
+			gegenstand = datei.readline().split(",")
+		except FileNotFoundError:
+			pass
+		# Es gibt kein Eintrag in der Konfig --> Pause
+		if len(gegenstand) < 1:
+			self.pause()
+			return
+		
+		#Modus starten
+		fH.alarm_scan(scGear=scGear,self=self,move=move,alarm_object=gegenstand)
 	def yolo_move(self):
 		""" Der Objekt Erkennungserweterung Modus. Der Roboter guckt sich die Umgebung an. (Logik)"""
 		global lastObject, Strategien

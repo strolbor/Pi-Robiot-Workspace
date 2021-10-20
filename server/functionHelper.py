@@ -85,6 +85,7 @@ def init_function_entscheider(self):
 	Goings.append(webHelper.Entscheider('roomScan', self.room_scan))
 	Goings.append(webHelper.Entscheider('roomScanSmart', self.drive_scan))
 	Goings.append(webHelper.Entscheider('Object', self.sammel_process))
+	Goings.append(webHelper.Entscheider('alarm',self.alarm_process))
 	return Goings
 
 def yolo_look_advance(object: str,scGear, lastObject):
@@ -234,6 +235,49 @@ def drive_scan(scGear,move):
 	# optische Sache
 	_list = room_scan_scan(scGear=scGear)
 	write_db(_list)
+	
+	# Rechts gucken
+	scGear.moveAngle(1, -90) # Kopf: rechts
+	dist_re = dist_redress()
+	# Entscheide Funktion
+	if dist_vorne > 100:
+		print("Option 1")
+		move.move(cof.ROBOT_SPEED,'forward','no',0)
+		time.sleep(5)
+		move.motorStop()
+	else:
+		print("Option 2")
+		if dist_li > dist_re:
+			fDrive.raw_turn(True, scGear,move) # Links
+		else:
+			fDrive.raw_turn(False, scGear,move) # Rechts
+
+
+
+def alarm_scan(scGear,move,self,alarm_object):
+	global for_mail
+	"""##### Fahrmodus: Alarm"""
+	# Links gucken
+	scGear.moveAngle(1, 90) # Kopf: links 
+	dist_li = dist_redress()
+
+	# Main Function
+	time.sleep(0.1)
+	scGear.moveAngle(2,10) # Lenker
+	time.sleep(0.1)
+	scGear.moveAngle(1,0) # Kopf grade aus
+	
+	dist_vorne = dist_redress()
+	# optische Sache
+	_list = room_scan_scan(scGear=scGear)
+	
+	# erhaltene Liste Analysieren
+	for entry_conf in alarm_object:
+		for entry_found in _list:
+			if (entry_conf == entry_found):
+				# Falls Objekt aus der Liste gefunden und wir die noch nicht gefunden haben
+				# Adden wir es in unseren Speicher
+				self.sendmail('','<html><body><p>Ich habe folgendes gefunden: '+entry_conf + "</p><p>Also räume auf</p></body></html>")
 	
 	# Rechts gucken
 	scGear.moveAngle(1, -90) # Kopf: rechts
