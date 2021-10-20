@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from importlib import import_module
 import os
+import re
 
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
@@ -308,6 +309,8 @@ def sendmail():
 	msg.body = "body"
 	msg.html = "html"
 	mail.send(msg)
+    return redirect(url_for('index'))
+
 
 class webapp:
     def __init__(self):
