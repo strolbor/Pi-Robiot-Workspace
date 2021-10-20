@@ -277,8 +277,7 @@ def alarm_scan(scGear,move,self,alarm_object):
 			if (entry_conf == entry_found):
 				# Falls Objekt aus der Liste gefunden und wir die noch nicht gefunden haben
 				# Adden wir es in unseren Speicher
-				self.sendmail('','<html><body><p>Ich habe folgendes gefunden: '+entry_conf + "</p><p>Also räume auf</p></body></html>")
-				print(entry_conf + " gesendet")
+				print(entry_conf + " gefunde und räum auf!")
 	
 	# Rechts gucken
 	scGear.moveAngle(1, -90) # Kopf: rechts
