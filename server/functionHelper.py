@@ -278,8 +278,10 @@ def alarm_scan(scGear,move,self,alarm_object):
 				print(txt)
 				if "mail" in msg:
 					requests.get("http://localhost:5000/api/send/mail/"+txt)
+					print("[ALARM] Mail gesendet")
 				if "telegram" in msg:
 					requests.get("http://localhost:5000/api/send/telegram/"+txt)
+					print("[ALARM] Telegram Nachricht gesendet")
 				
 
 	# Entscheide Funktion
