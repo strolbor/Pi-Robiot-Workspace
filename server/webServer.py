@@ -255,6 +255,7 @@ def init_function_entscheider():
 
 def alarmfunc(command_input,response):
 	print("ALARM")
+	fuc.alarm_start()
 
 def objectfunc(c,r):
 	print("Object Sammeln")
