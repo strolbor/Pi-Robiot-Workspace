@@ -10,7 +10,7 @@ import functionDriving as fDrive
 
 import webHelper
 
-
+from flask.helpers import url_for
 # Klasse
 class RangeStrategie(object):
     """Strategy Pattern: Auswahlpattern"""
@@ -270,7 +270,10 @@ def alarm_scan(scGear,move,self,alarm_object):
 			if (entry_conf == entry_found):
 				# Falls Objekt aus der Liste gefunden und wir die noch nicht gefunden haben
 				# Adden wir es in unseren Speicher
-				print(entry_conf + " gefunde und räum auf!")
+				txt = entry_conf + " gefunde und räum auf!"
+				print(txt)
+				requests.post(cof.TELEGRAM_BOT_URL+txt)
+				requests.post(url_for('send_mail',text=txt))
 
 	# Entscheide Funktion
 	if dist_vorne > 100:

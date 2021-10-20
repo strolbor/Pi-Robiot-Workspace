@@ -286,7 +286,8 @@ def send_mail(text):
 
 @app.route('/api/send/telegram/<text>', methods=['GET','POST'])
 def send_telegram(text):
-    return requests.post(cof.TELEGRAM_BOT_URL+text)
+    requests.post(cof.TELEGRAM_BOT_URL+text)
+    return "OK!"
 
 
 @app.route('/yolo/sc', methods=['GET','POST'])
