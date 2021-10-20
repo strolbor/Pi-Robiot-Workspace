@@ -320,7 +320,7 @@ def yolo_sc():
 
 # Alarm Modus 
 # Benachrichtung
-@app.route('/alarm/benachrichtung')
+@app.route('/alarm/benachrichtung', methods=['GET','POST'])
 def alarm_nach():
     form = AlarmBenachrichtung()
     try:
