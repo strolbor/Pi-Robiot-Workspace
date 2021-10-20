@@ -6,6 +6,7 @@ import re
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
+import requests
 
 from wtforms.fields.core import Label
 from flask_cors import *
@@ -20,7 +21,7 @@ from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC
 from camera_opencv import Camera
 import threading
 
-import urs_config as hF
+import urs_config as cof
 
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
@@ -95,7 +96,7 @@ def dash():
 def sammler_liste():
     messages = []
     try:
-        datei = open(hF.LIST_GEGEN,'r')
+        datei = open(cof.LIST_GEGEN,'r')
         for raw in datei:
             if not raw.startswith('----'):
                 allmsg = raw.split(",")
@@ -129,11 +130,11 @@ def change_sc(name):
 
     if integer == 0:
         # Sammel Modus
-        filename = hF.SAMMLER_CONF
+        filename = cof.SAMMLER_CONF
         title = "Sammel Modus"
     elif integer == 1:
         # Alarm Modus
-        filename = hF.ALARM_CONF
+        filename = cof.ALARM_CONF
         title = "Alarm Modus"
     else:
         flash('Error: Modus nicht bekannt')
@@ -202,11 +203,11 @@ def change_mcp(name):
 
     if integer == 0:
         # Sammel Modus
-        filename = hF.SAMMLER_CONF
+        filename = cof.SAMMLER_CONF
         title = "Sammel Modus"
     elif integer == 1:
         # Alarm Modus
-        filename = hF.ALARM_CONF
+        filename = cof.ALARM_CONF
         title = "Alarm Modus"
     else:
         # Unbekannter Modus
@@ -274,14 +275,18 @@ def change_mcp(name):
     return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
-@app.route('/api/sendmail/<text>', methods=['GET','POST'])
-def sendmail(text):
+@app.route('/api/send/mail/<text>', methods=['GET','POST'])
+def send_mail(text):
     msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
-    msg.body = "body"
+    msg.body = text
     msg.html = text
     mail.send(msg)
     flash('E-Mail erfolgreich gesendet"')
     return "OK!"
+
+@app.route('/api/send/telegram/<text>', methods=['GET','POST'])
+def send_telegram(text):
+    return requests.post(cof.TELEGRAM_BOT_URL+text)
 
 
 @app.route('/yolo/sc', methods=['GET','POST'])
@@ -290,12 +295,12 @@ def yolo_sc():
     form = YoloChangeSC()
     if form.validate_on_submit():
         try:
-            os.remove(hF.YOLO_CONF)
+            os.remove(cof.YOLO_CONF)
         except FileNotFoundError:
             pass
 
         # Einstellungsdatei erstellen
-        datei = open(hF.YOLO_CONF,'a')
+        datei = open(cof.YOLO_CONF,'a')
 
         # Einstellungsdatei schreiben
         datei.write(form.textarea1.data)
@@ -306,7 +311,7 @@ def yolo_sc():
         return redirect(url_for('yolo_sc'))
     voreingestellt = ""
     try:
-        datei = open(hF.YOLO_CONF,'r')
+        datei = open(cof.YOLO_CONF,'r')
         voreingestellt = datei.readline()
         datei.close()
     except FileNotFoundError:

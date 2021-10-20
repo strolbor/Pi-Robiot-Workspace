@@ -24,6 +24,9 @@ YOLO_CONF = 'yolo.csv'
 ROBOT_SPEED = 95
 """ Geschwindigkeit des Roboter"""
 
+TELEGRAM_BOT_TOKEN = "1233498807:AAGpVIwJMwxTvzcaMJmEog1NmN7XZZYlTDk"
+TELEGRAM_BOT_URL = "https://api.telegram.org/bot"+TELEGRAM_BOT_TOKEN+"/sendMessage?chat_id=978618750&text="
+
 def get_base64_encoded_image(image_path):
     """Bild -> Base64 String"""
     with open(image_path, "rb") as img_file:

@@ -1,3 +1,6 @@
+import requests as re
+
+
 a = "*"
 print(a == '*')
 
@@ -22,3 +25,6 @@ for entry in arr_a:
   for ent in arr_b:
     if entry == ent:
       print("gefunden",entry,ent)
+
+d = re.post('http://192.168.1.104:5000/api/sendmail/Hallo Welt')
+print(d)
