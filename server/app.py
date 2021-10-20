@@ -274,12 +274,13 @@ def change_mcp(name):
     return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
-@app.route('/api/sendmail/', methods=['GET','POST'])
-def sendmail():
+@app.route('/api/sendmail/<text>', methods=['GET','POST'])
+def sendmail(text):
     msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
     msg.body = "body"
-    msg.html = "html"
+    msg.html = text
     mail.send(msg)
+    flash('E-Mail erfolgreich gesendet"')
     return redirect(url_for('dash'))
 
 
