@@ -343,7 +343,7 @@ def alarm_nach():
         if form.tg_btn.data:
             save_str = save_str + "telegram,"
         delete_file(cof.ALARM_MSG_CONF)
-        datei = open(cof.ALARM_MSG_CONF)
+        datei = open(cof.ALARM_MSG_CONF,"a")
         datei.write(save_str)
         datei.flush()
         datei.close()
