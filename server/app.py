@@ -273,6 +273,16 @@ def change_mcp(name):
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
 
+# Mein Abschnitt mit meinen Funktionen
+@app.route('/api/sendmail/', methods=['GET','POST'])
+def sendmail():
+    msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
+    msg.body = "body"
+    msg.html = "html"
+    mail.send(msg)
+    return redirect(url_for('dash'))
+
+
 @app.route('/yolo/sc', methods=['GET','POST'])
 def yolo_sc():
     """YOLO Select Eingabe"""
@@ -302,14 +312,7 @@ def yolo_sc():
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
 
-# Mein Abschnitt mit meinen Funktionen
-@app.route('/api/sendmail/')
-def sendmail():
-	msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
-	msg.body = "body"
-	msg.html = "html"
-	mail.send(msg)
-    return redirect(url_for('index'))
+
 
 
 class webapp:
