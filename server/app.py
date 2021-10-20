@@ -281,7 +281,7 @@ def sendmail(text):
     msg.html = text
     mail.send(msg)
     flash('E-Mail erfolgreich gesendet"')
-    return redirect(url_for('dash'))
+    return "OK!"
 
 
 @app.route('/yolo/sc', methods=['GET','POST'])
