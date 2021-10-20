@@ -198,47 +198,47 @@ def room_scan_util(motor,tilt, time_sets,scGear):
 	return pic_analyse()
 
 def room_scan_scan(scGear):
-	""" Logik hinter dem Scannen; Gekapselte Funktion"""
+	""" Logik hinter dem Scannen; Gekapselte Funktion
+	Array[0] = Distanzmessungen
+	Array[1] = Werte"""
 	time_sets = 2
 	scGear.moveAngle(0, 10) # Tilt Motor
 	time.sleep(0.1)
 
 	liste1 = room_scan_util(1,90,time_sets,scGear) # links
+	dist_li = dist_redress()
 	liste2 = room_scan_util(1,45,time_sets,scGear)
 	liste3 = room_scan_util(1,0,time_sets,scGear)	# mitte
+	dist_vo = dist_redress()
 	liste4 = room_scan_util(1,-45,time_sets,scGear)	
 	liste5 = room_scan_util(1,-90,time_sets,scGear) # rechts
+	dist_re = dist_redress()
 
 	time.sleep(0.1)
 	scGear.moveAngle(1, 0) # Kopf wieder nach vorne Ausrichten
 	
 	# Listen appenden
 	backlist = []
+	backlist.append([dist_li,dist_vo,dist_re]) #0
+	list_of_list = []
 	for liste in liste1, liste2, liste3, liste4, liste5:
 		for entry in liste:
-			backlist.append(entry)
+			list_of_list.append(entry)
+	backlist.append(list_of_list) #1
 	return backlist
 
 def drive_scan(scGear,move):
 	"""##### Fahrmodus: fahrender Scanner"""
-	# Links gucken
-	scGear.moveAngle(1, 90) # Kopf: links 
-	dist_li = dist_redress()
+	scGear.moveAngle(2,10) # Lenker ausrichten
 
-	# Main Function
-	time.sleep(0.1)
-	scGear.moveAngle(2,10) # Lenker
-	time.sleep(0.1)
-	scGear.moveAngle(1,0)
-	
-	dist_vorne = dist_redress()
 	# optische Sache
-	_list = room_scan_scan(scGear=scGear)
+	_all = room_scan_scan(scGear=scGear)
+
+	# Datenstrukturen verwalten
+	_list = _all[1]
 	write_db(_list)
-	
-	# Rechts gucken
-	scGear.moveAngle(1, -90) # Kopf: rechts
-	dist_re = dist_redress()
+	dist_li,dist_vorne,dist_re = _all[0]
+
 	# Entscheide Funktion
 	if dist_vorne > 100:
 		print("Option 1")
@@ -255,21 +255,14 @@ def drive_scan(scGear,move):
 
 
 def alarm_scan(scGear,move,self,alarm_object):
-	global for_mail
 	"""##### Fahrmodus: Alarm"""
-	# Links gucken
-	scGear.moveAngle(1, 90) # Kopf: links 
-	dist_li = dist_redress()
-
-	# Main Function
-	time.sleep(0.1)
 	scGear.moveAngle(2,10) # Lenker
 	time.sleep(0.1)
-	scGear.moveAngle(1,0) # Kopf grade aus
 	
-	dist_vorne = dist_redress()
-	# optische Sache
-	_list = room_scan_scan(scGear=scGear)
+	# Scannen und Datenstrukturen verwalten
+	_all= room_scan_scan(scGear=scGear)
+	_list = _all[1] # Liste der Objekte, die gefunden wurden sind
+	dist_li,dist_vorne,dist_re = _all[0] # Distanzwerte
 	
 	# erhaltene Liste Analysieren
 	for entry_conf in alarm_object:
@@ -278,10 +271,7 @@ def alarm_scan(scGear,move,self,alarm_object):
 				# Falls Objekt aus der Liste gefunden und wir die noch nicht gefunden haben
 				# Adden wir es in unseren Speicher
 				print(entry_conf + " gefunde und räum auf!")
-	
-	# Rechts gucken
-	scGear.moveAngle(1, -90) # Kopf: rechts
-	dist_re = dist_redress()
+
 	# Entscheide Funktion
 	if dist_vorne > 100:
 		print("Option 1")
@@ -294,11 +284,14 @@ def alarm_scan(scGear,move,self,alarm_object):
 			fDrive.raw_turn(True, scGear,move) # Links
 		else:
 			fDrive.raw_turn(False, scGear,move) # Rechts
+	scGear.moveAngle(1,0) # Kopf grade ausrichten
+
 
 def room_scan(scGear, move):
 	"""##### Fahrmodus: Raumscannen"""
-	liste = room_scan_scan(scGear=scGear)
-	write_db(liste)
+	_all = room_scan_scan(scGear=scGear)
+	_liste = _all[1]
+	write_db(_liste)
 
 	# Robotor macht 180° Drehung
 	fDrive.raw_turn(True,scGear,move)
@@ -306,8 +299,9 @@ def room_scan(scGear, move):
 	time.sleep(0.5)
 	fDrive.raw_turn(True,scGear,move)
 
-	liste2 = room_scan_scan(scGear=scGear)
-	write_db(liste2)
+	_all = room_scan_scan(scGear=scGear)
+	_liste = _all[1]
+	write_db(_liste)
 	
 
 def delete_geg():
