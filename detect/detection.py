@@ -1,11 +1,11 @@
-import numpy as np
 import cv2 
+import numpy as np
 import os
 
 import json
 from json import JSONEncoder
 
-##DARKNET_PATH = 'D:/adeep_roboter/dsds'
+##DARKNET_PATH = 'D:/adeep_roboter/detect'
 #IMAGE_PATH = 'D:/adeep_roboter/'
 
 DARKNET_PATH = 'C:/Users/Schutz/Documents/adeep_roboter/detect'
@@ -47,7 +47,7 @@ class MyEncoder(JSONEncoder):
     def default(self, obj):
         return obj.__dict__
 
-def detect_obj_list(file_name):
+def detect_obj_list(path):
   JSON_string = str("")
   # Read labels that are used on object
   labels = open(os.path.join(DARKNET_PATH, "data", "coco.names")).read().splitlines() # Namen der gelernten Objekte
@@ -62,7 +62,7 @@ def detect_obj_list(file_name):
   ln = net.getLayerNames()
   ln = [ln[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
-  image = cv2.imread(IMAGE_PATH + "/"+file_name)
+  image = cv2.imread(path)
 
   # Get the shape
   h, w = image.shape[:2]
@@ -127,4 +127,4 @@ def detect_obj_list(file_name):
   return JSON_string
 
 if __name__ == '__main__':
-    detect_obj_list("yolo-pic.jpg")
+    detect_obj_list("20-Oct-2021--(08-07-04).jpg")

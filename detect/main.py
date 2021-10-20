@@ -20,11 +20,12 @@ import detection as detect
 # Flask API
 app = Flask(__name__)
 
-
-log = logging.getLogger('werkzeug')
+# time
+import time
 
 #Logging
-log.setLevel(logging.ERROR)
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.WARNING)
 
 # Routing
 @app.route('/')
@@ -44,12 +45,13 @@ def image_check2(url):
             img = Image.open(BytesIO(decoded_img))
 
             file_name = file_name_for_base64_data + ".jpg"
-            img.save(file_name, "jpeg")
+            img.save(detect.IMAGE_PATH + file_name, "jpeg")
+            time.sleep(0.2)
 
-            status = detect.detect_obj_list(file_name)
+            status = detect.detect_obj_list(detect.IMAGE_PATH + file_name)
             print(file_name_for_base64_data, ":", status)
 
-            os.remove(file_name)
+            os.remove(detect.IMAGE_PATH + file_name)
 
         # Base64 DATA PNG
         elif "data:image/png;base64," in url:

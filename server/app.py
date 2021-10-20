@@ -9,6 +9,7 @@ from flask.helpers import url_for, flash
 from wtforms.fields.core import Label
 from flask_cors import *
 from flask_bootstrap import Bootstrap
+from flask_mail import Mail, Message
 
 # Forms
 from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC
@@ -34,7 +35,7 @@ app.config['MAIL_PASSWORD'] = 'tlMKzcehnrV)7Ed'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
-
+mail = Mail(app)
 bootstrap = Bootstrap(app)
 
 CORS(app, supports_credentials=True)
@@ -299,6 +300,14 @@ def yolo_sc():
     except FileNotFoundError:
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
+
+# Mein Abschnitt mit meinen Funktionen
+@app.route('/api/sendmail/<body>/<html>')
+def sendmail(body,html):
+	msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
+	msg.body = body
+	msg.html = html
+	mail.send(msg)
 
 class webapp:
     def __init__(self):

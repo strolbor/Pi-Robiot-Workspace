@@ -65,6 +65,7 @@ while True:
                 x, y, w, h = boxes[i]
                 label = str(classes[class_ids[i]])
                 color = colors[i]
+                label = "{}: {:.4f}".format(label, confidences[i])
                 cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
                 cv2.putText(img, label, (x, y + 30), font, 3, color, 3)
         img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)

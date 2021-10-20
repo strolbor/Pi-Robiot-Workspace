@@ -31,11 +31,6 @@ import urs_config as cof
 import functionHelper as fH
 import functionDriving as fDrive
 
-# Flask App
-from app import app
-from flask_mail import Mail,Message
-
-mail = Mail(app)
 
 Goings = []
 scGear = RPIservo.ServoCtrl()
@@ -379,12 +374,7 @@ class Functions(threading.Thread):
 		else:
 			move.motorStop()
 	
-	# Mein Abschnitt mit meinen Funktionen
-	def sendmail(self,body,html):
-		msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
-		msg.body = body
-		msg.html = html
-		mail.send(msg)
+
 		
 	def konst_fahrmodus_processing(self):
 		""" Konstant fahren nach Vorne (Logik)"""
@@ -627,4 +617,4 @@ class Functions(threading.Thread):
 
 if __name__ == '__main__':
 	Fuc = Functions()
-	Fuc.sendmail('e','<html><h1>Test</h1></html>')
+
