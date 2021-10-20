@@ -9,13 +9,16 @@ from datetime import datetime
 
 # from imports
 from requests.exceptions import ReadTimeout, Timeout
-from mpu6050 import mpu6050
 
+# Auf PPC nicht vorhanden
+from mpu6050 import mpu6050
+import Adafruit_PCA9685
+import RPi.GPIO as GPIO
 # imports
 import requests
-import RPi.GPIO as GPIO
+
 import threading
-import Adafruit_PCA9685
+
 import os
 import ultra
 import Kalman_filter
@@ -595,3 +598,8 @@ class Functions(threading.Thread):
 		while 1:
 			self.__flag.wait()
 			self.function_going()
+
+
+if __name__ == '__main__':
+	Fuc = Functions()
+	Fuc.sendmail('e','<html><h1>Test</h1></html>')
