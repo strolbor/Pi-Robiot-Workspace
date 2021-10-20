@@ -90,7 +90,7 @@ def index():
 def dash():
     return render_template('index.html')
 
-@app.route('/sammler/liste')
+@app.route('/scanner/liste')
 def sammler_liste():
     messages = []
     try:

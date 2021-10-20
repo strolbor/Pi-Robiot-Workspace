@@ -247,7 +247,7 @@ class Functions(threading.Thread):
 	def room_scan_start(self):
 		""" fast stationärer Raumscan """
 		self.functionMode = 'roomScan'
-		fH.delete_geg()
+		fH.delete_file(cof.LIST_GEGEN)
 		fH.init_scan_log()
 		self.yolo_init()
 		self.resume()
@@ -255,7 +255,7 @@ class Functions(threading.Thread):
 	def drive_room_scan_start(self):
 		""" Fahrender Raum Scanner """
 		self.functionMode = 'roomScanSmart'
-		fH.delete_geg()
+		fH.delete_file(cof.LIST_GEGEN)
 		fH.init_scan_log()
 		self.yolo_init()
 		self.resume()

@@ -289,9 +289,9 @@ def alarm_scan(scGear,move,self,alarm_object):
 
 def room_scan(scGear, move):
 	"""##### Fahrmodus: Raumscannen"""
+	# ersten scan Durchgang ausführen
 	_all = room_scan_scan(scGear=scGear)
-	_liste = _all[1]
-	write_db(_liste)
+	write_db(_all[1]) # Wir interessieren uns nur für die Werte
 
 	# Robotor macht 180° Drehung
 	fDrive.raw_turn(True,scGear,move)
@@ -300,14 +300,13 @@ def room_scan(scGear, move):
 	fDrive.raw_turn(True,scGear,move)
 
 	_all = room_scan_scan(scGear=scGear)
-	_liste = _all[1]
-	write_db(_liste)
+	write_db(_all[1])
 	
 
-def delete_geg():
-	"""Liste vom Scanlog löschen"""
-	if os.path.exists(cof.LIST_GEGEN):
-		os.remove(cof.LIST_GEGEN)
+def delete_file(filename):
+	"""Datei löschen"""
+	if os.path.exists(filename): # Wenn Datei vorhanden
+		os.remove(filename) # Lösche diese Datei
 
 def init_scan_log():
 	""" Initalisierung des Scanlogs"""
