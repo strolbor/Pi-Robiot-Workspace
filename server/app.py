@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from datetime import date
 from importlib import import_module
 import os
 import re
@@ -20,6 +21,7 @@ from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachric
 
 from camera_opencv import Camera
 import threading
+from server.functionHelper import delete_file
 
 import urs_config as cof
 
@@ -340,6 +342,11 @@ def alarm_nach():
             save_str = save_str + "mail,"
         if form.tg_btn.data:
             save_str = save_str + "telegram,"
+        delete_file(cof.ALARM_MSG_CONF)
+        datei = open(cof.ALARM_MSG_CONF)
+        datei.write(save_str)
+        datei.flush()
+        datei.close()
         flash("Erfolgreich gespeichert!")
         return redirect(url_for('alarm_nach'))
     return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
