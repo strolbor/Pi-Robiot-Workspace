@@ -277,7 +277,7 @@ def change_mcp(name):
 # Mein Abschnitt mit meinen Funktionen
 @app.route('/api/send/mail/<text>', methods=['GET','POST'])
 def send_mail(text):
-    msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
+    msg = Message('Mars Rover Alarm',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
     msg.body = text
     msg.html = text
     mail.send(msg)

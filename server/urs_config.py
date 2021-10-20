@@ -18,8 +18,12 @@ SAMMLER_CONF = 'sammler.csv'
 ALARM_CONF = 'alarm.csv'
 """ Bei welchen Objekt soll der Roboter alarm schlagen"""
 
+ALARM_MSG_CONF = 'alarmnachricht.csv'
+
 YOLO_CONF = 'yolo.csv'
 """ YOLO Such und fahr hin Gegenstand"""
+
+
 
 ROBOT_SPEED = 95
 """ Geschwindigkeit des Roboter"""

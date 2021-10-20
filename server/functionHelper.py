@@ -262,7 +262,12 @@ def alarm_scan(scGear,move,self,alarm_object):
 	_all= room_scan_scan(scGear=scGear)
 	_list = _all[1] # Liste der Objekte, die gefunden wurden sind
 	dist_li,dist_vorne,dist_re = _all[0] # Distanzwerte
-	
+	msg = []
+	try:
+		datei = open(cof.ALARM_MSG_CONF,'r')
+		msg = datei.readline().split(",")
+	except FileNotFoundError:
+		pass
 	# erhaltene Liste Analysieren
 	for entry_conf in alarm_object:
 		for entry_found in _list:
@@ -271,8 +276,11 @@ def alarm_scan(scGear,move,self,alarm_object):
 				# Adden wir es in unseren Speicher
 				txt = entry_conf + " gefunde und räum auf!"
 				print(txt)
-				requests.get("http://localhost:5000/api/send/telegram/"+txt)
-				requests.get("http://localhost:5000/api/send/mail/"+txt)
+				if "mail" in msg:
+					requests.get("http://localhost:5000/api/send/mail/"+txt)
+				if "telegram" in msg:
+					requests.get("http://localhost:5000/api/send/telegram/"+txt)
+				
 
 	# Entscheide Funktion
 	if dist_vorne > 100:
