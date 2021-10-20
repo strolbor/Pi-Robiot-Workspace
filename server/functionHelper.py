@@ -268,7 +268,7 @@ def alarm_scan(scGear,move,self,alarm_object):
 		msg = datei.readline().split(",")
 	except FileNotFoundError:
 		pass
-	print("[ALARM] "+msg)
+	print("[ALARM] "+ str(msg))
 	# erhaltene Liste Analysieren
 	for entry_conf in alarm_object:
 		for entry_found in _list:

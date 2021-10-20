@@ -14,7 +14,7 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail, Message
 
 # Forms
-from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC
+from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachrichtung
 
 # import camera driver
 
@@ -318,7 +318,31 @@ def yolo_sc():
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
 
-
+# Alarm Modus 
+# Benachrichtung
+@app.route('/alarm/benachrichtung')
+def alarm_nach():
+    form = AlarmBenachrichtung()
+    try:
+        datei = open(cof.ALARM_MSG_CONF)
+        inhalt = datei.readline().split(",")
+        if "mail" in inhalt:
+            form.mail_btn.data = True
+        if "telegram" in inhalt:
+            form.tg_btn.data = True
+        form.tg_bot.data = cof.TELEGRAM_BOT_TOKEN
+        form.tg_user.data = cof.TELEGRAM_EMPFANGER
+    except FileNotFoundError:
+        pass
+    if form.validate_on_submit():
+        save_str = ""
+        if form.mail_btn.data:
+            save_str = save_str + "mail,"
+        if form.tg_btn.data:
+            save_str = save_str + "telegram,"
+        flash("Erfolgreich gespeichert!")
+        return redirect(url_for('alarm_nach'))
+    return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
 
 
 class webapp:

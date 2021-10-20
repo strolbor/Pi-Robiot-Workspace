@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField,SelectField
 from wtforms.fields.core import BooleanField
+from wtforms.fields.simple import TextField
 
 class ChangeSammlerForm(FlaskForm):
     dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase']
@@ -28,4 +29,11 @@ class ChangeSammlerMCP(FlaskForm):
 class YoloChangeSC(FlaskForm):
     dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase']
     textarea1 = SelectField('Gegenstand 1',choices=dropdown_list, default=1)
+    submit = SubmitField('Speichern')
+
+class AlarmBenachrichtung(FlaskForm):
+    mail_btn = BooleanField('E-Mail Benachrichtung')
+    tg_btn = BooleanField('Telegram Benachrichtung')
+    tg_user = TextField('Telegram User ID')
+    tg_bot = TextField('Telegram Bot Token')
     submit = SubmitField('Speichern')

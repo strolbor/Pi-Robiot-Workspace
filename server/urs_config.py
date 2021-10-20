@@ -20,6 +20,7 @@ ALARM_CONF = 'alarm.csv'
 
 ALARM_MSG_CONF = 'alarmnachricht.csv'
 
+
 YOLO_CONF = 'yolo.csv'
 """ YOLO Such und fahr hin Gegenstand"""
 
@@ -28,8 +29,9 @@ YOLO_CONF = 'yolo.csv'
 ROBOT_SPEED = 95
 """ Geschwindigkeit des Roboter"""
 
+TELEGRAM_EMPFANGER = "978618750"
 TELEGRAM_BOT_TOKEN = "1233498807:AAGpVIwJMwxTvzcaMJmEog1NmN7XZZYlTDk"
-TELEGRAM_BOT_URL = "https://api.telegram.org/bot"+TELEGRAM_BOT_TOKEN+"/sendMessage?chat_id=978618750&text="
+TELEGRAM_BOT_URL = "https://api.telegram.org/bot"+TELEGRAM_BOT_TOKEN+"/sendMessage?chat_id="+TELEGRAM_EMPFANGER+"&text="
 
 def get_base64_encoded_image(image_path):
     """Bild -> Base64 String"""
