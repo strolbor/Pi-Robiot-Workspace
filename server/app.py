@@ -325,17 +325,6 @@ def yolo_sc():
 @app.route('/alarm/benachrichtung', methods=['GET','POST'])
 def alarm_nach():
     form = AlarmBenachrichtung()
-    try:
-        datei = open(cof.ALARM_MSG_CONF)
-        inhalt = datei.readline().split(",")
-        if "mail" in inhalt:
-            form.mail_btn.data = True
-        if "telegram" in inhalt:
-            form.tg_btn.data = True
-        form.tg_bot.data = cof.TELEGRAM_BOT_TOKEN
-        form.tg_user.data = cof.TELEGRAM_EMPFANGER
-    except FileNotFoundError:
-        pass
     if form.validate_on_submit():
         save_str = ""
         if form.mail_btn.data:
@@ -349,6 +338,19 @@ def alarm_nach():
         datei.close()
         flash("Erfolgreich gespeichert!")
         return redirect(url_for('alarm_nach'))
+
+    form.tg_bot.data = cof.TELEGRAM_BOT_TOKEN
+    form.tg_user.data = cof.TELEGRAM_EMPFANGER
+    try:
+        datei = open(cof.ALARM_MSG_CONF,"r")
+        inhalt = datei.readline().split(",")
+        if "mail" in inhalt:
+            form.mail_btn.data = True
+        if "telegram" in inhalt:
+            form.tg_btn.data = True
+    except FileNotFoundError:
+        pass
+
     return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
 
 
