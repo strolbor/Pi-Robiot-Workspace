@@ -303,7 +303,7 @@ def yolo_sc():
 
 # Mein Abschnitt mit meinen Funktionen
 @app.route('/api/sendmail/<html>')
-def sendmail(body,html):
+def sendmail(html):
 	msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
 	msg.body = "body"
 	msg.html = html
