@@ -302,10 +302,10 @@ def yolo_sc():
     return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
-@app.route('/api/sendmail/<body>/<html>')
+@app.route('/api/sendmail/<html>')
 def sendmail(body,html):
 	msg = Message('Test Mail',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
-	msg.body = body
+	msg.body = "body"
 	msg.html = html
 	mail.send(msg)
 
