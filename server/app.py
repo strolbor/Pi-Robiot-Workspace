@@ -281,15 +281,31 @@ def change_mcp(name):
 # Mein Abschnitt mit meinen Funktionen
 @app.route('/api/send/mail/<text>', methods=['GET','POST'])
 def send_mail(text):
-    msg = Message('Mars Rover Alarm',sender='noreply@ursb.de',recipients=['urs@ursb.de'])
-    msg.body = text
-    msg.html = text
-    mail.send(msg)
+    empfanger = []
+    try:
+        datei_empfanger = open(cof.MAIL_EMP_CONF,"r")
+        empfanger = datei_empfanger.readline().split(",")
+        datei_empfanger.close()
+        msg = Message('Mars Rover Alarm',sender='noreply@ursb.de',recipients=empfanger)
+        msg.body = text
+        msg.html = text
+        mail.send(msg)
+    except FileNotFoundError:
+        return("[Error] keine Empfängerdatei gefunden.")
     return "OK!"
 
 @app.route('/api/send/telegram/<text>', methods=['GET','POST'])
 def send_telegram(text):
-    requests.post(cof.TELEGRAM_BOT_URL+text)
+    try:
+        datei_empfanger = open(cof.TELEGRAM_EMP_CONF,"r")
+        empfanger = datei_empfanger.readline().split(",")
+        datei_empfanger.close()
+        datei_token = open(cof.TELEGRAM_BOT_CONF,"r")
+        token = datei_token.readline()
+        for entry in empfanger:
+            requests.post(cof.TELEGRAM_BOT_URL_0+token+cof.TELEGRAM_BOT_URL_1+entry+cof.TELEGRAM_BOT_URL_2+text)
+    except FileNotFoundError:
+        return "[Error] kein Token bzw. Empfänger gefunden."
     return "OK!"
 
 
@@ -333,25 +349,64 @@ def alarm_nach():
             save_str = save_str + "mail,"
         if form.tg_btn.data:
             save_str = save_str + "telegram,"
+
+        # Alarm config schreiben
         delete_file(cof.ALARM_MSG_CONF)
-        datei = open(cof.ALARM_MSG_CONF,"a")
-        datei.write(save_str)
-        datei.flush()
-        datei.close()
+        alarm = open(cof.ALARM_MSG_CONF,"a")
+        alarm.write(save_str)
+        alarm.flush()
+        alarm.close()
+
+        #Telegram config schreiben
+        delete_file(cof.TELEGRAM_BOT_CONF)
+        bot = open(cof.TELEGRAM_BOT_CONF,'a')
+        bot.write(form.tg_bot.data)
+        bot.flush()
+        bot.close()
+
+        # Telegram Empfänger config schreiben
+        delete_file(cof.TELEGRAM_EMP_CONF)
+        empfaenger = open(cof.TELEGRAM_EMP_CONF,'a')
+        empfaenger.write(form.tg_user.data)
+        empfaenger.flush()
+        empfaenger.close()
+
+        # E-Mail Empfänger schreiben
+        delete_file(cof.MAIL_EMP_CONF)
+        mail_emp = open(cof.MAIL_EMP_CONF,'a')
+        mail_emp.write(form.mail_empfanger.data)
+        mail_emp.flush()
+        mail_emp.close()
+
         flash("Erfolgreich gespeichert!")
         return redirect(url_for('alarm_nach'))
-
-    form.tg_bot.data = cof.TELEGRAM_BOT_TOKEN
-    form.tg_user.data = cof.TELEGRAM_EMPFANGER
+     
     try:
-        datei = open(cof.ALARM_MSG_CONF,"r")
-        inhalt = datei.readline().split(",")
+        datei_alarm = open(cof.ALARM_MSG_CONF,"r")
+        inhalt = datei_alarm.readline().split(",")
         if "mail" in inhalt:
             form.mail_btn.data = True
         if "telegram" in inhalt:
             form.tg_btn.data = True
+        datei_alarm.close()
     except FileNotFoundError:
-        pass
+        flash("[Error] ALARM Conf")
+
+    try:
+        # Empfänger lesen und ins Formular eintragen
+        datei_emp = open(cof.TELEGRAM_EMP_CONF,"r")
+        form.tg_user.data = datei_emp.readline()
+        datei_emp.close()
+    except FileNotFoundError:
+        flash("[Error] Telegram Empfänger ID Conf")
+
+    try:
+        # Bot token lesen
+        datei_token = open(cof.TELEGRAM_BOT_CONF, "r")
+        form.tg_bot.data = datei_token.readline()
+        datei_token.close()
+    except FileNotFoundError:
+        flash("[Error] Bot Token Conf")
 
     return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
 

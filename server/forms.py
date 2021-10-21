@@ -35,6 +35,7 @@ class YoloChangeSC(FlaskForm):
 class AlarmBenachrichtung(FlaskForm):
     mail_btn = BooleanField('E-Mail Benachrichtung')
     tg_btn = BooleanField('Telegram Benachrichtung')
+    mail_empfanger = TextField('E-Mail Empfänger getrennt mir ,')
     tg_user = TextField('Telegram User ID')
     tg_bot = TextField('Telegram Bot Token')
     submit = SubmitField('Speichern')

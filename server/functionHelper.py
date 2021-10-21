@@ -252,7 +252,6 @@ def drive_scan(scGear,move):
 			fDrive.raw_turn(False, scGear,move) # Rechts
 
 
-
 def alarm_scan(scGear,move,self,alarm_object):
 	"""##### Fahrmodus: Alarm"""
 	scGear.moveAngle(2,10) # Lenker
@@ -275,14 +274,14 @@ def alarm_scan(scGear,move,self,alarm_object):
 			if (entry_conf == entry_found):
 				# Falls Objekt aus der Liste gefunden und wir die noch nicht gefunden haben
 				# Adden wir es in unseren Speicher
-				txt = entry_conf + " gefunde und räum auf!"
+				txt = "Ich habe "+entry_conf + " gefunde, also räum auf!"
 				print(txt)
 				if "mail" in msg:
-					requests.get("http://localhost:5000/api/send/mail/"+txt)
-					print("[ALARM] Mail gesendet")
+					r = requests.get("http://localhost:5000/api/send/mail/"+txt)
+					print("[ALARM] Mail gesendet:",r.text)
 				if "telegram" in msg:
-					requests.get("http://localhost:5000/api/send/telegram/"+txt)
-					print("[ALARM] Telegram Nachricht gesendet")
+					r=requests.get("http://localhost:5000/api/send/telegram/"+txt)
+					print("[ALARM] Telegram Nachricht gesendet:",r.text)
 				
 
 	# Entscheide Funktion
