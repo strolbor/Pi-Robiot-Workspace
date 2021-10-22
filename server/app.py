@@ -179,12 +179,24 @@ def change_sc(name):
         #GET-Request erfolgreich abgesetzt; bereit zum flashen
         flash('Erfolgreich auf: ' + zu_setzen + " gesetzt.")
         return redirect(url_for('change_sc',name=name))
+
     # Sammler Konfig laden 
     voreingestellt = ""
     try:
         datei = open(filename,'r')
         voreingestellt = datei.readline()
         datei.close()
+        array = voreingestellt.split(",")
+        anz_entry = len(array)
+        if 0 < anz_entry:
+            form.textarea1.data = array[0]
+        if 1 < anz_entry:
+            form.textarea2.data = array[1]
+        if 2 < anz_entry:
+            form.textarea3.data = array[2]
+        if 3 < anz_entry:
+            form.textarea4.data = array[3]
+        
     except FileNotFoundError:
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
