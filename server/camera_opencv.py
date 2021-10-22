@@ -443,7 +443,7 @@ class Camera(BaseCamera):
             # read current frame
             ret, img = camera.read()
             if zahlerNewFoto == 20:
-                text = str(time.time())
+                text = str(time.time()) + " | Mars Rover"
                 #                      Image, Text, Position,   Schrift-Art,            Schrift-Größe, Schrift-Farbe, Dicke,
                 img_text = cv2.putText(img, text,   (10, 470),  cv2.FONT_HERSHEY_SIMPLEX,   0.5,       (255,255,255),  1,  cv2.LINE_AA)
                 cv2.imwrite(hF.PIC_PATH,img_text)
