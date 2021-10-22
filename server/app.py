@@ -4,6 +4,7 @@ import os
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
+from numpy import array
 
 from wtforms.fields.core import Label
 from flask_cors import *
@@ -11,7 +12,7 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 
 # Forms
-from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachrichtung
+from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachrichtung, EmailChange
 
 # import camera driver
 
@@ -29,12 +30,18 @@ import sendHelper as sdH
 app = Flask(__name__)
 app.secret_key = 'ey0pX0EuIbB%wq4ey0pX0EuIbB%wq4ey0pX0EuIbB%wq4ey0pX0EuIbB%wq4'
 #Flask Konfig
-app.config['MAIL_SERVER']='smtp.1blu.de'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'b242501_0-marsrover'
-app.config['MAIL_PASSWORD'] = 'tlMKzcehnrV)7Ed'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+try:
+    datei_mail = open(cof.MAIL_conf,"r")
+    array = datei_mail.readline().split(",")
+    #Eingabe Reihnfolge: Server,Port,Username,Passwort
+    app.config['MAIL_SERVER']= array[0] #'smtp.1blu.de'
+    app.config['MAIL_PORT'] = array[1] #587
+    app.config['MAIL_USERNAME'] = array[2] #'b242501_0-marsrover'
+    app.config['MAIL_PASSWORD'] = array[3] #'tlMKzcehnrV)7Ed'
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_SSL'] = False
+except FileNotFoundError:
+    pass
 
 mail = Mail(app)
 bootstrap = Bootstrap(app)
@@ -245,6 +252,8 @@ def change_mcp(name):
             Arraystr = Arraystr + 'cup'+ "," 
         if form.btn7.data:
             Arraystr = Arraystr + 'fork'+ "," 
+        if form.btn7a.data:
+            Arraystr = Arraystr + 'knife'+ "," 
         if form.btn8.data:
             Arraystr = Arraystr + 'spoon'+ "," 
         if form.btn9.data:
@@ -282,6 +291,36 @@ def change_mcp(name):
     try:
         datei = open(filename,'r')
         voreingestellt = datei.readline()
+        array = voreingestellt.split(",")
+        
+        if 'person' in array:
+            form.btn1.data = True
+        if 'umbrella' in array:
+            form.btn2.data = True
+        if 'handbag' in array:
+            form.btn3.data = True
+        if 'bottle' in array:
+            form.btn4.data = True
+        if 'wine glass' in array:
+            form.btn5.data = True
+        if 'cup' in array:
+            form.btn6.data = True
+        if 'fork' in array:
+            form.btn7.data = True
+        if 'knife' in array:
+            form.btn7a.data = True
+        if 'spoon' in array:
+            form.btn8.data = True
+        if 'chair' in array:
+            form.btn9.data = True
+        if 'mouse' in array:
+            form.btn10.data = True
+        if 'book' in array:
+            form.btn11.data = True
+        if 'vase' in array:
+            form.btn12.data = True
+        if 'laptop' in array:
+            form.btn13.data = True
         datei.close()
     except FileNotFoundError:
         pass
@@ -418,6 +457,30 @@ def alarm_nach():
 
     return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
 
+@app.route('/api/email', methods=['GET','POST'])
+def email_cnf():
+    """E-Mail Konfiguration"""
+    #Eingabe Reihnfolge: Server,Port,Username,Passwort
+    form = EmailChange()
+    if form.validate_on_submit():
+        delete_file(cof.MAIL_conf)
+        datei = open(cof.MAIL_conf,"a")
+        datei.write(form.server.data + "," + form.port.data + "," + form.username.data + "," + form.password.data + ",")
+        datei.flush()
+        datei.close()
+        flash("Erfolgreich gespeichert!")
+        return redirect(url_for('email_cnf'))
+    #Konfig lesen
+    try:
+        datei = open(cof.MAIL_conf,"r")
+        array = datei.readline().split("r")
+        form.server.data = array[0]
+        form.port.data = array[1]
+        form.username.data = array[2]
+        form.password.data = array[3] 
+    except FileNotFoundError:
+        flash("Datei konnte nicht gelesen werden")
+    return render_template('quick_form.html',form=form,label="E-Mail Konfiguration")
 
 class webapp:
     def __init__(self):

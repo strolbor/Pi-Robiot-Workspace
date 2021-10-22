@@ -26,5 +26,5 @@ for entry in arr_a:
     if entry == ent:
       print("gefunden",entry,ent)
 
-d = re.post('http://192.168.1.104:5000/api/sendmail/Hallo Welt')
-print(d)
+
+print("Tokenlänge:",len("1233498807:AAGpVIwJMwxTvzcaMJmEog1NmN7XZZYlTDk"))

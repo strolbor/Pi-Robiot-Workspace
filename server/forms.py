@@ -1,7 +1,9 @@
+from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import SubmitField,SelectField
 from wtforms.fields.core import BooleanField
-from wtforms.fields.simple import TextField
+from wtforms.fields.simple import PasswordField, TextField
+from wtforms.validators import DataRequired
 
 dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
 
@@ -20,6 +22,7 @@ class ChangeSammlerMCP(FlaskForm):
     btn5 = BooleanField('wine glass')
     btn6 = BooleanField('cup')
     btn7 = BooleanField('fork')
+    btn7a = BooleanField('knife')
     btn8 = BooleanField('spoon')
     btn9 = BooleanField('chair')
     btn10 = BooleanField('mouse')
@@ -35,7 +38,14 @@ class YoloChangeSC(FlaskForm):
 class AlarmBenachrichtung(FlaskForm):
     mail_btn = BooleanField('E-Mail Benachrichtung')
     tg_btn = BooleanField('Telegram Benachrichtung')
-    mail_empfanger = TextField('E-Mail Empfänger getrennt mir ,')
-    tg_user = TextField('Telegram User ID')
-    tg_bot = TextField('Telegram Bot Token')
+    mail_empfanger = TextField('E-Mail Empfänger (getrennt mit ,)')
+    tg_user = TextField('Telegram Empfänger ID (getrennt mit ,)')
+    tg_bot = PasswordField('Telegram Bot Token')
+    submit = SubmitField('Speichern')
+
+class EmailChange(FlaskForm):
+    server = TextField('E-Mail Server',validators=[DataRequired()])
+    port = TextField('Port',validators=[DataRequired()])
+    username = TextField('Username',validators=[DataRequired()])
+    password = PasswordField('Passwort',validators=[DataRequired()])
     submit = SubmitField('Speichern')

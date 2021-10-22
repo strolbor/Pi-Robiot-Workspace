@@ -11,8 +11,9 @@ def send_telegram(text):
         datei_empfanger.close()
         datei_token = open(cof.TELEGRAM_BOT_CONF,"r")
         token = datei_token.readline()
-        for entry in empfanger:
-            requests.post(cof.TELEGRAM_BOT_URL_0+token+cof.TELEGRAM_BOT_URL_1+entry+cof.TELEGRAM_BOT_URL_2+text)
+        if len(token) > 30:
+            for entry in empfanger:
+                requests.post(cof.TELEGRAM_BOT_URL_0+token+cof.TELEGRAM_BOT_URL_1+entry+cof.TELEGRAM_BOT_URL_2+text)
     except FileNotFoundError:
         pass
 

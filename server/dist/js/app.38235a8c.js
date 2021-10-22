@@ -15,7 +15,7 @@ data:function(){return{buttons:[
 [!1,"YOLO Vorne","yolo","","","automaticOff"],
 [!1,"YOLO Move","yoloAD","","","automaticOff"],
 [!1,"Raum Scanner","roomScan","","","roomScan"],
-[!1,"fahrender Raum Scan","smartScan","","","automaticOff"],
+[!1,"fahrender Raum Scan","fahrScan","","","automaticOff"],
 [!1,"Alarm","alarm","","","automaticOff"],
 [!1,"Sammler","Object","","","automaticOff"]
 

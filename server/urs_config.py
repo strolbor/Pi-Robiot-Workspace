@@ -43,6 +43,8 @@ TELEGRAM_BOT_URL_2 = "&text="
 YOLO_CONF = 'yolo.csv'
 """ YOLO Such und fahr hin Gegenstand"""
 
+MAIL_conf = "mailconf.csv"
+"""E-Mail Server Konfigations Datei"""
 
 # Roboter Einstellungen
 ROBOT_SPEED = 95

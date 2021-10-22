@@ -217,8 +217,21 @@ def room_scan(response,modeSelect):
 	fuc.room_scan_start()
 
 def smart_scan(response,modeSelect):
+	RL.breath(179,179,255) # Pale cornflower blue
 	fuc.drive_room_scan_start()
-	
+
+def alarmfunc(command_input,response):
+	""" Alarm Funktion starten """
+	print("ALARM")
+	fuc.alarm_start()
+	RL.breath(255,153,238) # Napier green
+
+def objectfunc(c,r):
+	""" Objekt Sammeln starten"""
+	print("Object Sammeln")
+	fuc.sammel_start()
+	RL.breath(68,102,0) # Lavender Rosa
+
 def init_function_entscheider():
 	if len(FuncEntscheider) == 0:
 		print("[API] init_function_entscheider")
@@ -241,25 +254,18 @@ def init_function_entscheider():
 		FuncEntscheider.append(webHelper.Entscheider('kreis',kreis)) # Kreisfahren
 		FuncEntscheider.append(webHelper.Entscheider('konst',konst)) # Vorwärtsfahren
 		FuncEntscheider.append(webHelper.Entscheider('konst2',konst2)) # Rückwärtsfahren
-		FuncEntscheider.append(webHelper.Entscheider('turnRight',turnRight))
-		FuncEntscheider.append(webHelper.Entscheider('turnLeft',turnLeft))
-		FuncEntscheider.append(webHelper.Entscheider('yolo',yolo))
-		FuncEntscheider.append(webHelper.Entscheider('yoloAD',yolo_ad))
-		FuncEntscheider.append(webHelper.Entscheider('roomScan',room_scan))
-		FuncEntscheider.append(webHelper.Entscheider('manPlus',man_plus))
-		FuncEntscheider.append(webHelper.Entscheider('man',man))
-		FuncEntscheider.append(webHelper.Entscheider('smartScan',smart_scan))
+		FuncEntscheider.append(webHelper.Entscheider('turnRight',turnRight)) # Rechts Kruve
+		FuncEntscheider.append(webHelper.Entscheider('turnLeft',turnLeft)) # Links Kurve
+		FuncEntscheider.append(webHelper.Entscheider('yolo',yolo)) # YOLO Nr. 1
+		FuncEntscheider.append(webHelper.Entscheider('yoloAD',yolo_ad)) # YOLO Nr. 2
+		FuncEntscheider.append(webHelper.Entscheider('roomScan',room_scan)) # Raum Scanner
+		FuncEntscheider.append(webHelper.Entscheider('manPlus',man_plus)) # Manueller Plus Modi
+		FuncEntscheider.append(webHelper.Entscheider('man',man)) # Manueller Modus
+		FuncEntscheider.append(webHelper.Entscheider('fahrScan',smart_scan)) # Smart Scann
 		# alarm ; Object
 		FuncEntscheider.append(webHelper.Entscheider('alarm',alarmfunc))
 		FuncEntscheider.append(webHelper.Entscheider('Object',objectfunc))
 
-def alarmfunc(command_input,response):
-	print("ALARM")
-	fuc.alarm_start()
-
-def objectfunc(c,r):
-	print("Object Sammeln")
-	fuc.sammel_start()
 def function_select(command_input, response):
 	global functionMode, manPlusModus
 	init_function_entscheider()
@@ -290,10 +296,8 @@ def init_switch():
 		print("[API] init_switch")
 		SwitchEntscheider.append(webHelper.Entscheider('Switch_1_on',Switch_1_on))
 		SwitchEntscheider.append(webHelper.Entscheider('Switch_1_off',Switch_1_off))
-
 		SwitchEntscheider.append(webHelper.Entscheider('Switch_2_on',Switch_2_on))
 		SwitchEntscheider.append(webHelper.Entscheider('Switch_2_off',Switch_2_off))
-
 		SwitchEntscheider.append(webHelper.Entscheider('Switch_3_on',Switch_3_on))
 		SwitchEntscheider.append(webHelper.Entscheider('Switch_3_off',Switch_3_off))
 
