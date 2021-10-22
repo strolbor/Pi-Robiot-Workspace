@@ -28,16 +28,8 @@ TELEGRAM_BOT_CONF = 'tg_bot.csv'
 """Hier wird der Telegram vom @BotFather hinterlegt für den Telegram Bot"""
 TELEGRAM_EMP_CONF = 'tg_empf.csv'
 """Hier wird die ID des Empfängers der Nachricht hinterlegt."""
-#TELEGRAM_EMPFANGER = "978618750"
-#TELEGRAM_BOT_TOKEN = "1233498807:AAGpVIwJMwxTvzcaMJmEog1NmN7XZZYlTDk"
-TELEGRAM_BOT_URL_0 = "https://api.telegram.org/bot"
-"""Erster Teil der URL Nachrichtsende URL von Telegram (eigentliche Domain)"""
-#+TELEGRAM_BOT_TOKEN+
-TELEGRAM_BOT_URL_1 = "/sendMessage?chat_id="
-"""Zweiter Teil der URL Nachrichtsende URL von Telegram (Aktion)"""
-#+TELEGRAM_EMPFANGER+
-TELEGRAM_BOT_URL_2 = "&text="
-"""Dritter Teil der URL Nachrichtsende URL von Telegram (Inhalt der Nachricht)"""
+TELEGRAM_BOT_URL = "https://api.telegram.org/bot{}/sendMessage?chat_id={}&text={}"
+"""Erster Teil der URL Nachrichtsende URL von Telegram """
 
 
 YOLO_CONF = 'yolo.csv'

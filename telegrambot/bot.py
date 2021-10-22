@@ -3,13 +3,9 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 
 import os
 
-#import server.urs_config as cof
-#from server.functionHelper import delete_file
-
 #pip install python-telegram-bot
 
 TELEGRAM_EMP_CONF = '/root/urs_robot/server/tg_empf.csv'
-#TELEGRAM_EMP_CONF = 'a.tmp'
 """Hier wird die ID des Empfängers der Nachricht hinterlegt."""
 
 def delete_file(filename):
@@ -54,12 +50,12 @@ def register(update: Update, context: CallbackContext) -> None:
             datei.write(line+","+id)
         datei.flush()
         datei.close()
-        update.message.reply_text(f'Du hast dich erfolgreich registiert. Du wirst zukünftig benachrichtig. Zum löschen dieser Registierung, gehe in Urs Dashboard unter der URL: /dashboard')
-        print("Erfolgreich")
+        update.message.reply_text(f'Du hast dich erfolgreich registiert. Du wirst zukünftig benachrichtig. Zum Abmelden bitte /unregister nutzen.')
+        print("-> Erfolgreich")
     else:
        # Registierung nicht erfolgreich, da er schon in der Liste ist
         update.message.reply_text(f'Du bist schon registiert.')
-        print("nicht erfolgreich")
+        print("-> nicht erfolgreich")
     
 def unregister(update: Update, context: CallbackContext) -> None:
     line = ""
@@ -86,15 +82,16 @@ def unregister(update: Update, context: CallbackContext) -> None:
                 new_line = new_line + entry + "," 
         delete_file(TELEGRAM_EMP_CONF)
         datei = open(TELEGRAM_EMP_CONF,"a")
+        new_line = new_line[:-1] # letztes Komma entfernen
         datei.write(new_line)
         datei.flush()
         datei.close()
         update.message.reply_text(f'Du hast dich erfolgreich unregistiert.')
-        print("Erfolgreich")
+        print("-> Erfolgreich")
     else:
        # Registierung nicht erfolgreich, da er schon in der Liste ist
         update.message.reply_text(f'Du bist gar nicht registiert. Also ist nichts zu machen')
-        print("nicht erfolgreich")
+        print("-> nicht erfolgreich")
     
 
 updater = Updater('2050496929:AAHmHvQuPsPBqm4CqWj-QRPcGNksvk8BMDY')

@@ -2,7 +2,7 @@ from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import SubmitField,SelectField
 from wtforms.fields.core import BooleanField
-from wtforms.fields.simple import PasswordField, TextField
+from wtforms.fields.simple import TextField
 from wtforms.validators import DataRequired
 
 dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']

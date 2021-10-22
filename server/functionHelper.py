@@ -275,12 +275,12 @@ def alarm_scan(scGear,move,self,alarm_object):
 
 	# Entscheide Funktion
 	if dist_vorne > 100:
-		print("Option 1")
+		print("-> Option 1")
 		move.move(cof.ROBOT_SPEED,'forward','no',0)
 		time.sleep(3)
 		move.motorStop()
 	else:
-		print("Option 2")
+		print("-> Option 2")
 		if dist_li > dist_re:
 			fDrive.raw_turn(True, scGear,move) # Links
 		else:

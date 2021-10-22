@@ -25,6 +25,3 @@ for entry in arr_a:
   for ent in arr_b:
     if entry == ent:
       print("gefunden",entry,ent)
-
-
-print("Tokenlänge:",len("1233498807:AAGpVIwJMwxTvzcaMJmEog1NmN7XZZYlTDk"))
