@@ -23,7 +23,7 @@ def send_mail(text,mail):
         datei_empfanger = open(cof.MAIL_EMP_CONF,"r")
         empfanger = datei_empfanger.readline().split(",")
         datei_empfanger.close()
-        msg = Message('Mars Rover Alarm',sender='noreply@ursb.de',recipients=empfanger)
+        msg = Message(subject='Mars Rover Alarm',sender='noreply@ursb.de',recipients=empfanger)
         msg.body = text
         msg.html = text
         mail.send(msg)

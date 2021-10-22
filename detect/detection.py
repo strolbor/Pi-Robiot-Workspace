@@ -120,7 +120,7 @@ def detect_obj_list(path):
           cv2.rectangle(image, (x, y), (x + w, y + h), colors[class_ids[i]], 2)
           # Text erstellen und hinzufügen
           text = "{}: {:.4f}".format(labels[class_ids[i]], confidences[i])
-          cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors[class_ids[i]], 2)
+          cv2.putText(image, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors[class_ids[i]], 1)
           Obj1.seting(x,y,w,h, labels[class_ids[i]])
           JSON_string = JSON_string + "|" + json.dumps(dict(Obj1), cls=MyEncoder)
   cv2.rectangle(image,(0,0),(10,10),(255,0,0))

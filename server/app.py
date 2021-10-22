@@ -1,18 +1,14 @@
 #!/usr/bin/env python
-from datetime import date
-from importlib import import_module
 import os
-import re
 
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
-import requests
 
 from wtforms.fields.core import Label
 from flask_cors import *
 from flask_bootstrap import Bootstrap
-from flask_mail import Mail, Message
+from flask_mail import Mail
 
 # Forms
 from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachrichtung
