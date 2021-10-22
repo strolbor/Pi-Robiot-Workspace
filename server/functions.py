@@ -572,10 +572,13 @@ class Functions(threading.Thread):
 		"""Grade aus fahren"""
 		print("[API] ==")
 		print("Gloable Koordienaten", kordinate)
-		scGear.moveAngle(2, 10)
-		move.move(robot_speed,'forward','no',0.1)	
-		time.sleep(1)	
-		move.motorStop()
+		if kordinate[1] <= 70 and self.functionMode != 'Object':
+			self.pause()
+		else:
+			scGear.moveAngle(2, 10)
+			move.move(robot_speed,'forward','no',0.1)	
+			time.sleep(1)	
+			move.motorStop()
 
 	def drive_scan(self):
 		"""Überreiche Funktion an andere Datei weiter"""
