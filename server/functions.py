@@ -34,6 +34,7 @@ import functionDriving as fDrive
 
 Goings = []
 scGear = RPIservo.ServoCtrl()
+kordinate = []
 
 move.setup()
 
@@ -416,7 +417,7 @@ class Functions(threading.Thread):
 
 		# Modus starten
 		print("[YOLO] Suche:",gegenstand)
-		xkordinate = fH.look_normal(1,0, gegenstand,scGear)
+		xkordinate = fH.look_normal(1,0, gegenstand,scGear)[0]
 		# Strategien überprüfen
 		for entry in Strategien:
 			if entry.ispossible(xkordinate, self.functionMode, lastObject):
@@ -440,7 +441,7 @@ class Functions(threading.Thread):
 		fH.alarm_scan(scGear=scGear,self=self,move=move,alarm_object=gegenstand)
 	def yolo_move(self):
 		""" Der Objekt Erkennungserweterung Modus. Der Roboter guckt sich die Umgebung an. (Logik)"""
-		global lastObject, Strategien
+		global lastObject, Strategien,kordinate
 		fDrive.configure_head(scGear)
 		
 		# Gegenstands Datei lesen und einspielen
@@ -456,7 +457,8 @@ class Functions(threading.Thread):
 
 		# Modus starten
 		print("[YOLO] Suche:",gegenstand)
-		xkordinate= fH.yolo_look_advance(gegenstand,scGear,lastObject)
+		kordinate = fH.yolo_look_advance(gegenstand,scGear,lastObject)
+		xkordinate= kordinate[0]
 		print("[YOLO] Strategie Eingabe: x={}, Mode={} und lastObject={}".format(xkordinate, self.functionMode, lastObject))
 
 		# Strategien überprüfen
@@ -569,6 +571,7 @@ class Functions(threading.Thread):
 	def fahr_gradeaus(self):
 		"""Grade aus fahren"""
 		print("[API] ==")
+		print("Gloable Koordienaten", kordinate)
 		scGear.moveAngle(2, 10)
 		move.move(robot_speed,'forward','no',0.1)	
 		time.sleep(1)	
@@ -579,6 +582,7 @@ class Functions(threading.Thread):
 		fH.drive_scan(scGear,move)
 
 	def sammel_process(self):
+		global kordinate
 		""" Sammelprozess Funktionen starter"""
 		global lastObject, Strategien,sammler_gefunden,sammler_target
 		fDrive.configure_head(scGear)
@@ -590,7 +594,8 @@ class Functions(threading.Thread):
 		if sammler_target[sammler_gefunden] == "" or sammler_target[sammler_gefunden] == " ":
 			print("Empty String")
 			self.pause()
-		xkordinate= fH.yolo_look_advance(sammler_target[sammler_gefunden],scGear,lastObject)
+		kordinate = fH.yolo_look_advance(sammler_target[sammler_gefunden],scGear,lastObject)
+		xkordinate= kordinate[0]
 		print("[Sammler] Strategie Eingabe: x={}, Mode={} und lastObject={}".format(xkordinate, self.functionMode, lastObject))
 		for entry in Strategien:
 			if entry.ispossible(xkordinate, self.functionMode, lastObject):

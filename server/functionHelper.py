@@ -89,34 +89,35 @@ def init_function_entscheider(self):
 
 def yolo_look_advance(object: str,scGear, lastObject):
 	""" Kopf des Roboters nach Rechts, Links oder Vorne gucken lassen und erkennen wo die Flasche ist"""
-	xkordinate =0
+	kordinate = []
 	if lastObject == 0:
-		xkordinate = look_normal(1,0,object,scGear) # Objekt war vorne
+		 kordinate = look_normal(1,0,object,scGear) # Objekt war vorne
 	elif lastObject == 1:
-		xkordinate = look_normal(1,-45,object,scGear) # rechts, mittig
+		kordinate = look_normal(1,-45,object,scGear) # rechts, mittig
 		# Objekt war rechts
 	elif lastObject == 2:
-		xkordinate = look_normal(1,-90,object,scGear) # rechts
+		kordinate = look_normal(1,-90,object,scGear)# rechts
 		# Objekt war rechts
 	elif lastObject == 3:
-		xkordinate = look_normal(1,45,object,scGear) # links, mittig
+		kordinate = look_normal(1,45,object,scGear) # links, mittig
 		# Objekt war links
 	elif lastObject == 4:
-		xkordinate = look_normal(1,90,object,scGear) # links
+		kordinate = look_normal(1,90,object,scGear) # links
 		# Objekt war links
-	return xkordinate
+	return kordinate
 
 	# Den Kopf zum ausrichten, zur Gradzahl
 def look_normal(motor: int ,tilt : int, object : str, scGear):
+	global kordinate
 	"""Für YOLO Objektverfolgungsmodus: Mit Servo Motor Steuerung 
 	-2: Gegenstand nicht gefunden
 	-1: Gegenstand steht im Weg herum"""
 	print("[YOLO] Look")
 	scGear.moveAngle(motor, tilt)
 	dist = dist_redress()
-	xkordinate :int=-2
+	kordinate =[-2,-2]
 	if dist <= 50:
-		xkordinate = -1
+		kordinate = [-1,-1]
 	else:
 		time.sleep(1.5) # Auf Bild warten
 		JSON_LIST = send_picture()
@@ -126,11 +127,12 @@ def look_normal(motor: int ,tilt : int, object : str, scGear):
 			try:	
 				tmp = json.loads(astring)
 				if tmp['text'] == object:
-					xkordinate = tmp['x']
+					kordinate[0] = tmp['x']
+					kordinate[1] = tmp['y']
 			except JSONDecodeError:
 				pass
-	print("[YOLO] look_normal: x=",xkordinate)	
-	return xkordinate
+	print("[YOLO] look_normal: x=",kordinate[0])	
+	return kordinate
 	
 def pic_analyse():
 	""" Bildanalyse: Für den Raum Scanner Modus"""
