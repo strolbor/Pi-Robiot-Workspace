@@ -1,8 +1,10 @@
 import urs_config as cof
 import requests
+from flask_mail import Message
 
 
 def send_telegram(text):
+    """Sendet eine Telegram Nachricht an die Empfänger"""
     try:
         datei_empfanger = open(cof.TELEGRAM_EMP_CONF,"r")
         empfanger = datei_empfanger.readline().split(",")
@@ -11,5 +13,19 @@ def send_telegram(text):
         token = datei_token.readline()
         for entry in empfanger:
             requests.post(cof.TELEGRAM_BOT_URL_0+token+cof.TELEGRAM_BOT_URL_1+entry+cof.TELEGRAM_BOT_URL_2+text)
+    except FileNotFoundError:
+        pass
+
+def send_mail(text,mail):
+    """Sendet eine E-Mail an die Empfänger"""
+    empfanger = []
+    try:
+        datei_empfanger = open(cof.MAIL_EMP_CONF,"r")
+        empfanger = datei_empfanger.readline().split(",")
+        datei_empfanger.close()
+        msg = Message('Mars Rover Alarm',sender='noreply@ursb.de',recipients=empfanger)
+        msg.body = text
+        msg.html = text
+        mail.send(msg)
     except FileNotFoundError:
         pass

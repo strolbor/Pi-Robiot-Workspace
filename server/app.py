@@ -293,18 +293,6 @@ def change_mcp(name):
 
 # Mein Abschnitt mit meinen Funktionen
 
-def send_mail(text):
-    empfanger = []
-    try:
-        datei_empfanger = open(cof.MAIL_EMP_CONF,"r")
-        empfanger = datei_empfanger.readline().split(",")
-        datei_empfanger.close()
-        msg = Message('Mars Rover Alarm',sender='noreply@ursb.de',recipients=empfanger)
-        msg.body = text
-        msg.html = text
-        mail.send(msg)
-    except FileNotFoundError:
-        pass
 
 @app.route('/api/sendinfo/<text>')
 def send_info(text):
@@ -316,10 +304,11 @@ def send_info(text):
         pass
     print('[API] Send Info')
     if "mail" in msg:
-        send_mail(text)
+        sdH.send_mail(text,mail)
     if "telegram" in msg:
         sdH.send_telegram(text)
     print("[ALARM] Nachricht gesendet:",text)
+    return "OK!"
 
 
 @app.route('/yolo/sc', methods=['GET','POST'])
