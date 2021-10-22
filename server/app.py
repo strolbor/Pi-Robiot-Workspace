@@ -24,6 +24,7 @@ import threading
 from functionHelper import delete_file
 
 import urs_config as cof
+import sendHelper as sdH
 
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
@@ -279,7 +280,7 @@ def change_mcp(name):
     return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
-@app.route('/api/send/mail/<text>', methods=['GET','POST'])
+
 def send_mail(text):
     empfanger = []
     try:
@@ -291,22 +292,22 @@ def send_mail(text):
         msg.html = text
         mail.send(msg)
     except FileNotFoundError:
-        return("[Error] keine Empfängerdatei gefunden.")
-    return "OK!"
+        pass
 
-@app.route('/api/send/telegram/<text>', methods=['GET','POST'])
-def send_telegram(text):
+@app.route('/api/sendinfo/<text>')
+def send_info(text):
+    msg = []
     try:
-        datei_empfanger = open(cof.TELEGRAM_EMP_CONF,"r")
-        empfanger = datei_empfanger.readline().split(",")
-        datei_empfanger.close()
-        datei_token = open(cof.TELEGRAM_BOT_CONF,"r")
-        token = datei_token.readline()
-        for entry in empfanger:
-            requests.post(cof.TELEGRAM_BOT_URL_0+token+cof.TELEGRAM_BOT_URL_1+entry+cof.TELEGRAM_BOT_URL_2+text)
+        datei = open(cof.ALARM_MSG_CONF,'r')
+        msg = datei.readline().split(",")
     except FileNotFoundError:
-        return "[Error] kein Token bzw. Empfänger gefunden."
-    return "OK!"
+        pass
+    print('[API] Send Info')
+    if "mail" in msg:
+        send_mail(text)
+    if "telegram" in msg:
+        sdH.send_telegram(text)
+    print("[ALARM] Telegram Nachricht gesendet:",r.text)
 
 
 @app.route('/yolo/sc', methods=['GET','POST'])
@@ -337,6 +338,7 @@ def yolo_sc():
     except FileNotFoundError:
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
+    
 
 # Alarm Modus 
 # Benachrichtung

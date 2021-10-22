@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField,SelectField
+from wtforms import SubmitField,SelectField
 from wtforms.fields.core import BooleanField
 from wtforms.fields.simple import TextField
 
+dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
+
 class ChangeSammlerForm(FlaskForm):
-    dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
     textarea1= SelectField('Gegenstand 1', choices=dropdown_list, default=1)
     textarea2= SelectField('Gegenstand 2', choices=dropdown_list, default=1)
     textarea3= SelectField('Gegenstand 3', choices=dropdown_list, default=1)
@@ -28,7 +29,6 @@ class ChangeSammlerMCP(FlaskForm):
     submit = SubmitField('Speichern')
 
 class YoloChangeSC(FlaskForm):
-    dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase']
     textarea1 = SelectField('Gegenstand 1',choices=dropdown_list, default=1)
     submit = SubmitField('Speichern')
 
