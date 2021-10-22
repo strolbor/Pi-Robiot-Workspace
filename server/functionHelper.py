@@ -277,7 +277,7 @@ def alarm_scan(scGear,move,self,alarm_object):
 	if dist_vorne > 100:
 		print("Option 1")
 		move.move(cof.ROBOT_SPEED,'forward','no',0)
-		time.sleep(5)
+		time.sleep(3)
 		move.motorStop()
 	else:
 		print("Option 2")

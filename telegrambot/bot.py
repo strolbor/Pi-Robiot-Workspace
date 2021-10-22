@@ -33,8 +33,8 @@ def register(update: Update, context: CallbackContext) -> None:
         # Datei lesen und verstehen
         datei = open(TELEGRAM_EMP_CONF,"r")
         line = datei.readline()
-        #line = line.replace("\n","")
-       # line = line.replace("\r","")
+        line = line.replace("\n","")
+        line = line.replace("\r","")
         datei.close()
         print(line)
         # ID des Telegram Nutzer herausfinden
@@ -61,12 +61,47 @@ def register(update: Update, context: CallbackContext) -> None:
         update.message.reply_text(f'Du bist schon registiert.')
         print("nicht erfolgreich")
     
+def unregister(update: Update, context: CallbackContext) -> None:
+    line = ""
+    try:
+        # Datei lesen und verstehen
+        datei = open(TELEGRAM_EMP_CONF,"r")
+        line = datei.readline()
+        line = line.replace("\n","")
+        line = line.replace("\r","")
+        datei.close()
+        print(line)
+        # ID des Telegram Nutzer herausfinden
+    except FileNotFoundError:
+        pass
+
+    id = str(update.effective_user.id)
+    array = line.split(",")
+    print("Unregisterung von:",id,"...")
+    if id in array:
+        new_line = ""
+        for entry in array:
+            if entry != id:
+                new_line = new_line + entry + "," 
+        delete_file(TELEGRAM_EMP_CONF)
+        datei = open(TELEGRAM_EMP_CONF,"a")
+        datei.write(new_line)
+        datei.flush()
+        datei.close()
+        update.message.reply_text(f'Du hast dich erfolgreich unregistiert.')
+        print("Erfolgreich")
+    else:
+       # Registierung nicht erfolgreich, da er schon in der Liste ist
+        update.message.reply_text(f'Du bist gar nicht registiert. Also ist nichts zu machen')
+        print("nicht erfolgreich")
+    
 
 updater = Updater('2050496929:AAHmHvQuPsPBqm4CqWj-QRPcGNksvk8BMDY')
 
 updater.dispatcher.add_handler(CommandHandler('start', hello))
 updater.dispatcher.add_handler(CommandHandler('id', id))
 updater.dispatcher.add_handler(CommandHandler('register', register))
+updater.dispatcher.add_handler(CommandHandler('unregister', unregister))
 
 updater.start_polling()
 updater.idle()
