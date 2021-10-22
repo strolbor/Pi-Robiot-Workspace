@@ -473,7 +473,7 @@ def email_cnf():
     #Konfig lesen
     try:
         datei = open(cof.MAIL_conf,"r")
-        array = datei.readline().split("r")
+        array = datei.readline().split(",")
         form.server.data = array[0]
         form.port.data = array[1]
         form.username.data = array[2]
