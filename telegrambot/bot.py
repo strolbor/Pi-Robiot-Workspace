@@ -78,6 +78,7 @@ def unregister(update: Update, context: CallbackContext) -> None:
     id = str(update.effective_user.id)
     array = line.split(",")
     print("Unregisterung von:",id,"...")
+    print(array)
     if id in array:
         new_line = ""
         for entry in array:
