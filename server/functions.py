@@ -397,6 +397,7 @@ class Functions(threading.Thread):
 
 	def yolo_einfach(self):
 		""" Objekterkennung nur nach Vorne (Logik)"""
+		global kordinate
 		fDrive.configure_head(scGear)
 
 		# Gegenstands Datei lesen und einspielen
@@ -417,7 +418,8 @@ class Functions(threading.Thread):
 
 		# Modus starten
 		print("[YOLO] Suche:",gegenstand)
-		xkordinate = fH.look_normal(1,0, gegenstand,scGear)[0]
+		kordinate = fH.look_normal(1,0, gegenstand,scGear)
+		xkordinate= kordinate[0]
 		# Strategien überprüfen
 		for entry in Strategien:
 			if entry.ispossible(xkordinate, self.functionMode, lastObject):
