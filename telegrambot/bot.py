@@ -34,7 +34,7 @@ def register(update: Update, context: CallbackContext) -> None:
         array = line.split(",")
         datei.close()
         # ID des Telegram Nutzer herausfinden
-        id = update.effective_user.id
+        id = str(update.effective_user.id)
         print("Regsiterung von:",id,"...")
 
         if id not in array:
