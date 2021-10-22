@@ -16,7 +16,7 @@ def raw_turns( lenkungsfaktor, zeitfaktor: float, scGear, move):
 	"""##### eigentliche Kurven Logik
 	1: Links
 	-1: Rechts"""
-	robot_speed_turn = 95
+	robot_speed_turn = 100
 	if lenkungsfaktor == 1 or lenkungsfaktor == -1:			
 		scGear.moveAngle(2, 0) # Lenker ausrichten
 		time.sleep(0.5)
