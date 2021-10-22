@@ -4,6 +4,8 @@ pocketsphinx-5prealpha/
 pocketsphinx.tar.gz
 sphinxbase-5prealpha/
 create_ap
+Fehlerkennung
+
 *.pyc
 LICENSE*
 *.weights
