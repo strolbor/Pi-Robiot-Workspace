@@ -40,12 +40,12 @@ class AlarmBenachrichtung(FlaskForm):
     tg_btn = BooleanField('Telegram Benachrichtung')
     mail_empfanger = TextField('E-Mail Empfänger (getrennt mit ,)')
     tg_user = TextField('Telegram Empfänger ID (getrennt mit ,)')
-    tg_bot = PasswordField('Telegram Bot Token')
+    tg_bot = TextField('Telegram Bot Token')
     submit = SubmitField('Speichern')
 
 class EmailChange(FlaskForm):
     server = TextField('E-Mail Server',validators=[DataRequired()])
     port = TextField('Port',validators=[DataRequired()])
     username = TextField('Username',validators=[DataRequired()])
-    password = PasswordField('Passwort',validators=[DataRequired()])
+    password = TextField('Passwort',validators=[DataRequired()])
     submit = SubmitField('Speichern')
