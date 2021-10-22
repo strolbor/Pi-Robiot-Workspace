@@ -16,7 +16,7 @@ def delete_file(filename):
 
 def hello(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(f'Hallo {update.effective_user.first_name}! '+
-    'Falls du Kontaktiert werden willst, rufe /id auf und notiere deine IP im Urs Dashboard unter Alarmeinstellungen.')
+    'Falls du kontaktiert werden willst, rufe /register auf bzw. /unregister zum abmelden.')
 
 def id(update: Update, context: CallbackContext) -> None:
     id = update.effective_user.id

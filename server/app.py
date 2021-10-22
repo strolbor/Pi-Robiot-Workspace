@@ -352,7 +352,7 @@ def yolo_sc():
     form = YoloChangeSC()
     if form.validate_on_submit():
         try:
-            os.remove(cof.YOLO_CONF)
+            delete_file(cof.YOLO_CONF)
         except FileNotFoundError:
             pass
 
@@ -366,10 +366,13 @@ def yolo_sc():
 
         flash('Erfolgreich auf: ' + form.textarea1.data + " gesetzt.")
         return redirect(url_for('yolo_sc'))
+
+    # Datei laden, sodass der Eintrag aktuell ist
     voreingestellt = ""
     try:
         datei = open(cof.YOLO_CONF,'r')
         voreingestellt = datei.readline()
+        form.textarea1.data = voreingestellt
         datei.close()
     except FileNotFoundError:
         pass

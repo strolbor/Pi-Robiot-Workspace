@@ -416,19 +416,15 @@ def init_robot_ctrl():
 		RobotEntscheider.append(webHelper.Entscheider('forward',forward))
 		RobotEntscheider.append(webHelper.Entscheider('backward',backward))
 		RobotEntscheider.append(webHelper.Entscheider('DS',ds))
-
 		RobotEntscheider.append(webHelper.Entscheider('left',left))
 		RobotEntscheider.append(webHelper.Entscheider('right',right))
 		RobotEntscheider.append(webHelper.Entscheider('TS',ts))
-
 		RobotEntscheider.append(webHelper.Entscheider('lookleft',lookleft)) # Bewege Vorderräder nach links
 		RobotEntscheider.append(webHelper.Entscheider('lookright',lookright))
 		RobotEntscheider.append(webHelper.Entscheider('LRstop',lr_stop))
-
 		RobotEntscheider.append(webHelper.Entscheider('up',up)) # Bewege Vorderräder nach links
 		RobotEntscheider.append(webHelper.Entscheider('down',down))
 		RobotEntscheider.append(webHelper.Entscheider('UDstop',ud_stop))
-
 		RobotEntscheider.append(webHelper.Entscheider('home',home)) # Bewege Vorderräder nach links
 
 
