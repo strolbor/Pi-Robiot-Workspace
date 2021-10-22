@@ -307,7 +307,7 @@ def send_info(text):
         send_mail(text)
     if "telegram" in msg:
         sdH.send_telegram(text)
-    print("[ALARM] Telegram Nachricht gesendet:",r.text)
+    print("[ALARM] Nachricht gesendet:",text)
 
 
 @app.route('/yolo/sc', methods=['GET','POST'])
@@ -383,7 +383,8 @@ def alarm_nach():
         flash("Erfolgreich gespeichert!")
         return redirect(url_for('alarm_nach'))
      
-    try:
+    try: 
+        # Radio Buttons Konfig einstellen
         datei_alarm = open(cof.ALARM_MSG_CONF,"r")
         inhalt = datei_alarm.readline().split(",")
         if "mail" in inhalt:
@@ -392,15 +393,23 @@ def alarm_nach():
             form.tg_btn.data = True
         datei_alarm.close()
     except FileNotFoundError:
-        flash("[Error] ALARM Conf")
+        flash("[Error] ALARM Konfig nicht gefunden")
 
     try:
-        # Empfänger lesen und ins Formular eintragen
+        # Telegram Empfänger lesen und ins Formular eintragen
         datei_emp = open(cof.TELEGRAM_EMP_CONF,"r")
         form.tg_user.data = datei_emp.readline()
         datei_emp.close()
     except FileNotFoundError:
-        flash("[Error] Telegram Empfänger ID Conf")
+        flash("[Error] Telegram Empfänger ID Konfig nicht gefunden")
+
+    try:
+        #E-Mail Empfänger lesen uns ins Formular eintragen
+        datei_mail_emp = open(cof.MAIL_EMP_CONF,"r")
+        form.mail_empfanger.data = datei_mail_emp.readline()
+        datei_mail_emp.close()
+    except FileNotFoundError:
+        flash('[Error] Mail Empfänger Konfig nicht gefunden')
 
     try:
         # Bot token lesen
@@ -408,7 +417,7 @@ def alarm_nach():
         form.tg_bot.data = datei_token.readline()
         datei_token.close()
     except FileNotFoundError:
-        flash("[Error] Bot Token Conf")
+        flash("[Error] Bot Token Konfig nicht gefunden")
 
     return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
 
