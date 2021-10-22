@@ -31,6 +31,8 @@ def register(update: Update, context: CallbackContext) -> None:
         # Datei lesen und verstehen
         datei = open(TELEGRAM_EMP_CONF,"r")
         line = datei.readline()
+        line = line.replace("\n","")
+        line = line.replace("\r","")
         array = line.split(",")
         datei.close()
         # ID des Telegram Nutzer herausfinden
