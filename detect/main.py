@@ -27,6 +27,9 @@ import time
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.WARNING)
 
+import socket
+print(socket.gethostbyname(socket.gethostname()))
+
 # Routing
 @app.route('/')
 def home():
