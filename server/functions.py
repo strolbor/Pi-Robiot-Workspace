@@ -573,13 +573,7 @@ class Functions(threading.Thread):
 	def fahr_gradeaus(self):
 		"""Grade aus fahren"""
 		print("[API] ==")
-		print("Gloable Koordienaten", kordinate)
-		try:
-			if kordinate[1] <= 70 and self.functionMode != 'Object':
-				self.pause()
-		except IndexError:
-			pass
-		
+		print("Gloable Koordienaten", kordinate)	
 		scGear.moveAngle(2, 10)
 		move.move(robot_speed,'forward','no',0.1)	
 		time.sleep(1)	
