@@ -158,7 +158,7 @@ def send_picture():
 	out = str("")
 	try:
 		# An Server senden
-		request = requests.get(cof.URL + cof.URL_OPTION + pic, timeout=5)
+		request = requests.get(cof.URL + cof.URL_OPTION + pic, timeout=15)
 		out = request.text
 	except Timeout:
 		print("[Fail] Timeout")
