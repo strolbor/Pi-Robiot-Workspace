@@ -540,7 +540,7 @@ def wifi_check():
 		update_code()
 	except:
 		#ap_threading=threading.Thread(target=ap_thread)   #Define a thread for data receiving
-		#ap_threading.setDaemon(True)                          #'True' means it is a front thread,it would close when the mainloop() closes
+		#ap_threading.ssetDaemon(True)                          #'True' means it is a front thread,it would close when the mainloop() closes
 		#ap_threading.start()                                  #Thread starts
 		RL.setColor(0,16,50)
 		time.sleep(1)
