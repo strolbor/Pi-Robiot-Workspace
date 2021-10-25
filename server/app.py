@@ -573,7 +573,7 @@ def swip_swap(name):
             
             # Fertig gesetzt
             flash(c.SUCESS_MSG)
-            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+            return redirect(url_for('swip_swap',name=name))
 
         if form.submit2.data:
             # Item soll hinzugefügt werden
@@ -590,6 +590,7 @@ def swip_swap(name):
             flash("Submit 3")
         flash("A")
         return redirect(url_for('swip_swap',name=name))
+        
     return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")#,label="label")
     #return render_template(QUICK_FORM,form=form)
 
