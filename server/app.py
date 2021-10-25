@@ -452,7 +452,7 @@ def alarm_nach():
         form.mail_empfanger.data = datei_mail_emp.readline()
         datei_mail_emp.close()
     except FileNotFoundError:
-        flash(c.FILE_NOT_FOUND_MSG2.format(MAIL_EMP_CONF))
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_EMP_CONF))
 
     try:
         # Bot token lesen
@@ -489,7 +489,7 @@ def email_cnf():
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_conf))
     return render_template('quick_form.html',form=form,label="E-Mail Konfiguration")
 
-@app.route('/api/untergrund')
+@app.route('/api/untergrund',methods=['GET','POST'])
 def untergrundsetting():
     form = UntergrundSetting()
     if form.validate_on_submit():
@@ -509,7 +509,7 @@ def untergrundsetting():
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
     return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="1= Teppichboden")
 
-@app.route('/api/2Felder')
+@app.route('/api/2Felder',methods=['GET','POST'])
 def swipSwap():
     form = dFelder()
     return render_template("quick_form.html",form=form,label="Test")

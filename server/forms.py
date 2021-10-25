@@ -56,3 +56,4 @@ class UntergrundSetting(FlaskForm):
 
 class dFelder(FlaskForm):
     ein = SelectMultipleField('Titel',choices=dropdown_list)
+    submit = SubmitField("Speichern")
