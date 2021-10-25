@@ -541,7 +541,7 @@ def swip_swap(name):
             datei.close()
             for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
-            form.selected.choices = choices_array
+            form.selected.choices = choices_array.copy()
         except FileNotFoundError:
             flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
@@ -559,7 +559,8 @@ def swip_swap(name):
 
             #Daten herausfinden
             save_str = ""
-            for entry in form.selected.choices:
+            form_choi = form.selected.choices.copy()
+            for entry in form_choi:
                 save_str = save_str + "," + entry[0]
             save_str = save_str[1:]
             print(save_str)
@@ -571,6 +572,7 @@ def swip_swap(name):
             
             # Fertig gesetzt
             flash(c.SUCESS_MSG)
+            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
 
         if form.submit2.data:
             # Item soll hinzugefügt werden
