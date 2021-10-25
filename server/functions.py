@@ -53,7 +53,7 @@ sammler_target = []
 """Liste der zu suchenden Objekte"""
 
 #Speed Setting
-robot_speed = 90
+robot_speed = 95
 
 kalman_filter_X =  Kalman_filter.Kalman_filter(0.01,0.1)
 
