@@ -559,7 +559,7 @@ def swip_swap(name):
 
             #Daten herausfinden
             for entry in form.selected.choices:
-                print(entry)
+                print("entry:",entry)
             #datei.write()
 
         if form.submit.data:
