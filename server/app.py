@@ -558,8 +558,9 @@ def swip_swap(name):
             datei = open(filename,"a")
 
             #Daten herausfinden
-            print(form.selected.choices)
-            datei.write()
+            for entry in form.selected.choices:
+                print(entry[0])
+            #datei.write()
 
         if form.submit.data:
             flash("Submit")
