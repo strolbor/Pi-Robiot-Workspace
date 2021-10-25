@@ -9,6 +9,8 @@ SUCESS_MSG = "Erfolgreich gespeichert!"
 
 INPUT_ERROR = 'Error: Eingabe nicht erkannt'
 
+SUC_ADD= "Erfolgreich hinzugefügt!"
+
 
 def sucess_msg(text):
     return 'Erfolgreich auf: ' + text + " gesetzt."

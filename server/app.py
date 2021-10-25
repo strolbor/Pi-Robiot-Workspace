@@ -562,8 +562,7 @@ def swip_swap(name):
 
             #Daten herausfinden
             save_str = ""
-            form_choi = form.selected.choices.copy()
-            for entry in form_choi:
+            for entry in form.selected.choices.copy():
                 save_str = save_str + "," + entry[0]
             save_str = save_str[1:]
             print(save_str)
@@ -581,13 +580,13 @@ def swip_swap(name):
             # Item soll hinzugefügt werden
             old_choices = form.selected.choices.copy()
             print("Vorher: ",old_choices)
-            for entry in form.ein.data:
+            for entry in form.ein.data.copy():
                 old_choices.append([entry,entry])
                 print("Append:",entry)
             print("Nachher:",old_choices)
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
-            flash("A")
+            flash(c.SUC_ADD)
             return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
         if form.submit3.data:
             flash("Submit 3")
