@@ -503,6 +503,7 @@ def untergrundsetting():
 
 
 choices_array = []
+LISTEFELDER= "Listenfelder.html"
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
 def swip_swap(name):
     global choices_array
@@ -572,7 +573,7 @@ def swip_swap(name):
             flash(c.SUCESS_MSG)
             return redirect(url_for('swip_swap',name=name))
 
-        if form.submit2.data:
+        elif form.submit2.data:
             # Item soll hinzugefügt werden
             # Choices werden hart kopiert
             old_choices = form.selected.choices.copy()
@@ -587,10 +588,10 @@ def swip_swap(name):
             choices_array = old_choices.copy()
 
             flash(c.SUC_ADD)
-            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
             #return redirect(url_for('swip_swap',name=name))
         
-        if form.submit3.data:
+        elif form.submit3.data and 1 == 0:
             array = form.selected.choices.copy()
             to_delete = form.selected.data.copy()
             for entry in to_delete:
@@ -599,12 +600,15 @@ def swip_swap(name):
             choices_array = array.copy()
 
             flash(c.SUC_DEL)
-            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+        elif form.submit3.data:
+            flash("Button 3")
+            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+        else:
+            flash("A")
+            return redirect(url_for('swip_swap',name=name))
 
-        flash("A")
-        return redirect(url_for('swip_swap',name=name))
-
-    return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")#,label="label")
+    return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")#,label="label")
     #return render_template(QUICK_FORM,form=form)
 
 class webapp:
