@@ -542,7 +542,7 @@ def swip_swap(name):
             datei.close()
             for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
-            form.selected.choices = choices_array
+            form.selected.choices = choices_array.copy()
         except FileNotFoundError:
             flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
