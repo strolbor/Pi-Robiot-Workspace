@@ -56,7 +56,9 @@ class UntergrundSetting(FlaskForm):
 
 dropdown_list_2 = [('None','None'),('person','person'),('umbrella','umbrella'),('handbag','handbag'),('bottle','bottle'),('wine glass','wine glass'),('cup','cup'), \
     ('fork','fork'),('knife','knife'), ('spoon','spoon'),('chair','chair'),('mouse','mouse'),('book','book'),('vase','vase'),('laptop','laptop')]
-    
+
 class d_felder(FlaskForm):
     ein = SelectMultipleField('Titel',choices=dropdown_list_2)
     submit = SubmitField("Speichern")
+    submit2 = SubmitField("-->")
+    submit3 = SubmitField("<--")

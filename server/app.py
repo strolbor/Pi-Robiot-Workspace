@@ -6,6 +6,7 @@ from flask import Flask, render_template, Response, send_from_directory, redirec
 from flask.helpers import url_for, flash
 from flask_wtf import form
 from numpy import array
+from werkzeug.wrappers import request
 
 from wtforms.fields.core import Label
 from flask_cors import *
@@ -512,6 +513,7 @@ def untergrundsetting():
 @app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
+    print(request.form)
     if form.validate_on_submit():
         flash("A")
         return redirect(url_for('swipSwap'))
