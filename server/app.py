@@ -497,8 +497,9 @@ def untergrundsetting():
         datei.close()
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
-    return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info="Dies wird verwendet, um die Drehgeschwindigkeit in einer Kurve zu modifizieren." +
-    "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist.")
+    info ="Dies wird verwendet, um die Drehgeschwindigkeit in einer Kurve zu modifizieren. <br />" +
+    "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist."
+    return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info=info)
 
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
 def swip_swap(name):
