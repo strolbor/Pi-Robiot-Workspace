@@ -8,7 +8,6 @@ from flask_wtf import form
 from numpy import array
 from werkzeug.wrappers import request
 
-from wtforms.fields.core import Label
 from flask_cors import *
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail
@@ -513,7 +512,8 @@ def untergrundsetting():
 @app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
-    print(request.form)
+    if "submit-about-you" in request.form:
+        print("A")
     if form.validate_on_submit():
         flash("A")
         return redirect(url_for('swipSwap'))
