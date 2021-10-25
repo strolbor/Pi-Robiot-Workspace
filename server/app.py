@@ -512,7 +512,10 @@ def untergrundsetting():
 @app.route('/api/2Felder',methods=['GET','POST'])
 def swipSwap():
     form = dFelder()
-    return render_template("quick_form.html",form=form,label="Test")
+    if form.validate_on_submit():
+        flash("A")
+        return redirect(url_for('swipSwap'))
+    return render_template("quick_form.html",form=form)
 
 
 class webapp:
