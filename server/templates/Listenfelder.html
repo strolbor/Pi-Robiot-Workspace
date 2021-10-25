@@ -5,10 +5,18 @@
 
 <form action="" method="post" novalidate>
     {{form.hidden_tag()}}
-    <h1>Verfügbar</h1>
-    <p>{{ form.ein(rows=12) }}</p>
+    <table>
+        <tr><th>Verfügrbare</th><th></th><th>Eingetragen</th></tr>
+        <tr>
+            <!-- Erste Spalte --><td><p>{{ form.ein(rows=12) }}</p></td>
+        
+            <!-- Zweite Spalte --><td>{{ form.submit3() }} {{ form.submit2() }}</td>
 
-    <p>{{ form.submit3() }} {{ form.submit2() }}</p>
+            <!-- Dritte Spalte --><td><p>{{ form.selected(rows=12) }}</p></td>
+
+        </tr>
+
+    </table>
     <p>{{ form.submit() }} </p>
 </form>
 {% endblock %}
