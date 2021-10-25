@@ -590,8 +590,8 @@ def swip_swap(name):
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
             flash(c.SUC_ADD)
-            #return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
-            return redirect(url_for('swip_swap',name=name))
+            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+            #return redirect(url_for('swip_swap',name=name))
         if form.submit3.data:
             flash("Submit 3")
         flash("A")
