@@ -538,9 +538,8 @@ def swip_swap(name):
             datei = open(filename,'r')
             voreingestellt = datei.readline()
             datei.close()
-            array = voreingestellt.split(",")
             choices_array = []
-            for entry in array:
+            for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
             form.selected.choices = choices_array
         except FileNotFoundError:
@@ -582,7 +581,7 @@ def swip_swap(name):
             form.selected.choices = old_choices
             print("nachher2:", form.selected.choices)
             flash("A")
-            return redirect(url_for('swip_swap',name=name))
+            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
         if form.submit3.data:
             flash("Submit 3")
         flash("A")
