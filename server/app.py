@@ -4,10 +4,8 @@ import os
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
-from flask.wrappers import Request
-from flask_wtf import form
 from numpy import array
-from werkzeug.wrappers import request
+from werkzeug.wrappers import request as werkzeug_request
 
 from flask_cors import *
 from flask_bootstrap import Bootstrap
@@ -513,9 +511,11 @@ def untergrundsetting():
 @app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
+    print(werkzeug_request.methods)
+    print(werkzeug_request.form.get('submit'))
+    print(werkzeug_request.form.get('submit1'))
+    print(werkzeug_request.form.get('submit2'))
     if form.validate_on_submit():
-        print( request.form.post['action'])
-            #print("A")
         flash("A")
         return redirect(url_for('swipSwap'))
     return render_template("Listenfelder.html",form=form)#,label="label")
