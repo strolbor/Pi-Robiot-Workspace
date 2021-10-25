@@ -573,13 +573,12 @@ def swip_swap(name):
             flash(c.SUCESS_MSG)
         if form.submit2.data:
             old_choices = form.selected.choices
-            print("Vorher: ",form.selected.choices)
+            print("Vorher: ",old_choices)
             for entry in form.ein.data:
                 old_choices.append([entry,entry])
                 print("Append:",entry)
             print("Nachher:",old_choices)
             form.selected.choices = old_choices
-            print("nachher2:", form.selected.choices)
             flash("A")
             return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
         if form.submit3.data:
