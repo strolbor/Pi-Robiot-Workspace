@@ -510,7 +510,7 @@ def untergrundsetting():
     return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="1= Teppichboden")
 
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
-def swipSwap(name):
+def swip_swap(name):
     form = d_felder()
 
     # Settings
@@ -561,7 +561,7 @@ def swipSwap(name):
         print("2",form.submit3.data)
         
         flash("A")
-        return redirect(url_for('swipSwap',name=name))
+        return redirect(url_for('swip_swap',name=name))
     return render_template("Listenfelder.html",form=form)#,label="label")
     #return render_template("quick_form.html",form=form)
 
