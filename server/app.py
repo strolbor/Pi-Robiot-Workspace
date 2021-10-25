@@ -513,9 +513,10 @@ def untergrundsetting():
 @app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
-    if "submit-about-you" in Request.form:
-        print("A")
+    
     if form.validate_on_submit():
+        if "submit-about-you" in Request.form:
+            print("A")
         flash("A")
         return redirect(url_for('swipSwap'))
     return render_template("Listenfelder.html",form=form)#,label="label")
