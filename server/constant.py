@@ -6,5 +6,9 @@ FILE_NOT_FOUND_MSG2 = "Datei {} nicht gefunden!"
 MODI_NOT_FOUND = 'Error: Modus nicht bekannt'
 
 SUCESS_MSG = "Erfolgreich gespeichert!"
+
+INPUT_ERROR = 'Error: Eingabe nicht erkannt'
+
+
 def sucess_msg(text):
     return 'Erfolgreich auf: ' + text + " gesetzt."

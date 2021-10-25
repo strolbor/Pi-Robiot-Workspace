@@ -549,9 +549,18 @@ def swip_swap(name):
     if form.validate_on_submit():
         print("Verfügbar:",form.ein.data)
         print("Eingestellt:",form.selected.data)
-        print("0",form.submit.data)
-        print("1",form.submit2.data)
-        print("2",form.submit3.data)
+        print("0",form.submit.data) # Speichern
+        print("1",form.submit2.data) # Hinzufügen
+        print("2",form.submit3.data) # Entfernen
+        if form.submit.data:
+            # Dateien löschen und öffnen
+            delete_file(filename)
+            datei = open(filename,"a")
+
+            #Daten herausfinden
+            print(form.selected.choices)
+            datei.write()
+
         if form.submit.data:
             flash("Submit")
         if form.submit2.data:
