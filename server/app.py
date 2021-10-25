@@ -575,6 +575,7 @@ def swip_swap(name):
             old_choices = form.selected.choices
             for entry in form.ein.data:
                 old_choices.append([entry,entry])
+                print("Append:",entry)
             form.selected.choices = old_choices
             flash("Submit 2")
         if form.submit3.data:
