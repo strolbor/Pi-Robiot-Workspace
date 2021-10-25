@@ -561,7 +561,7 @@ def swip_swap(name):
             save_str = ""
             for entry in form.selected.choices:
                 save_str = save_str + "," + entry[0]
-            save_str = save_str[:-1]
+            save_str = save_str[1:]
             print(save_str)
 
             # Datei schreiben
