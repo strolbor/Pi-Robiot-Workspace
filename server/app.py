@@ -495,7 +495,7 @@ def untergrundsetting():
     if form.validate_on_submit():
         delete_file(cof.ZEITFAKTOR)
         datei = open(cof.ZEITFAKTOR,"a")
-        datei.write(form.eingabe.data+",")
+        datei.write(str(form.eingabe.data)+",")
         datei.flush()
         datei.close()
         flash(c.SUCESS_MSG)
