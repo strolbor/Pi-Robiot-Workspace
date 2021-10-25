@@ -532,7 +532,7 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
-    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False and 1 == 0:
+    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
         print("Erster Aufruf")
         try:
             datei = open(filename,'r')
