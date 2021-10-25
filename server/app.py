@@ -513,6 +513,7 @@ def untergrundsetting():
 def swipSwap():
     form = d_felder()
     if form.validate_on_submit():
+        print(form.__dict__['submit'])
         if werkzeug_request.form.post == "submit":
             print("submit")
         flash("A")
