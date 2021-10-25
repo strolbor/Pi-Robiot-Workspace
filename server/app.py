@@ -509,9 +509,51 @@ def untergrundsetting():
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
     return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="1= Teppichboden")
 
-@app.route('/api/Felder',methods=['GET','POST'])
-def swipSwap():
+@app.route('/api/Felder/<name>',methods=['GET','POST'])
+def swipSwap(name):
     form = d_felder()
+
+    # Settings
+    filename = ""
+    title = ""
+    
+    # Modus herausfinden
+    integer = -1
+    try:
+        integer = int(name)
+    except ValueError:
+        flash('Error: Eingabe nicht erkannt')
+        return redirect(url_for('dash'))        
+
+    if integer == 0:
+        # Sammel Modus
+        filename = cof.SAMMLER_CONF
+        title = "Sammel Modus"
+    elif integer == 1:
+        # Alarm Modus
+        filename = cof.ALARM_CONF
+        title = "Alarm Modus"
+    else:
+        # Unbekannter Modus
+        flash(c.MODI_NOT_FOUND)
+        return redirect(url_for('dash'))
+
+    # Konfig Datei öffnen im Lese Modus
+    # Zum zeigen, das es gepeichert wurden ist
+    voreingestellt = ""
+    try:
+        datei = open(filename,'r')
+        voreingestellt = datei.readline()
+        datei.close()
+        array = voreingestellt.split(",")
+        choices_array = []
+        for entry in array:
+            choices_array.append = (entry,entry)
+        form.selected.choices = choices_array
+    except FileNotFoundError:
+        pass
+    
+    
     if form.validate_on_submit():
         print(form.ein.data)
         print("0",form.submit.data)
