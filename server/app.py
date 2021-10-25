@@ -4,6 +4,7 @@ import os
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
+from flask_wtf import form
 from numpy import array
 
 from wtforms.fields.core import Label
@@ -12,15 +13,18 @@ from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 
 # Forms
-from forms import ChangeSammlerForm,ChangeSammlerMCP,YoloChangeSC,AlarmBenachrichtung, EmailChange
+from forms import *
+
 
 # import camera driver
 
 from camera_opencv import Camera
 import threading
 from functionHelper import delete_file
+from server.urs_config import MAIL_EMP_CONF
 
 import urs_config as cof
+import constant as c
 import sendHelper as sdH
 
 # Raspberry Pi camera module (requires picamera package)
@@ -112,7 +116,7 @@ def sammler_liste():
                     # Komplexität n^2
         datei.close()
     except FileNotFoundError:
-        pass
+        flash(c.FILE_NOT_FOUND_MSG)
     return render_template("Liste.html",messages=messages,neuladen=True)
 
 @app.route('/api/foto')
@@ -143,7 +147,7 @@ def change_sc(name):
         filename = cof.ALARM_CONF
         title = "Alarm Modus"
     else:
-        flash('Error: Modus nicht bekannt')
+        flash(c.MODI_NOT_FOUND)
         return redirect(url_for('dash'))
     
     #Formular erstellen
@@ -180,7 +184,7 @@ def change_sc(name):
         datei.close()
 
         #GET-Request erfolgreich abgesetzt; bereit zum flashen
-        flash('Erfolgreich auf: ' + zu_setzen + " gesetzt.")
+        flash(c.sucess_msg(zu_setzen))
         return redirect(url_for('change_sc',name=name))
 
     # Sammler Konfig laden 
@@ -229,7 +233,7 @@ def change_mcp(name):
         title = "Alarm Modus"
     else:
         # Unbekannter Modus
-        flash('Error: Modus nicht bekannt')
+        flash(c.MODI_NOT_FOUND)
         return redirect(url_for('dash'))
     form = ChangeSammlerMCP()
 
@@ -283,7 +287,7 @@ def change_mcp(name):
         datei.flush()
         datei.close()
 
-        flash('Erfolgreich auf: ' + Arraystr + " gesetzt.")
+        flash(c.sucess_msg(Arraystr))
         return redirect(url_for('change_mcp',name=name))
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
@@ -291,6 +295,7 @@ def change_mcp(name):
     try:
         datei = open(filename,'r')
         voreingestellt = datei.readline()
+        datei.close()
         array = voreingestellt.split(",")
         
         if 'person' in array:
@@ -321,7 +326,7 @@ def change_mcp(name):
             form.btn12.data = True
         if 'laptop' in array:
             form.btn13.data = True
-        datei.close()
+        
     except FileNotFoundError:
         pass
     return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
@@ -364,7 +369,7 @@ def yolo_sc():
         datei.flush()
         datei.close()
 
-        flash('Erfolgreich auf: ' + form.textarea1.data + " gesetzt.")
+        flash(c.sucess_msg(form.textarea1.data))
         return redirect(url_for('yolo_sc'))
 
     # Datei laden, sodass der Eintrag aktuell ist
@@ -419,7 +424,7 @@ def alarm_nach():
         mail_emp.flush()
         mail_emp.close()
 
-        flash("Erfolgreich gespeichert!")
+        flash(c.SUCESS_MSG)
         return redirect(url_for('alarm_nach'))
      
     try: 
@@ -432,7 +437,7 @@ def alarm_nach():
             form.tg_btn.data = True
         datei_alarm.close()
     except FileNotFoundError:
-        flash("[Error] ALARM Konfig nicht gefunden")
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.ALARM_MSG_CONF))
 
     try:
         # Telegram Empfänger lesen und ins Formular eintragen
@@ -440,7 +445,7 @@ def alarm_nach():
         form.tg_user.data = datei_emp.readline()
         datei_emp.close()
     except FileNotFoundError:
-        flash("[Error] Telegram Empfänger ID Konfig nicht gefunden")
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.TELEGRAM_BOT_CONF))
 
     try:
         #E-Mail Empfänger lesen uns ins Formular eintragen
@@ -448,7 +453,7 @@ def alarm_nach():
         form.mail_empfanger.data = datei_mail_emp.readline()
         datei_mail_emp.close()
     except FileNotFoundError:
-        flash('[Error] Mail Empfänger Konfig nicht gefunden')
+        flash(c.FILE_NOT_FOUND_MSG2.format(MAIL_EMP_CONF))
 
     try:
         # Bot token lesen
@@ -456,7 +461,7 @@ def alarm_nach():
         form.tg_bot.data = datei_token.readline()
         datei_token.close()
     except FileNotFoundError:
-        flash("[Error] Bot Token Konfig nicht gefunden")
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.TELEGRAM_BOT_CONF))
 
     return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
 
@@ -471,7 +476,7 @@ def email_cnf():
         datei.write(form.server.data + "," + form.port.data + "," + form.username.data + "," + form.password.data + ",")
         datei.flush()
         datei.close()
-        flash("Erfolgreich gespeichert!")
+        flash(c.SUCESS_MSG)
         return redirect(url_for('email_cnf'))
     #Konfig lesen
     try:
@@ -482,8 +487,34 @@ def email_cnf():
         form.username.data = array[2]
         form.password.data = array[3] 
     except FileNotFoundError:
-        flash("Datei konnte nicht gelesen werden")
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_conf))
     return render_template('quick_form.html',form=form,label="E-Mail Konfiguration")
+
+@app.route('/api/untergrund')
+def untergrundsetting():
+    form = UntergrundSetting()
+    if form.validate_on_submit():
+        delete_file(cof.ZEITFAKTOR)
+        datei = open(cof.ZEITFAKTOR,"a")
+        datei.write(form.eingabe.data+",")
+        datei.flush()
+        datei.close()
+        flash(c.SUCESS_MSG)
+        return redirect(url_for('untergrundsetting'))
+    #Konfig lesen
+    try:
+        datei = open(cof.ZEITFAKTOR,"r")
+        form.eingabe.data = datei.readline().split(",")[0]
+        datei.close()
+    except FileNotFoundError:
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
+    return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="1= Teppichboden")
+
+@app.route('/api/2Felder')
+def swipSwap():
+    form = dFelder()
+    return render_template("quick_form.html",form=form,label="Test")
+
 
 class webapp:
     def __init__(self):

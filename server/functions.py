@@ -28,6 +28,7 @@ import RPIservo
 
 # import as
 import urs_config as cof
+import constant as c
 import functionHelper as fH
 import functionDriving as fDrive
 

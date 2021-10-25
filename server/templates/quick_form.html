@@ -10,6 +10,7 @@
             {{ wtf.quick_form(form) }}
         </div>
     </div>
+    {% if info%} <pre>{{info}}</pre> {% endif %}
 
     {% if message %}
         {% for message in form.name.errors %}

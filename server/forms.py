@@ -1,7 +1,7 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
-from wtforms import SubmitField,SelectField
-from wtforms.fields.core import BooleanField
+from wtforms import SubmitField,SelectField,SelectMultipleField
+from wtforms.fields.core import BooleanField, FloatField
 from wtforms.fields.simple import TextField
 from wtforms.validators import DataRequired
 
@@ -49,3 +49,10 @@ class EmailChange(FlaskForm):
     username = TextField('Username',validators=[DataRequired()])
     password = TextField('Passwort',validators=[DataRequired()])
     submit = SubmitField('Speichern')
+
+class UntergrundSetting(FlaskForm):
+    eingabe = FloatField('Zeitfaktor für den Untergrund',validators=[DataRequired()])
+    submit = SubmitField('Speichern')
+
+class dFelder(FlaskForm):
+    ein = SelectMultipleField('Titel',choices=dropdown_list)

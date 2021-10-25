@@ -42,6 +42,9 @@ MAIL_conf = "mailconf.csv"
 ROBOT_SPEED = 95
 """ Geschwindigkeit des Roboter"""
 
+ZEITFAKTOR = "lenker.csv"
+""" Zeitfaktor in der Datei"""
+
 
 
 def get_base64_encoded_image(image_path):
