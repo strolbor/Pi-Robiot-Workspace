@@ -554,12 +554,12 @@ def swip_swap(name):
         print("2",form.submit3.data) # Entfernen
         if form.submit.data:
             # Dateien löschen und öffnen
-            delete_file(filename)
-            datei = open(filename,"a")
+           # delete_file(filename)
+            #datei = open(filename,"a")
 
             #Daten herausfinden
             for entry in form.selected.choices:
-                print(entry[0])
+                print(entry)
             #datei.write()
 
         if form.submit.data:
