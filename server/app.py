@@ -568,16 +568,20 @@ def swip_swap(name):
             datei.write(save_str)
             datei.flush()
             datei.close()
-
-        if form.submit.data:
-            flash("Submit")
+            
+            # Fertig gesetzt
+            flash(c.SUCESS_MSG)
         if form.submit2.data:
+            old_choices = form.selected.choices
+            for entry in form.ein.data:
+                old_choices.append([entry,entry])
+            form.selected.choices = old_choices
             flash("Submit 2")
         if form.submit3.data:
             flash("Submit 3")
         flash("A")
         return redirect(url_for('swip_swap',name=name))
-    return render_template("Listenfelder.html",form=form)#,label="label")
+    return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")#,label="label")
     #return render_template(QUICK_FORM,form=form)
 
 class webapp:
