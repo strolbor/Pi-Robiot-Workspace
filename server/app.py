@@ -534,7 +534,7 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
-    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
+    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False and len(choices_array) == 0:
         print("Erster Aufruf")
         try:
             datei = open(filename,'r')
@@ -542,7 +542,7 @@ def swip_swap(name):
             datei.close()
             for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
-            form.selected.choices = choices_array.copy()
+            form.selected.choices = choices_array
         except FileNotFoundError:
             flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
@@ -590,7 +590,7 @@ def swip_swap(name):
             flash("Submit 3")
         flash("A")
         return redirect(url_for('swip_swap',name=name))
-        
+
     return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")#,label="label")
     #return render_template(QUICK_FORM,form=form)
 
