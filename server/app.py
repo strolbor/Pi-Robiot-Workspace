@@ -619,7 +619,7 @@ def untergrundsetting():
     "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist."
     return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info=info)
 
-@app.route("/api/delete_config")
+@app.route("/api/delete_config",methods=['GET','POST'])
 def dele_conf():
     """ Funktion um alle Einstellungen zu löschen"""
     form = delete_conf_form()
