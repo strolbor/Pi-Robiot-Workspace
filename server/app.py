@@ -513,9 +513,8 @@ def untergrundsetting():
 def swipSwap():
     form = d_felder()
     if form.validate_on_submit():
-        print(form.__dict__['submit'])
-        if werkzeug_request.form.post == "submit":
-            print("submit")
+        print(form.validate())
+        
         flash("A")
         return redirect(url_for('swipSwap'))
     return render_template("Listenfelder.html",form=form)#,label="label")
