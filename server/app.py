@@ -515,8 +515,8 @@ def swipSwap():
     form = d_felder()
     
     if form.validate_on_submit():
-        if "submit-about-you" in Request.form:
-            print("A")
+        print( request.form.post['action'])
+            #print("A")
         flash("A")
         return redirect(url_for('swipSwap'))
     return render_template("Listenfelder.html",form=form)#,label="label")
