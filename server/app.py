@@ -513,7 +513,9 @@ def untergrundsetting():
 def swipSwap():
     form = d_felder()
     if form.validate_on_submit():
-        print(form.submit2.data)
+        print("0",form.submit.data)
+        print("1",form.submit1.data)
+        print("2",form.submit2.data)
         
         flash("A")
         return redirect(url_for('swipSwap'))
