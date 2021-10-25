@@ -514,7 +514,7 @@ def swip_swap(name):
     try:
         integer = int(name)
     except ValueError:
-        flash('Error: Eingabe nicht erkannt')
+        flash(c.INPUT_ERROR)
         return redirect(url_for('dash'))        
 
     if integer == 0:
@@ -532,13 +532,13 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
+    choices_array = []
     if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
         print("Erster Aufruf")
         try:
             datei = open(filename,'r')
             voreingestellt = datei.readline()
             datei.close()
-            choices_array = []
             for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
             form.selected.choices = choices_array
