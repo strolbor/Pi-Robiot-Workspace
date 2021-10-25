@@ -59,7 +59,7 @@ dropdown_list_2 = [('None','None'),('person','person'),('umbrella','umbrella'),(
 
 class d_felder(FlaskForm):
     ein = SelectMultipleField('Zur Verfügung',choices=dropdown_list_2)
-    selected = SelectMultipleField('Ausgewählt')
+    selected = SelectMultipleField('Ausgewählt',choices=dropdown_list_2)
     submit = SubmitField("Speichern")
     submit2 = SubmitField("-->")
     submit3 = SubmitField("<--")
