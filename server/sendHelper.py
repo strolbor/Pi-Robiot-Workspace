@@ -13,6 +13,7 @@ def send_telegram(text):
         token = datei_token.readline()
         if len(token) > 30:
             for entry in empfanger:#token,entry,text
+                print("An die ID {} wurde eine Nachricht gesendet".format(entry))
                 requests.post(cof.TELEGRAM_BOT_URL.format(token,entry,text),timeout=2)
     except FileNotFoundError:
         pass
@@ -28,5 +29,6 @@ def send_mail(text,mail):
         msg.body = text
         msg.html = text
         mail.send(msg)
+        print("An die ID {} wurde eine Nachricht gesendet".format(empfanger))
     except FileNotFoundError:
         pass

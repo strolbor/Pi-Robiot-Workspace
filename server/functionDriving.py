@@ -21,22 +21,22 @@ def raw_turns( lenkungsfaktor, zeitfaktor: float, scGear, move):
 		untergrundzeitfaktor = float(datei.readline().split(",")[0])
 		datei.close()
 	except FileNotFoundError:
-		untergrundzeitfaktor = 1
+		untergrundzeitfaktor = 2
 	robot_speed_turn = 100
 	if lenkungsfaktor == 1 or lenkungsfaktor == -1:			
 		scGear.moveAngle(2, 0) # Lenker ausrichten
 		time.sleep(0.5)
 		scGear.moveAngle(2, lenkungsfaktor*30) # Nach vorne links lenken
 		move.move(robot_speed_turn,'forward','no',0.9)
-		time.sleep(untergrundzeitfaktor*zeitfaktor*2) # Land 3
+		time.sleep(untergrundzeitfaktor*zeitfaktor) # Land 3
 
 		scGear.moveAngle(2, lenkungsfaktor*-30) # NAch rechts hinten
 		move.move(robot_speed_turn, 'backward','left',0.9)
-		time.sleep(untergrundzeitfaktor*zeitfaktor*2)# Land 3
+		time.sleep(untergrundzeitfaktor*zeitfaktor)# Land 3
 
 		scGear.moveAngle(2, lenkungsfaktor*30) # Nach vorne links lenken
 		move.move(robot_speed_turn,'forward','no',0.9)
-		time.sleep(untergrundzeitfaktor*zeitfaktor*0.5) # Land 2
+		time.sleep(untergrundzeitfaktor*zeitfaktor) # Land 2
 
 		move.motorStop()
 		scGear.moveAngle(2, 10) # Lenker ausrichten

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import re
 
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
@@ -134,7 +135,7 @@ def change_sc(name):
     try:
         integer = int(name)
     except ValueError:
-        flash('Error: Wert nicht erkannt')
+        flash(c.INPUT_ERROR)
         return redirect(url_for('dash'))        
 
     if integer == 0:
@@ -155,11 +156,7 @@ def change_sc(name):
     # Einstellungen speichern
     if form.validate_on_submit():
         # Einstellungsdatei löschen
-        try:
-            os.remove(filename)
-        except FileNotFoundError:
-            pass
-
+        delete_file(filename)
         # Einstellungsdatei erstellen
         datei = open(filename,'a')
         zu_setzen = ""
@@ -219,7 +216,8 @@ def change_mcp(name):
     try:
         integer = int(name)
     except ValueError:
-        flash('Error: Eingabe nicht erkannt')
+        # Eingabe nicht erkannt
+        flash(c.INPUT_ERROR)
         return redirect(url_for('dash'))        
 
     if integer == 0:
@@ -271,10 +269,7 @@ def change_mcp(name):
             Arraystr = Arraystr + 'laptop'+ ","
         
         # Einstellungsdatei löschen
-        try:
-            os.remove(filename)
-        except FileNotFoundError:
-            pass
+        delete_file(filename)
         # Einstellungsdatei schreiben
         datei = open(filename,'a')
 
@@ -333,14 +328,14 @@ def change_mcp(name):
 # Mein Abschnitt mit meinen Funktionen
 
 
-@app.route('/api/sendinfo/<text>')
+@app.route('s<text>')
 def send_info(text):
     msg = []
     try:
         datei = open(cof.ALARM_MSG_CONF,'r')
         msg = datei.readline().split(",")
     except FileNotFoundError:
-        pass
+        return c.FILE_NOT_FOUND_MSG2.format(cof.ALARM_MSG_CONF)
     print('[API] Send Info')
     if "mail" in msg:
         sdH.send_mail(text,mail)
@@ -355,11 +350,7 @@ def yolo_sc():
     """YOLO Select Eingabe"""
     form = YoloChangeSC()
     if form.validate_on_submit():
-        try:
-            delete_file(cof.YOLO_CONF)
-        except FileNotFoundError:
-            pass
-
+        delete_file(cof.YOLO_CONF)
         # Einstellungsdatei erstellen
         datei = open(cof.YOLO_CONF,'a')
 
@@ -372,15 +363,13 @@ def yolo_sc():
         return redirect(url_for('yolo_sc'))
 
     # Datei laden, sodass der Eintrag aktuell ist
-    voreingestellt = ""
     try:
         datei = open(cof.YOLO_CONF,'r')
-        voreingestellt = datei.readline()
-        form.textarea1.data = voreingestellt
+        form.textarea1.data = datei.readline()
         datei.close()
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.YOLO_CONF))
-    return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
+    return render_template('quick_form.html',form=form,label="YOLO Modus 1+2: Sucheinstellungen")
     
 
 # Alarm Modus 
@@ -507,7 +496,7 @@ def untergrundsetting():
         datei.close()
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
-    return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="1= Teppichboden")
+    return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="2= Teppichboden")
 
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
 def swip_swap(name):
@@ -551,11 +540,12 @@ def swip_swap(name):
             choices_array.append([entry,entry])
         form.selected.choices = choices_array
     except FileNotFoundError:
-        pass
+        flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
     
     if form.validate_on_submit():
-        print(form.ein.data)
+        print("Verfügbar:",form.ein.data)
+        print("Eingestellt:",form.selected.data)
         print("0",form.submit.data)
         print("1",form.submit2.data)
         print("2",form.submit3.data)
