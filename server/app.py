@@ -561,7 +561,7 @@ def swipSwap(name):
         print("2",form.submit3.data)
         
         flash("A")
-        return redirect(url_for('swipSwap'))
+        return redirect(url_for('swipSwap',name=name))
     return render_template("Listenfelder.html",form=form)#,label="label")
     #return render_template("quick_form.html",form=form)
 
