@@ -532,9 +532,10 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
-    choices_array = []
+    
     print("Erster Aufruf")
     try:
+        choices_array = []
         datei = open(filename,'r')
         voreingestellt = datei.readline()
         datei.close()
@@ -570,8 +571,10 @@ def swip_swap(name):
             
             # Fertig gesetzt
             flash(c.SUCESS_MSG)
+
         if form.submit2.data:
-            old_choices = choices_array.copy()
+            # Item soll hinzugefügt werden
+            old_choices = form.selected.choices.copy()
             print("Vorher: ",old_choices)
             for entry in form.ein.data:
                 old_choices.append([entry,entry])
