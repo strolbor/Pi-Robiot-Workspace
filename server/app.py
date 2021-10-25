@@ -580,6 +580,7 @@ def swip_swap(name):
                 print("Append:",entry)
             form.selected.choices = old_choices
             print("Nachher:",form.selected.choices)
+            flash("A")
             return redirect(url_for('swip_swap',name=name))
         if form.submit3.data:
             flash("Submit 3")
