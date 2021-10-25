@@ -21,7 +21,6 @@ from forms import *
 from camera_opencv import Camera
 import threading
 from functionHelper import delete_file
-from server.urs_config import MAIL_EMP_CONF
 
 import urs_config as cof
 import constant as c
