@@ -560,7 +560,7 @@ def swip_swap(name):
             #Daten herausfinden
             save_str = ""
             for entry in form.selected.choices:
-                save_str = entry[0] + "," + save_str
+                save_str = save_str + "," + entry[0]
             save_str = save_str[:-1]
             print(save_str)
 
