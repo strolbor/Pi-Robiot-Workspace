@@ -1,7 +1,7 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
-from wtforms import SubmitField,SelectField,SelectMultipleField
-from wtforms.fields.core import BooleanField, FloatField
+from wtforms import SubmitField,SelectField
+from wtforms.fields.core import BooleanField, FloatField, SelectMultipleField
 from wtforms.fields.simple import TextField
 from wtforms.validators import DataRequired
 
@@ -54,6 +54,6 @@ class UntergrundSetting(FlaskForm):
     eingabe = FloatField('Zeitfaktor für den Untergrund',validators=[DataRequired()])
     submit = SubmitField('Speichern')
 
-class dFelder(FlaskForm):
+class d_felder(FlaskForm):
     ein = SelectMultipleField('Titel',choices=dropdown_list)
     submit = SubmitField("Speichern")
