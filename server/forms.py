@@ -54,7 +54,9 @@ class UntergrundSetting(FlaskForm):
     eingabe = FloatField('Zeitfaktor für den Untergrund',validators=[DataRequired()])
     submit = SubmitField('Speichern')
 
-dropdown_list_2 = [('None','person'),('umbrella','handbag')]#,'bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
+dropdown_list_2 = [('None','None'),('person','person'),('umbrella','umbrella'),('handbag','handbag'),('bottle','bottle'),('wine glass','wine glass'),('cup','cup'), \
+    ('fork','fork'),('knife','knife'), ('spoon','spoon'),('chair','chair'),('mouse','mouse'),('book','book'),('vase','vase'),('laptop','laptop')]
+    
 class d_felder(FlaskForm):
     ein = SelectMultipleField('Titel',choices=dropdown_list_2)
     submit = SubmitField("Speichern")
