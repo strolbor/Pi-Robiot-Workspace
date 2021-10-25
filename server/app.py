@@ -548,7 +548,7 @@ def swipSwap(name):
         array = voreingestellt.split(",")
         choices_array = []
         for entry in array:
-            choices_array.append(entry,entry)
+            choices_array.append([entry,entry])
         form.selected.choices = choices_array
     except FileNotFoundError:
         pass
