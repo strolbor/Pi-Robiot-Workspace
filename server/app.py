@@ -574,11 +574,12 @@ def swip_swap(name):
             flash(c.SUCESS_MSG)
         if form.submit2.data:
             old_choices = form.selected.choices
+            print("Vorher: ",form.selected.choices)
             for entry in form.ein.data:
                 old_choices.append([entry,entry])
                 print("Append:",entry)
             form.selected.choices = old_choices
-            print(form.selected.choices)
+            print("Nachher:",form.selected.choices)
             flash("Submit 2")
         if form.submit3.data:
             flash("Submit 3")
