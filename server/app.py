@@ -578,16 +578,20 @@ def swip_swap(name):
 
         if form.submit2.data:
             # Item soll hinzugefügt werden
+
+            # Choices werden hart kopiert
             old_choices = form.selected.choices.copy()
-            print("Vorher: ",old_choices)
+
+            # Neue ausgewählte Elemente werden kopiert
+            # und hinzugefügt
             for entry in form.ein.data.copy():
                 old_choices.append([entry,entry])
-                print("Append:",entry)
-            print("Nachher:",old_choices)
+            # Neue List wird kopiert in die Liste
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
             flash(c.SUC_ADD)
-            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+            #return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+            return redirect(url_for('swip_swap',name=name))
         if form.submit3.data:
             flash("Submit 3")
         flash("A")
