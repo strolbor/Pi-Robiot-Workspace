@@ -585,7 +585,8 @@ def swip_swap(name):
                 old_choices.append([entry,entry])
                 print("Append:",entry)
             print("Nachher:",old_choices)
-            form.selected.choices = old_choices
+            form.selected.choices = old_choices.copy()
+            choices_array = old_choices.copy()
             flash("A")
             return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
         if form.submit3.data:
