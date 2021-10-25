@@ -36,10 +36,12 @@ def raw_turns( lenkungsfaktor, zeitfaktor: float, scGear, move):
 
 		scGear.moveAngle(2, lenkungsfaktor*30) # Nach vorne links lenken
 		move.move(robot_speed_turn,'forward','no',0.9)
-		time.sleep(untergrundzeitfaktor*zeitfaktor) # Land 2
+		time.sleep(untergrundzeitfaktor*zeitfaktor*0.5) # Land 2
 
 		move.motorStop()
 		scGear.moveAngle(2, 10) # Lenker ausrichten
+	else:
+		raise ValueError("The value must be -1 or 1")
 
 
 def configure_head(scGear):
