@@ -4,7 +4,6 @@
 {% block app_content %}
 
     {% if label %}<h2>{{label}}</h2>{% endif %}
-    {% if preset %}<h3>Jetzige Einstellung: {{preset}}</h3> {% endif %}
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}

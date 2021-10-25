@@ -205,7 +205,7 @@ def change_sc(name):
         
     except FileNotFoundError:
         pass
-    return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
+    return render_template('quick_form.html',form=form,label=title+": Einstellungen")
 
 @app.route('/change/mcp/<name>', methods=['GET','POST'])
 def change_mcp(name):
@@ -327,8 +327,8 @@ def change_mcp(name):
             form.btn13.data = True
         
     except FileNotFoundError:
-        pass
-    return render_template('quick_form.html',form=form,preset=voreingestellt,label=title+": Einstellungen")
+        flash(c.FILE_NOT_FOUND_MSG2.format(filename))
+    return render_template('quick_form.html',form=form,label=title+": Einstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
 
@@ -379,7 +379,7 @@ def yolo_sc():
         form.textarea1.data = voreingestellt
         datei.close()
     except FileNotFoundError:
-        pass
+        flash(c.FILE_NOT_FOUND_MSG2.format(cof.YOLO_CONF))
     return render_template('quick_form.html',form=form,preset=voreingestellt,label="YOLO Modus 1+2: Sucheinstellungen")
     
 
