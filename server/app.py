@@ -559,7 +559,12 @@ def swip_swap(name):
         print("0",form.submit.data)
         print("1",form.submit2.data)
         print("2",form.submit3.data)
-        
+        if form.submit.data:
+            flash("Submit")
+        if form.submit2.data:
+            flash("Submit 2")
+        if form.submit3.data:
+            flash("Submit 3")
         flash("A")
         return redirect(url_for('swip_swap',name=name))
     return render_template("Listenfelder.html",form=form)#,label="label")
