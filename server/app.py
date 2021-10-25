@@ -532,7 +532,7 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
-    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
+    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False and 1 == 0:
         print("Erster Aufruf")
         try:
             datei = open(filename,'r')
@@ -578,8 +578,9 @@ def swip_swap(name):
             for entry in form.ein.data:
                 old_choices.append([entry,entry])
                 print("Append:",entry)
+            print("Nachher:",old_choices)
             form.selected.choices = old_choices
-            print("Nachher:",form.selected.choices)
+            print("nachher2:", form.selected.choices)
             flash("A")
             return redirect(url_for('swip_swap',name=name))
         if form.submit3.data:
