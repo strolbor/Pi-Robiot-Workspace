@@ -327,6 +327,124 @@ def change_mcp(name):
     return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
+@app.route("/api/test/<inter>")
+def test(inter):
+    form = d_felder()
+    title = "Test"
+    zahl = int(inter)
+    if zahl == 0:
+        return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
+    else:
+        return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+
+choices_array = []
+LISTEFELDER= "Listenfelder.html"
+@app.route('/change/swip_swap/<name>',methods=['GET','POST'])
+def change_swip_swap(name):
+    global choices_array
+    form = d_felder()
+
+    # Settings
+    filename = ""
+    title = ""
+    
+    # Modus herausfinden
+    integer = -1
+    try:
+        integer = int(name)
+    except ValueError:
+        flash(c.INPUT_ERROR)
+        return redirect(url_for('dash'))        
+
+    if integer == 0:
+        # Sammel Modus
+        filename = cof.SAMMLER_CONF
+        title = "Sammel Modus"
+    elif integer == 1:
+        # Alarm Modus
+        filename = cof.ALARM_CONF
+        title = "Alarm Modus"
+    else:
+        # Unbekannter Modus
+        flash(c.MODI_NOT_FOUND)
+        return redirect(url_for('dash'))
+
+    # Konfig Datei öffnen im Lese Modus
+    # Zum zeigen, das es gepeichert wurden ist
+    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
+        print("Erster Aufruf")
+        try:
+            choices_array = []
+            datei = open(filename,'r')
+            voreingestellt = datei.readline()
+            datei.close()
+            for entry in voreingestellt.split(","):
+                choices_array.append([entry,entry])
+        except FileNotFoundError:
+            flash(c.FILE_NOT_FOUND_MSG2.format(filename))
+    
+    form.selected.choices = choices_array.copy()
+    if form.validate_on_submit():
+        print("Verfügbar:",form.ein.data)
+        print("Eingestellt:",form.selected.data)
+        if form.submit.data:
+            # Dateien löschen und öffnen
+            delete_file(filename)
+            datei = open(filename,"a")
+
+            #Daten herausfinden
+            save_str = ""
+            for entry in form.selected.choices.copy():
+                save_str = save_str + "," + entry[0]
+            save_str = save_str[1:]
+            print(save_str)
+
+            # Datei schreiben
+            datei.write(save_str)
+            datei.flush()
+            datei.close()
+            
+            # Fertig gesetzt
+            flash(c.SUCESS_MSG)
+            return redirect(url_for('change_swip_swap',name=name))
+
+        elif form.submit2.data:
+            # Item soll hinzugefügt werden
+            # Choices werden hart kopiert
+            old_choices = form.selected.choices.copy()
+
+            # Neue ausgewählte Elemente werden kopiert
+            # und hinzugefügt
+            for entry in form.ein.data.copy():
+                old_choices.append([entry,entry])
+            
+            # Neue List wird kopiert in die Liste
+            form.selected.choices = old_choices.copy()
+            choices_array = old_choices.copy()
+
+            flash(c.SUC_ADD)
+            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+            #return redirect(url_for('change_swip_swap',name=name))
+        
+        elif form.submit3.data and 1 == 0:
+            array = form.selected.choices.copy()
+            to_delete = form.selected.data.copy()
+            for entry in to_delete:
+                array.remove([entry,entry])
+            form.selected.choices = array.copy()
+            choices_array = array.copy()
+
+            flash(c.SUC_DEL)
+            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+        elif form.submit3.data:
+            flash("Button 3")
+            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+        else:
+            flash("A")
+            return redirect(url_for('change_swip_swap',name=name))
+
+    return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")#,label="label")
+    #return render_template(QUICK_FORM,form=form)
 
 
 @app.route('/api/sendinfo/<text>')
@@ -502,114 +620,7 @@ def untergrundsetting():
     return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info=info)
 
 
-choices_array = []
-LISTEFELDER= "Listenfelder.html"
-@app.route('/api/Felder/<name>',methods=['GET','POST'])
-def swip_swap(name):
-    global choices_array
-    form = d_felder()
 
-    # Settings
-    filename = ""
-    title = ""
-    
-    # Modus herausfinden
-    integer = -1
-    try:
-        integer = int(name)
-    except ValueError:
-        flash(c.INPUT_ERROR)
-        return redirect(url_for('dash'))        
-
-    if integer == 0:
-        # Sammel Modus
-        filename = cof.SAMMLER_CONF
-        title = "Sammel Modus"
-    elif integer == 1:
-        # Alarm Modus
-        filename = cof.ALARM_CONF
-        title = "Alarm Modus"
-    else:
-        # Unbekannter Modus
-        flash(c.MODI_NOT_FOUND)
-        return redirect(url_for('dash'))
-
-    # Konfig Datei öffnen im Lese Modus
-    # Zum zeigen, das es gepeichert wurden ist
-    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
-        print("Erster Aufruf")
-        try:
-            choices_array = []
-            datei = open(filename,'r')
-            voreingestellt = datei.readline()
-            datei.close()
-            for entry in voreingestellt.split(","):
-                choices_array.append([entry,entry])
-        except FileNotFoundError:
-            flash(c.FILE_NOT_FOUND_MSG2.format(filename))
-    
-    form.selected.choices = choices_array.copy()
-    if form.validate_on_submit():
-        print("Verfügbar:",form.ein.data)
-        print("Eingestellt:",form.selected.data)
-        if form.submit.data:
-            # Dateien löschen und öffnen
-            delete_file(filename)
-            datei = open(filename,"a")
-
-            #Daten herausfinden
-            save_str = ""
-            for entry in form.selected.choices.copy():
-                save_str = save_str + "," + entry[0]
-            save_str = save_str[1:]
-            print(save_str)
-
-            # Datei schreiben
-            datei.write(save_str)
-            datei.flush()
-            datei.close()
-            
-            # Fertig gesetzt
-            flash(c.SUCESS_MSG)
-            return redirect(url_for('swip_swap',name=name))
-
-        elif form.submit2.data:
-            # Item soll hinzugefügt werden
-            # Choices werden hart kopiert
-            old_choices = form.selected.choices.copy()
-
-            # Neue ausgewählte Elemente werden kopiert
-            # und hinzugefügt
-            for entry in form.ein.data.copy():
-                old_choices.append([entry,entry])
-            
-            # Neue List wird kopiert in die Liste
-            form.selected.choices = old_choices.copy()
-            choices_array = old_choices.copy()
-
-            flash(c.SUC_ADD)
-            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
-            #return redirect(url_for('swip_swap',name=name))
-        
-        elif form.submit3.data and 1 == 0:
-            array = form.selected.choices.copy()
-            to_delete = form.selected.data.copy()
-            for entry in to_delete:
-                array.remove([entry,entry])
-            form.selected.choices = array.copy()
-            choices_array = array.copy()
-
-            flash(c.SUC_DEL)
-            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
-        elif form.submit3.data:
-            flash("Button 3")
-            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
-        else:
-            flash("A")
-            return redirect(url_for('swip_swap',name=name))
-
-    return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")#,label="label")
-    #return render_template(QUICK_FORM,form=form)
 
 class webapp:
     def __init__(self):
