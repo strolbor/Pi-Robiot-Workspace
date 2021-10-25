@@ -4,6 +4,7 @@ import os
 # Flask / Webdienst
 from flask import Flask, render_template, Response, send_from_directory, redirect
 from flask.helpers import url_for, flash
+from flask.wrappers import Request
 from flask_wtf import form
 from numpy import array
 from werkzeug.wrappers import request
@@ -512,7 +513,7 @@ def untergrundsetting():
 @app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
-    if "submit-about-you" in request.form:
+    if "submit-about-you" in Request.form:
         print("A")
     if form.validate_on_submit():
         flash("A")
