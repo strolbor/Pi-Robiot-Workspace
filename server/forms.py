@@ -63,4 +63,6 @@ class d_felder(FlaskForm):
     submit3 = SubmitField("3<--")
     selected = SelectMultipleField('Ausgewählt',choices=[])
     submit = SubmitField("Speichern")
-    
+
+class delete_conf_form(FlaskForm):
+    submit = SubmitField("Alle Konfigs löschen")
