@@ -27,6 +27,7 @@ import urs_config as cof
 import constant as c
 import sendHelper as sdH
 
+QUICK_FORM = 'quick_form.html'
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
 
@@ -202,7 +203,7 @@ def change_sc(name):
         
     except FileNotFoundError:
         pass
-    return render_template('quick_form.html',form=form,label=title+": Einstellungen")
+    return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
 
 @app.route('/change/mcp/<name>', methods=['GET','POST'])
 def change_mcp(name):
@@ -323,12 +324,12 @@ def change_mcp(name):
         
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(filename))
-    return render_template('quick_form.html',form=form,label=title+": Einstellungen")
+    return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
 
 # Mein Abschnitt mit meinen Funktionen
 
 
-@app.route('s<text>')
+@app.route('/api/sendinfo/<text>')
 def send_info(text):
     msg = []
     try:
@@ -369,7 +370,7 @@ def yolo_sc():
         datei.close()
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.YOLO_CONF))
-    return render_template('quick_form.html',form=form,label="YOLO Modus 1+2: Sucheinstellungen")
+    return render_template(QUICK_FORM,form=form,label="YOLO Modus 1+2: Sucheinstellungen")
     
 
 # Alarm Modus 
@@ -451,7 +452,7 @@ def alarm_nach():
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.TELEGRAM_BOT_CONF))
 
-    return render_template('quick_form.html',form=form,label="Alarm Benachrichtungeinstellungen")
+    return render_template(QUICK_FORM,form=form,label="Alarm Benachrichtungeinstellungen")
 
 @app.route('/api/email', methods=['GET','POST'])
 def email_cnf():
@@ -476,7 +477,7 @@ def email_cnf():
         form.password.data = array[3] 
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_conf))
-    return render_template('quick_form.html',form=form,label="E-Mail Konfiguration")
+    return render_template(QUICK_FORM,form=form,label="E-Mail Konfiguration")
 
 @app.route('/api/untergrund',methods=['GET','POST'])
 def untergrundsetting():
@@ -496,7 +497,7 @@ def untergrundsetting():
         datei.close()
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
-    return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="Dies wird verwendet, um die Drehgeschwindigkeit in einer Kurve zu modifizieren." +
+    return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info="Dies wird verwendet, um die Drehgeschwindigkeit in einer Kurve zu modifizieren." +
     "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist.")
 
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
@@ -559,7 +560,7 @@ def swip_swap(name):
         flash("A")
         return redirect(url_for('swip_swap',name=name))
     return render_template("Listenfelder.html",form=form)#,label="label")
-    #return render_template("quick_form.html",form=form)
+    #return render_template(QUICK_FORM,form=form)
 
 class webapp:
     def __init__(self):
