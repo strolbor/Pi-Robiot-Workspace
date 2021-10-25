@@ -542,11 +542,11 @@ def swip_swap(name):
             datei.close()
             for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
-            form.selected.choices = choices_array.copy()
+            
         except FileNotFoundError:
             flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
-    
+    form.selected.choices = choices_array.copy()
     if form.validate_on_submit():
         print("Verfügbar:",form.ein.data)
         print("Eingestellt:",form.selected.data)
