@@ -544,7 +544,6 @@ def swip_swap(name):
             datei.close()
             for entry in voreingestellt.split(","):
                 choices_array.append([entry,entry])
-            
         except FileNotFoundError:
             flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
@@ -552,9 +551,6 @@ def swip_swap(name):
     if form.validate_on_submit():
         print("Verfügbar:",form.ein.data)
         print("Eingestellt:",form.selected.data)
-        print("0",form.submit.data) # Speichern
-        print("1",form.submit2.data) # Hinzufügen
-        print("2",form.submit3.data) # Entfernen
         if form.submit.data:
             # Dateien löschen und öffnen
             delete_file(filename)
@@ -578,7 +574,6 @@ def swip_swap(name):
 
         if form.submit2.data:
             # Item soll hinzugefügt werden
-
             # Choices werden hart kopiert
             old_choices = form.selected.choices.copy()
 
@@ -586,14 +581,23 @@ def swip_swap(name):
             # und hinzugefügt
             for entry in form.ein.data.copy():
                 old_choices.append([entry,entry])
+            
             # Neue List wird kopiert in die Liste
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
             flash(c.SUC_ADD)
             return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
             #return redirect(url_for('swip_swap',name=name))
+        
         if form.submit3.data:
+            array = form.selected.choices.copy()
+            to_delete = form.selected.data.copy()
+            for entry in to_delete:
+                array.remove([entry,entry])
+
             flash("Submit 3")
+            return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
+
         flash("A")
         return redirect(url_for('swip_swap',name=name))
 
