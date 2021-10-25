@@ -11,6 +11,8 @@ INPUT_ERROR = 'Error: Eingabe nicht erkannt'
 
 SUC_ADD= "Erfolgreich hinzugefügt!"
 
+SUC_DEL = "Erfolgreich gelöscht!"
+
 
 def sucess_msg(text):
     return 'Erfolgreich auf: ' + text + " gesetzt."

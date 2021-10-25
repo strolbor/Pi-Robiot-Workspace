@@ -585,6 +585,7 @@ def swip_swap(name):
             # Neue List wird kopiert in die Liste
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
+
             flash(c.SUC_ADD)
             return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
             #return redirect(url_for('swip_swap',name=name))
@@ -594,8 +595,10 @@ def swip_swap(name):
             to_delete = form.selected.data.copy()
             for entry in to_delete:
                 array.remove([entry,entry])
+            form.selected.choices = array.copy()
+            choices_array = array.copy()
 
-            flash("Submit 3")
+            flash(c.SUC_DEL)
             return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
 
         flash("A")
