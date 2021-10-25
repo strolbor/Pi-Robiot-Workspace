@@ -560,8 +560,8 @@ def swip_swap(name):
             flash("Submit 3")
         flash("A")
         return redirect(url_for('swip_swap',name=name))
-    #return render_template("Listenfelder.html",form=form)#,label="label")
-    return render_template(QUICK_FORM,form=form)
+    return render_template("Listenfelder.html",form=form)#,label="label")
+    #return render_template(QUICK_FORM,form=form)
 
 class webapp:
     def __init__(self):
