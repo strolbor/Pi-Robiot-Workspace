@@ -619,8 +619,25 @@ def untergrundsetting():
     "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist."
     return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info=info)
 
-
-
+@app.route("/api/delete_config")
+def dele_conf():
+    """ Funktion um alle Einstellungen zu löschen"""
+    form = delete_conf_form()
+    if form.validate_on_submit():
+        delete_file(cof.LIST_GEGEN)
+        delete_file(cof.SAMMLER_CONF)
+        delete_file(cof.ALARM_CONF)
+        delete_file(cof.ALARM_MSG_CONF)
+        delete_file(cof.MAIL_EMP_CONF)
+        delete_file(cof.TELEGRAM_BOT_CONF)
+        delete_file(cof.TELEGRAM_EMP_CONF)
+        delete_file(cof.YOLO_CONF)
+        delete_file(cof.MAIL_conf)
+        delete_file(cof.ZEITFAKTOR)
+        flash("Alles gelöscht!")
+        return redirect(url_for('dele_conf'))
+    return render_template(QUICK_FORM,form=form)
+       
 
 class webapp:
     def __init__(self):
