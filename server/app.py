@@ -512,7 +512,7 @@ def untergrundsetting():
 @app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
-    print(Request.form.get('submit'))
+
     if form.validate_on_submit():
         flash("A")
         return redirect(url_for('swipSwap'))
