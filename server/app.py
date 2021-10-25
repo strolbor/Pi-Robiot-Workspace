@@ -501,6 +501,8 @@ def untergrundsetting():
     "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist."
     return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info=info)
 
+
+choices_array = []
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
 def swip_swap(name):
     form = d_felder()
@@ -535,7 +537,6 @@ def swip_swap(name):
     if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
         print("Erster Aufruf")
         try:
-            choices_array = []
             datei = open(filename,'r')
             voreingestellt = datei.readline()
             datei.close()
