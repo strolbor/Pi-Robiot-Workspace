@@ -505,6 +505,7 @@ def untergrundsetting():
 choices_array = []
 @app.route('/api/Felder/<name>',methods=['GET','POST'])
 def swip_swap(name):
+    global choices_array
     form = d_felder()
 
     # Settings
@@ -534,9 +535,10 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
-    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False and len(choices_array) == 0:
+    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
         print("Erster Aufruf")
         try:
+            choices_array = []
             datei = open(filename,'r')
             voreingestellt = datei.readline()
             datei.close()
