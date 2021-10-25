@@ -532,18 +532,18 @@ def swip_swap(name):
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
-    voreingestellt = ""
-    try:
-        datei = open(filename,'r')
-        voreingestellt = datei.readline()
-        datei.close()
-        array = voreingestellt.split(",")
-        choices_array = []
-        for entry in array:
-            choices_array.append([entry,entry])
-        form.selected.choices = choices_array
-    except FileNotFoundError:
-        flash(c.FILE_NOT_FOUND_MSG2.format(filename))
+    if form.submit.data == False and form.submit2.data == False and form.submit3.data == False:
+        try:
+            datei = open(filename,'r')
+            voreingestellt = datei.readline()
+            datei.close()
+            array = voreingestellt.split(",")
+            choices_array = []
+            for entry in array:
+                choices_array.append([entry,entry])
+            form.selected.choices = choices_array
+        except FileNotFoundError:
+            flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     
     
     if form.validate_on_submit():
