@@ -509,13 +509,13 @@ def untergrundsetting():
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
     return render_template("quick_form.html",form=form,label="Zeitfaktor modifizieren",info="1= Teppichboden")
 
-@app.route('/api/2Felder',methods=['GET','POST'])
+@app.route('/api/Felder',methods=['GET','POST'])
 def swipSwap():
     form = d_felder()
     if form.validate_on_submit():
         flash("A")
         return redirect(url_for('swipSwap'))
-    return render_template("quick_form.html",form=form)
+    return render_template("quick_form.html",form=form,label="label")
 
 
 class webapp:
