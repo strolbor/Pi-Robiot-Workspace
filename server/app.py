@@ -466,16 +466,16 @@ def change_swip_swap(name):
                 flash(c.SUC_DEL)
             form.ein.data = []
             form.selected.data = []
-            return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
+            return render_template(LISTENFELDER,form=form,label=title)
         elif form.submit4.data:
             form.ein.data = []
             form.selected.data = []
-            return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
+            return render_template(LISTENFELDER,form=form,label=title)
         else:
             flash("Don't hack this!")
             return redirect(url_for('change_swip_swap',name=name))
 
-    return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")#,label="label")
+    return render_template(LISTENFELDER,form=form,label=title)
 
 
 @app.route('/api/sendinfo/<text>')
