@@ -347,7 +347,7 @@ def test(inter):
         return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
 
 choices_array = []
-LISTEFELDER= "Listenfelder.html"
+
 @app.route('/change/swip_swap/<name>',methods=['GET','POST'])
 def change_swip_swap(name):
     """ Gegenstands auswahl wie aus den 1980ziger Jahre"""
@@ -420,7 +420,7 @@ def change_swip_swap(name):
 
         elif form.submit2.data:
             # Item soll hinzugefügt werden
-            
+
             # Choices werden hart kopiert
             old_choices = form.selected.choices.copy()
 
@@ -435,7 +435,7 @@ def change_swip_swap(name):
 
             flash(c.SUC_ADD)
             # neues Template an Client senden
-            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+            return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
         
         elif form.submit3.data:
             # Item soll aus choices entfernt werden
@@ -450,13 +450,12 @@ def change_swip_swap(name):
             choices_array = array.copy()
 
             flash(c.SUC_DEL)
-            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
+            return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
         else:
             flash("A")
             return redirect(url_for('change_swip_swap',name=name))
 
-    return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")#,label="label")
-    #return render_template(QUICK_FORM,form=form)
+    return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")#,label="label")
 
 
 @app.route('/api/sendinfo/<text>')
