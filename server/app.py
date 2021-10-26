@@ -42,7 +42,7 @@ try:
     app.config['MAIL_SERVER']= array[0] #'smtp.1blu.de'
     app.config['MAIL_PORT'] = array[1] #587
     app.config['MAIL_USERNAME'] = array[2] #'b242501_0-marsrover'
-    app.config['MAIL_PASSWORD'] = array[3] #'tlMKzcehnrV)7Ed'
+    app.config['MAIL_PASSWORD'] = array[3] #'KLTn%8DNxY&21@!'
     app.config['MAIL_USE_TLS'] = bool(array[4]) # True
     app.config['MAIL_USE_SSL'] = bool(array[5]) # False
 except FileNotFoundError:
@@ -584,7 +584,7 @@ def email_cnf():
     if form.validate_on_submit():
         delete_file(cof.MAIL_conf)
         datei = open(cof.MAIL_conf,"a")
-        datei.write(form.server.data + "," + form.port.data + "," + form.username.data + "," + form.password.data + "," + form.mail_tls.data + "," + form.mail_ssl.data + ",")
+        datei.write(form.server.data + "," + form.port.data + "," + form.username.data + "," + form.password.data + "," + str(form.mail_tls.data) + "," + str(form.mail_ssl.data) + ",")
         datei.flush()
         datei.close()
         flash(c.SUCESS_MSG)
