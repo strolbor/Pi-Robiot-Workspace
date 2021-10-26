@@ -19,6 +19,9 @@
     .save {
         margin-left: 10px;
     }
+    .right {
+        text-align: right;
+    }
 </style>
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
@@ -41,7 +44,7 @@
                 <tr>
                     <td class="save">{{ form.submit(class="btn btn-info") }}</td>
                     <td></td>
-                    <td>{{ form.submit4(class="btn btn-info") }}</td>
+                    <td class="right">{{ form.submit4(class="btn btn-info") }}</td>
                 </tr>
             </tbody>
         </table>
