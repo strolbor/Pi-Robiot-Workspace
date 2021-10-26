@@ -4,7 +4,7 @@
 {% block app_content %}
 <style>
 	.table th.middle {
-		width: 80px;
+		width: 100px;
 	}
 	.table input {
 		margin: 5px 10px;
@@ -35,7 +35,7 @@
             <tbody>
                 <tr>
                   <td class="eingabe">{{ form.ein(size=15, class='form-control',  multiple="multiple") }}</td>
-                  <td>{{ form.submit3() }} {{ form.submit2(class="btn btn-success") }}</td>
+                  <td>{{ form.submit3(class="btn btn-danger") }} {{ form.submit2(class="btn btn-success") }}</td>
                   <td class="eingabe">{{ form.selected(size=15, class='form-control',  multiple="multiple") }}</td>
                 </tr>
             </tbody>
