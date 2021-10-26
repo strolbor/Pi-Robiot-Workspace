@@ -2,7 +2,15 @@
 
 
 {% block app_content %}
-
+<style>
+	.table th.middle {
+		width: 150px;
+	}
+	.table input {
+		margin: 5px 10px;
+		
+	}
+</style>
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
         {{form.hidden_tag()}}
