@@ -7,7 +7,8 @@ MODI_NOT_FOUND = 'Error: Modus nicht bekannt'
 
 SUCESS_MSG = "Erfolgreich gespeichert!"
 
-INPUT_ERROR = 'Error: Eingabe nicht erkannt'
+INPUT_ERROR = 'Eingabe nicht erkannt'
+
 
 SUC_ADD= "Erfolgreich hinzugefügt!"
 
