@@ -66,10 +66,10 @@ Ist der Eingabe modus mit der freisten Auswahlmöglichkeit.
 
 ## Modi Erläuterungen
 
-### YOLO 1
+### YOLO Einfach
 Der zu suchende Gegenstand muss vor der Kamera stehen, damit der Roboter hinfährt
 
-### YOLO 2
+### YOLO Move
 Der zu suchende Gegenstand muss im Raum stehen, damit der Roboter hinfährt
 
 ### Raum Scanner
@@ -78,6 +78,7 @@ Dabei macht er nach dem ersten Intervall eine 180° Drehung
 
 ### Fahrender Raum Scanner
 Der Roboter fährt und scannt im 180° Winkel alle ihm bekannte Objekte.
+
 #### Logik
 Ist ein meter vor dir frei? -> fahre grade aus.
 Aonst fahre nach rechts bzw. links.
@@ -87,4 +88,4 @@ Wenn der Roboter den trigger hat, wird dem Besitzer eine Nachricht per (E-Mail) 
 
 ### Sammeln
 Fahre zum Objekt hin, bewege dich zurück und fahre zum nächsten Objekt hin.
-*Voraussetzung*: YOLO 2
+*Voraussetzung*: YOLO Move

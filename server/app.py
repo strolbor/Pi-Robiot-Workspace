@@ -43,8 +43,14 @@ try:
     app.config['MAIL_PORT'] = array[1] #587
     app.config['MAIL_USERNAME'] = array[2] #'b242501_0-marsrover'
     app.config['MAIL_PASSWORD'] = array[3] #'KLTn%8DNxY&21@!'
-    app.config['MAIL_USE_TLS'] = bool(array[4]) # True
-    app.config['MAIL_USE_SSL'] = bool(array[5]) # False
+    a4 = False
+    a5 = False
+    if array[4] == "True":
+        a4 = True
+    if array[5] == "True":
+        a5 = True
+    app.config['MAIL_USE_TLS'] = a4 # True
+    app.config['MAIL_USE_SSL'] = a5 # False
 except FileNotFoundError:
     pass
 except IndexError:
@@ -331,6 +337,7 @@ def change_mcp(name):
 # Mein Abschnitt mit meinen Funktionen
 @app.route("/api/test/<inter>")
 def test(inter):
+    """ Design Test"""
     form = d_felder()
     title = "Test"
     zahl = int(inter)
@@ -343,6 +350,7 @@ choices_array = []
 LISTEFELDER= "Listenfelder.html"
 @app.route('/change/swip_swap/<name>',methods=['GET','POST'])
 def change_swip_swap(name):
+    """ Gegenstands auswahl wie aus den 1980ziger Jahre"""
     global choices_array
     form = d_felder()
 
