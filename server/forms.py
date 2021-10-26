@@ -48,6 +48,8 @@ class EmailChange(FlaskForm):
     port = TextField('Port',validators=[DataRequired()])
     username = TextField('Username',validators=[DataRequired()])
     password = TextField('Passwort',validators=[DataRequired()])
+    mail_tls = BooleanField('MAIL_USE_TLS')
+    mail_ssl = BooleanField('MAIL_USE_SSL')
     submit = SubmitField('Speichern')
 
 class UntergrundSetting(FlaskForm):
