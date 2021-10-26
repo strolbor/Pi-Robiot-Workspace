@@ -10,6 +10,9 @@
 		margin: 5px 10px;
 		
 	}
+    .table td.eingabe {
+        width: 300px;
+    }
 </style>
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
@@ -25,9 +28,9 @@
             </thead>
             <tbody>
                 <tr>
-                  <td>{{ form.ein(size=15, class='form-control',  multiple="multiple") }}</td>
+                  <td class="eingabe">{{ form.ein(size=15, class='form-control',  multiple="multiple") }}</td>
                   <td>{{ form.submit3() }} {{ form.submit2() }}</td>
-                  <td>{{ form.selected(size=15, class='form-control',  multiple="multiple") }}</td>
+                  <td class="eingabe">{{ form.selected(size=15, class='form-control',  multiple="multiple") }}</td>
                 </tr>
             </tbody>
         </table>

@@ -159,6 +159,8 @@ def change_sc(name):
         flash(c.MODI_NOT_FOUND)
         return redirect(url_for('dash'))
     
+    title = title +": Einstellungen"
+    
     #Formular erstellen
     form = ChangeSammlerForm()
     
@@ -179,9 +181,7 @@ def change_sc(name):
             zu_setzen = zu_setzen + form.textarea4.data + ","   
         
         # Letztes Komma abtrennen
-        print("Original: "+zu_setzen)
         zu_setzen = zu_setzen[:-1]
-        print("Cutted: "+ zu_setzen)
 
         # Einstellungsdatei schreiben
         datei.write(zu_setzen)
@@ -211,7 +211,7 @@ def change_sc(name):
         
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(filename))
-    return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
+    return render_template(QUICK_FORM,form=form,label=title)
 
 @app.route('/change/mcp/<name>', methods=['GET','POST'])
 def change_mcp(name):
@@ -241,6 +241,8 @@ def change_mcp(name):
         # Unbekannter Modus
         flash(c.MODI_NOT_FOUND)
         return redirect(url_for('dash'))
+
+    title = title +": Einstellungen"
     form = ChangeSammlerMCP()
 
     #Zum speichern der Daten
@@ -332,7 +334,7 @@ def change_mcp(name):
         
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(filename))
-    return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
+    return render_template(QUICK_FORM,form=form,label=title)
 
 # Mein Abschnitt mit meinen Funktionen
 @app.route("/api/test/<inter>")
@@ -347,7 +349,7 @@ def test(inter):
         return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
 
 choices_array = []
-
+LISTENFELDER = "Listenfelder.html"
 @app.route('/change/swip_swap/<name>',methods=['GET','POST'])
 def change_swip_swap(name):
     """ Gegenstands auswahl wie aus den 1980ziger Jahre"""
@@ -378,6 +380,7 @@ def change_swip_swap(name):
         # Unbekannter Modus
         flash(c.MODI_NOT_FOUND)
         return redirect(url_for('dash'))
+    title = title +": Einstellungen"
 
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
@@ -435,7 +438,7 @@ def change_swip_swap(name):
 
             flash(c.SUC_ADD)
             # neues Template an Client senden
-            return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
+            return render_template(LISTENFELDER,form=form,label=title)
         
         elif form.submit3.data:
             # Item soll aus choices entfernt werden
@@ -450,12 +453,12 @@ def change_swip_swap(name):
             choices_array = array.copy()
 
             flash(c.SUC_DEL)
-            return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
+            return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
         else:
             flash("Don't hack this!")
             return redirect(url_for('change_swip_swap',name=name))
 
-    return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")#,label="label")
+    return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")#,label="label")
 
 
 @app.route('/api/sendinfo/<text>')
