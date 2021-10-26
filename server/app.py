@@ -47,6 +47,8 @@ try:
     app.config['MAIL_USE_SSL'] = bool(array[5]) # False
 except FileNotFoundError:
     pass
+except IndexError:
+    pass
 
 mail = Mail(app)
 bootstrap = Bootstrap(app)
