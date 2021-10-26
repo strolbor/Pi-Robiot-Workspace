@@ -597,10 +597,16 @@ def email_cnf():
         form.port.data = array[1]
         form.username.data = array[2]
         form.password.data = array[3] 
+        a4 = False
+        a5 = False
+        if array[4] == "True":
+            a4 = True
+        if array[5] == "True":
+            a5 = True
         print(array[4],array[5])
         print(bool(array[4]),bool(array[5]))
-        form.mail_tls.data = bool(array[4])
-        form.mail_ssl.data = bool(array[5])
+        form.mail_tls.data = a4
+        form.mail_ssl.data = a5
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_conf))
     except IndexError:
