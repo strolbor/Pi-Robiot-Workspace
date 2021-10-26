@@ -439,7 +439,7 @@ def change_swip_swap(name):
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
 
-            if len(eing) == 0:
+            if len(ver) == 0:
                 flash(c.INPUT_ERROR)
             else:
                 flash(c.SUC_ADD)
