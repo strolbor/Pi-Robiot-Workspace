@@ -571,10 +571,13 @@ class Functions(threading.Thread):
 	def fahr_gradeaus(self):
 		"""Grade aus fahren"""
 		print("[API] ==")
-		print("Gloable Koordienaten", kordinate)	
+		print("Gloable Koordienaten", kordinate)
 		scGear.moveAngle(2, 10)
 		move.move(cof.ROBOT_SPEED,'forward','no',0.1)	
-		time.sleep(1)	
+		if kordinate[2]	< 75:
+			time.sleep(2)
+		else:
+			time.sleep(1)	
 		move.motorStop()
 
 	def drive_scan(self):
