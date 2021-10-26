@@ -15,10 +15,6 @@ for zeile in datei:
     DARKNET_1.append(zeile)
     DARKNET_2.append([zeile,zeile])
 
-print("1:",DARKNET_1)
-print("2:",DARKNET_2)
-
-
 class ChangeSammlerForm(FlaskForm):
     textarea1= SelectField('Gegenstand 1', choices=DARKNET_1, default=1)
     textarea2= SelectField('Gegenstand 2', choices=DARKNET_1, default=1)
@@ -73,10 +69,10 @@ dropdown_list_2 = [('person','person'),('umbrella','umbrella'),('handbag','handb
 
 class d_felder(FlaskForm):
     ein = SelectMultipleField('Zur Verfügung stehende Objekte',choices=DARKNET_2)
-    submit2 = SubmitField("Hinzufügen")
+    submit2 = SubmitField("-->")        # Hinzufügen
     selected = SelectMultipleField('Ausgewählte Objekte',choices=[])
-    submit3 = SubmitField("Entfernen")
-    submit = SubmitField("Speichern")
+    submit3 = SubmitField("<--")        #Entfernen
+    submit = SubmitField("Speichern")   #Speichern
 
 class delete_conf_form(FlaskForm):
     submit = SubmitField("Alle Konfigs löschen")

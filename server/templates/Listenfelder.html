@@ -13,6 +13,12 @@
     .table td.eingabe {
         width: 300px;
     }
+    .table td.submit {
+        padding: 5px;
+    }
+    .p save {
+        margin-left: 30px;
+    }
 </style>
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
@@ -34,6 +40,6 @@
                 </tr>
             </tbody>
         </table>
-    <p>{{ form.submit() }} </p>
+    <p class="save">{{ form.submit() }} </p>
 </form>
 {% endblock %}
