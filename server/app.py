@@ -601,6 +601,8 @@ def email_cnf():
         form.mail_ssl.data = bool(array[5])
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_conf))
+    except IndexError:
+        pass
     return render_template(QUICK_FORM,form=form,label="E-Mail Konfiguration")
 
 @app.route('/api/untergrund',methods=['GET','POST'])
