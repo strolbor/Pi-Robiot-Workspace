@@ -384,13 +384,13 @@ class Functions(threading.Thread):
 	def konst_fahrmodus2_processing(self):
 		""" Konstant fahren nach Hinten (Logik)"""
 		scGear.moveAngle(1, 10)
-		move.move(cof.robot_speed,'backward','no',0.3)
+		move.move(cof.ROBOT_SPEED,'backward','no',0.3)
 		time.sleep(0.3)
 
 	def kreis_fahrmodus_processing(self):
 		""" Kreis fahren (Logik)"""
 		scGear.moveAngle(2, -30)
-		move.move(cof.robot_speed,'forward','no',0.6)
+		move.move(cof.ROBOT_SPEED,'forward','no',0.6)
 		time.sleep(0.3)
 
 	def yolo_einfach(self):
@@ -482,7 +482,7 @@ class Functions(threading.Thread):
 		sammler_gefunden = sammler_gefunden +1
 		# Zählvariable der Fehlversuche
 		sammler_counter = 0
-		move.move(cof.robot_speed, 'backward','no',0)
+		move.move(cof.ROBOT_SPEED, 'backward','no',0)
 		time.sleep(3)
 		move.motorStop()
 		if sammler_gefunden >= len(sammler_target):
@@ -556,7 +556,7 @@ class Functions(threading.Thread):
 		"""Rechts Fahren"""
 		print("[API] >> rechts")
 		scGear.moveAngle(2, -30)
-		move.move(cof.robot_speed,'forward','no',0.1)
+		move.move(cof.ROBOT_SPEED,'forward','no',0.1)
 		time.sleep(0.8)
 		move.motorStop()
 		
@@ -564,7 +564,7 @@ class Functions(threading.Thread):
 		"""Links fahren"""
 		print("[API] << links")
 		scGear.moveAngle(2, 30)
-		move.move(cof.robot_speed,'forward','no',0.1)
+		move.move(cof.ROBOT_SPEED,'forward','no',0.1)
 		time.sleep(0.8)
 		move.motorStop()
 
@@ -573,7 +573,7 @@ class Functions(threading.Thread):
 		print("[API] ==")
 		print("Gloable Koordienaten", kordinate)	
 		scGear.moveAngle(2, 10)
-		move.move(cof.robot_speed,'forward','no',0.1)	
+		move.move(cof.ROBOT_SPEED,'forward','no',0.1)	
 		time.sleep(1)	
 		move.motorStop()
 
