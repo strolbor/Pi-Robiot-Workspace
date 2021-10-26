@@ -80,6 +80,7 @@ class d_felder(FlaskForm):
     selected = SelectMultipleField('Ausgewählte Objekte',choices=[])
     submit3 = SubmitField("<--")        #Entfernen
     submit = SubmitField("Speichern")   #Speichern
+    submit4 = SubmitField("Auswahl lösen")
 
 class delete_conf_form(FlaskForm):
     submit = SubmitField("Alle Konfigs löschen")

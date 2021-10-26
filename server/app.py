@@ -467,6 +467,10 @@ def change_swip_swap(name):
             form.ein.data = []
             form.selected.data = []
             return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
+        elif form.submit4.data:
+            form.ein.data = []
+            form.selected.data = []
+            return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
         else:
             flash("Don't hack this!")
             return redirect(url_for('change_swip_swap',name=name))
