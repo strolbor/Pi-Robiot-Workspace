@@ -5,7 +5,7 @@ from wtforms.fields.core import BooleanField, FloatField, SelectMultipleField
 from wtforms.fields.simple import TextField
 from wtforms.validators import DataRequired
 
-dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
+# Alle verfügbaren Objekte aus der Darknet Coco.names herauslesen
 DARKNET = "/root/urs_robot/detect/data/coco.names"
 DARKNET_1 = ['None']
 DARKNET_2 = []
@@ -14,8 +14,11 @@ for zeile in datei:
     zeile = zeile.replace("\n","")
     DARKNET_1.append(zeile)
     DARKNET_2.append([zeile,zeile])
+datei.close()
+
 
 class ChangeSammlerForm(FlaskForm):
+    """ Singel Choice Formular"""
     textarea1= SelectField('Gegenstand 1', choices=DARKNET_1, default=1)
     textarea2= SelectField('Gegenstand 2', choices=DARKNET_1, default=1)
     textarea3= SelectField('Gegenstand 3', choices=DARKNET_1, default=1)
@@ -23,6 +26,7 @@ class ChangeSammlerForm(FlaskForm):
     submit = SubmitField('Speichern')
 
 class ChangeSammlerMCP(FlaskForm):
+    """ Multiple Choice Formular """
     btn1 = BooleanField('person')
     btn2 = BooleanField('umbrella')
     btn3 = BooleanField('handbag')
@@ -40,10 +44,13 @@ class ChangeSammlerMCP(FlaskForm):
     submit = SubmitField('Speichern')
 
 class YoloChangeSC(FlaskForm):
+    """ Singel Singel Choice Formular für den Suchmodus (YOLO)"""
+    dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
     textarea1 = SelectField('Gegenstand 1',choices=dropdown_list, default=1)
     submit = SubmitField('Speichern')
 
 class AlarmBenachrichtung(FlaskForm):
+    """ Formular um die Kontaktdaten für den Alarm Modus"""
     mail_btn = BooleanField('E-Mail Benachrichtung')
     tg_btn = BooleanField('Telegram Benachrichtung')
     mail_empfanger = TextField('E-Mail Empfänger (getrennt mit ,)')
@@ -52,6 +59,7 @@ class AlarmBenachrichtung(FlaskForm):
     submit = SubmitField('Speichern')
 
 class EmailChange(FlaskForm):
+    """ Formular um den E-Mail Server zu konfigurieren """
     server = TextField('E-Mail Server',validators=[DataRequired()])
     port = TextField('Port',validators=[DataRequired()])
     username = TextField('Username',validators=[DataRequired()])
@@ -61,13 +69,12 @@ class EmailChange(FlaskForm):
     submit = SubmitField('Speichern')
 
 class UntergrundSetting(FlaskForm):
+    """ Den Zeitfaktor zum lenken einstellen"""
     eingabe = FloatField('Zeitfaktor für den Untergrund',validators=[DataRequired()])
     submit = SubmitField('Speichern')
 
-dropdown_list_2 = [('person','person'),('umbrella','umbrella'),('handbag','handbag'),('bottle','bottle'),('wine glass','wine glass'),('cup','cup'), \
-    ('fork','fork'),('knife','knife'), ('spoon','spoon'),('chair','chair'),('mouse','mouse'),('book','book'),('vase','vase'),('laptop','laptop')]
-
 class d_felder(FlaskForm):
+    """ Swip Swap Formular"""
     ein = SelectMultipleField('Zur Verfügung stehende Objekte',choices=DARKNET_2)
     submit2 = SubmitField("-->")        # Hinzufügen
     selected = SelectMultipleField('Ausgewählte Objekte',choices=[])
