@@ -444,6 +444,8 @@ def change_swip_swap(name):
             else:
                 flash(c.SUC_ADD)
             # neues Template an Client senden
+            form.ein.data = []
+            form.selected.data = []
             return render_template(LISTENFELDER,form=form,label=title)
         
         elif form.submit3.data:
