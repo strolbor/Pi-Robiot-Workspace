@@ -4,7 +4,7 @@
 {% block app_content %}
 <style>
 	.table th.middle {
-		width: 100px;
+		width: 90px;
 	}
 	.table input {
 		margin: 5px 10px;
@@ -22,6 +22,10 @@
     .right {
         text-align: right;
     }
+    .table td.buttons {
+        align-content: center;
+        vertical-align: middle;
+    }
 </style>
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
@@ -38,13 +42,13 @@
             <tbody>
                 <tr>
                   <td class="eingabe">{{ form.ein(size=15, class='form-control',  multiple="multiple") }}</td>
-                  <td>{{ form.submit3(class="btn btn-danger") }} {{ form.submit2(class="btn btn-success") }}</td>
+                  <td class="buttons">{{ form.submit3(class="btn btn-danger") }} {{ form.submit2(class="btn btn-success") }}</td>
                   <td class="eingabe">{{ form.selected(size=15, class='form-control',  multiple="multiple") }}</td>
                 </tr>
                 <tr>
-                    <td class="save">{{ form.submit(class="btn btn-info") }}</td>
+                    <td class="save">{{ form.submit(class="btn btn-default") }}</td>
                     <td></td>
-                    <td class="right">{{ form.submit4(class="btn btn-info") }}</td>
+                    <td class="right">{{ form.submit4(class="btn btn-default") }}</td>
                 </tr>
             </tbody>
         </table>

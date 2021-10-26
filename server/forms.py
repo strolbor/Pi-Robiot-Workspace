@@ -16,7 +16,6 @@ for zeile in datei:
     DARKNET_2.append([zeile,zeile])
 datei.close()
 
-
 class ChangeSammlerForm(FlaskForm):
     """ Singel Choice Formular"""
     textarea1= SelectField('Gegenstand 1', choices=DARKNET_1, default=1)
@@ -45,8 +44,7 @@ class ChangeSammlerMCP(FlaskForm):
 
 class YoloChangeSC(FlaskForm):
     """ Singel Singel Choice Formular für den Suchmodus (YOLO)"""
-    dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
-    textarea1 = SelectField('Gegenstand 1',choices=dropdown_list, default=1)
+    textarea1 = SelectField('Gegenstand 1',choices=DARKNET_1, default=1)
     submit = SubmitField('Speichern')
 
 class AlarmBenachrichtung(FlaskForm):
@@ -84,3 +82,5 @@ class d_felder(FlaskForm):
 
 class delete_conf_form(FlaskForm):
     submit = SubmitField("Alle Konfigs löschen")
+
+print("[API] Forms created")

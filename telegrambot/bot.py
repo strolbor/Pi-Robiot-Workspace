@@ -66,20 +66,18 @@ def unregister(update: Update, context: CallbackContext) -> None:
         line = line.replace("\n","")
         line = line.replace("\r","")
         datei.close()
-        print(line)
         # ID des Telegram Nutzer herausfinden
     except FileNotFoundError:
         pass
 
-    id = str(update.effective_user.id)
+    id_user = str(update.effective_user.id)
     array = line.split(",")
-    print("Unregisterung von:",id,"...")
-    print(array)
-    if id in array:
+    print("Unregisterung von:",id_user,"...")
+    if id_user in array:
         new_line = ""
+        array.remove(id_user)
         for entry in array:
-            if entry != id:
-                new_line = new_line + entry + "," 
+            new_line = new_line + entry + "," 
         delete_file(TELEGRAM_EMP_CONF)
         datei = open(TELEGRAM_EMP_CONF,"a")
         new_line = new_line[:-1] # letztes Komma entfernen
