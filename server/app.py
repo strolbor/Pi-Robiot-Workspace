@@ -464,6 +464,8 @@ def change_swip_swap(name):
                 flash(c.INPUT_ERROR)
             else:
                 flash(c.SUC_DEL)
+            form.ein.data = []
+            form.selected.data = []
             return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
         else:
             flash("Don't hack this!")
