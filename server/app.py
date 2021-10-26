@@ -43,8 +43,8 @@ try:
     app.config['MAIL_PORT'] = array[1] #587
     app.config['MAIL_USERNAME'] = array[2] #'b242501_0-marsrover'
     app.config['MAIL_PASSWORD'] = array[3] #'tlMKzcehnrV)7Ed'
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USE_SSL'] = False
+    app.config['MAIL_USE_TLS'] = bool(array[4]) # True
+    app.config['MAIL_USE_SSL'] = bool(array[5]) # False
 except FileNotFoundError:
     pass
 
@@ -392,7 +392,7 @@ def change_swip_swap(name):
             delete_file(filename)
             datei = open(filename,"a")
 
-            #Daten herausfinden
+            # Daten herausfinden
             save_str = ""
             for entry in form.selected.choices.copy():
                 save_str = save_str + "," + entry[0]
@@ -423,11 +423,13 @@ def change_swip_swap(name):
             choices_array = old_choices.copy()
 
             flash(c.SUC_ADD)
+            # neues Template an Client senden
             return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
-            #return redirect(url_for('change_swip_swap',name=name))
         
         elif form.submit3.data and 1 == 0:
+            # Aktuelle Auswahl kopieren
             array = form.selected.choices.copy()
+            # Was wir entfernen wollen, kopieren
             to_delete = form.selected.data.copy()
             for entry in to_delete:
                 array.remove([entry,entry])
@@ -580,7 +582,7 @@ def email_cnf():
     if form.validate_on_submit():
         delete_file(cof.MAIL_conf)
         datei = open(cof.MAIL_conf,"a")
-        datei.write(form.server.data + "," + form.port.data + "," + form.username.data + "," + form.password.data + ",")
+        datei.write(form.server.data + "," + form.port.data + "," + form.username.data + "," + form.password.data + "," + form.mail_tls.data + "," + form.mail_ssl.data + ",")
         datei.flush()
         datei.close()
         flash(c.SUCESS_MSG)
@@ -593,6 +595,8 @@ def email_cnf():
         form.port.data = array[1]
         form.username.data = array[2]
         form.password.data = array[3] 
+        form.mail_tls.data = bool(array[4])
+        form.mail_ssl.data = bool(array[5])
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.MAIL_conf))
     return render_template(QUICK_FORM,form=form,label="E-Mail Konfiguration")
@@ -616,7 +620,8 @@ def untergrundsetting():
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(cof.ZEITFAKTOR))
     info ="Dies wird verwendet, um die Drehgeschwindigkeit in einer Kurve zu modifizieren.\r\n" + \
-    "Der Faktor 2 ist gleich zusetzen, wenn der Untergrund ein Teppich ist."
+    "Der Faktor 1.5 ist gleich zusetzen, wenn der Untergrund ein Teppich ist.\r\n" + \
+        "Der Faktor 1.3 ist für Parkettböden ausreichend.\r\n Man muss es manuell ausprobieren."
     return render_template(QUICK_FORM,form=form,label="Zeitfaktor modifizieren",info=info)
 
 @app.route("/api/delete_config",methods=['GET','POST'])
