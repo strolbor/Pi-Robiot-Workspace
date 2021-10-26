@@ -6,18 +6,23 @@
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
         {{form.hidden_tag()}}
-    <div class="form-group ">
-        <p><label class="control-label" for="selected">{{ form.ein.label }}</label><br />
-                {{ form.ein(rows=12,size=12) }}
-        </p>
-    </div>
-    {{ form.submit3() }} {{ form.submit2() }}
-    <div class="form-group ">
-        <p><label class="control-label" for="selected">{{ form.selected.label }}</label><br />
-        {{ form.selected(rows=12,size=12) }}
-        </p>
-    </div>
 
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>{{ form.ein.label }}</th>
+                <th>Auswahl</th>
+                <th>{{ form.selected.label }}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>{{ form.ein(rows=12,size=12) }}</td>
+                  <td>{{ form.submit3() }} {{ form.submit2() }}</td>
+                  <td>{{ form.selected(rows=12,size=12) }}</td>
+                </tr>
+            </tbody>
+        </table>
     <p>{{ form.submit() }} </p>
 </form>
 {% endblock %}
