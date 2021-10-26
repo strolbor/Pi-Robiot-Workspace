@@ -11,6 +11,7 @@ DARKNET_1 = ['None']
 DARKNET_2 = []
 datei = open(DARKNET,"r")
 for zeile in datei:
+    zeile = zeile.replace("\n","")
     DARKNET_1.append(zeile)
     DARKNET_2.append([zeile,zeile])
 
