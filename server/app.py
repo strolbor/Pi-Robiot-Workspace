@@ -597,6 +597,7 @@ def email_cnf():
         form.port.data = array[1]
         form.username.data = array[2]
         form.password.data = array[3] 
+        print(array[4],array[5])
         print(bool(array[4]),bool(array[5]))
         form.mail_tls.data = bool(array[4])
         form.mail_ssl.data = bool(array[5])
