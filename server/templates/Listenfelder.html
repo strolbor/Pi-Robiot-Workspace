@@ -2,31 +2,36 @@
 
 
 {% block app_content %}
-<style>
-	.table th.middle {
-		width: 90px;
-	}
-	.table input {
-		margin: 5px 10px;
-		
-	}
-    .table td.eingabe {
-        width: 300px;
-    }
-    .table td.submit {
-        padding: 5px;
-    }
-    .save {
-        margin-left: 10px;
-    }
-    .right {
-        text-align: right;
-    }
-    .table td.buttons {
-        align-content: center;
-        vertical-align: middle;
-    }
-</style>
+    <style>
+        .table th.middle {
+            width: 90px;
+        }
+        .table input {
+            margin: 5px 10px;
+            
+        }
+        .table td.eingabe {
+            width: 300px;
+        }
+        .table td.submit {
+            padding: 5px;
+        }
+        .save {
+            margin-left: 10px;
+        }
+        .right {
+            text-align: right;
+        }
+        .table td.buttons {
+            align-content: center;
+            vertical-align: middle;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
     {% if label %}<h2>{{label}}</h2>{% endif %}
     <form action="" method="post" novalidate>
         {{form.hidden_tag()}}
@@ -41,7 +46,7 @@
             </thead>
             <tbody>
                 <tr>
-                  <td class="eingabe">{{ form.ein(size=15, class='form-control',  multiple="multiple") }}</td>
+                  <td class="eingabe" data-toggle="tooltip" title="Test">{{ form.ein(size=15, class='form-control',  multiple="multiple") }}</td>
                   <td class="buttons">{{ form.submit3(class="btn btn-danger") }} {{ form.submit2(class="btn btn-success") }}</td>
                   <td class="eingabe">{{ form.selected(size=15, class='form-control',  multiple="multiple") }}</td>
                 </tr>

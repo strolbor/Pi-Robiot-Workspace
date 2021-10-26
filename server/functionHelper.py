@@ -271,7 +271,7 @@ def alarm_scan(scGear,move,self,alarm_object):
 			if (entry_conf == entry_found):
 				# Falls Objekt aus der Liste gefunden und wir die noch nicht gefunden haben
 				# Adden wir es in unseren Speicher
-				txt = "Ich habe "+entry_conf + " gefunde, also räum auf!"
+				txt = "Ich habe " + entry_conf + " gefunde."
 				print("[ALARM]",txt)
 				requests.get('http://localhost:5000/api/sendinfo/'+txt)
 				
