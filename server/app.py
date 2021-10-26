@@ -204,7 +204,7 @@ def change_sc(name):
             form.textarea4.data = array[3]
         
     except FileNotFoundError:
-        pass
+        flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
 
 @app.route('/change/mcp/<name>', methods=['GET','POST'])
@@ -603,8 +603,6 @@ def email_cnf():
             a4 = True
         if array[5] == "True":
             a5 = True
-        print(array[4],array[5])
-        print(bool(array[4]),bool(array[5]))
         form.mail_tls.data = a4
         form.mail_ssl.data = a5
     except FileNotFoundError:

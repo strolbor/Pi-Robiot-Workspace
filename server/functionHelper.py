@@ -108,16 +108,15 @@ def yolo_look_advance(object: str,scGear, lastObject):
 
 	# Den Kopf zum ausrichten, zur Gradzahl
 def look_normal(motor: int ,tilt : int, object : str, scGear):
-	global kordinate
 	"""Für YOLO Objektverfolgungsmodus: Mit Servo Motor Steuerung 
 	-2: Gegenstand nicht gefunden
 	-1: Gegenstand steht im Weg herum"""
 	print("[YOLO] Look")
 	scGear.moveAngle(motor, tilt)
 	dist = dist_redress()
-	kordinate =[-2,-2]
+	kordinate =[-2,-2,-2,-2]
 	if dist <= 50:
-		kordinate = [-1,-1]
+		kordinate = [-1,-1,-1,-1]
 	else:
 		time.sleep(1.5) # Auf Bild warten
 		JSON_LIST = send_picture()
@@ -129,6 +128,8 @@ def look_normal(motor: int ,tilt : int, object : str, scGear):
 				if tmp['text'] == object:
 					kordinate[0] = tmp['x']
 					kordinate[1] = tmp['y']
+					kordinate[2] = tmp['w']
+					kordinate[3] = tmp['h']
 			except JSONDecodeError:
 				pass
 	print("[YOLO] look_normal: x=",kordinate[0])	
