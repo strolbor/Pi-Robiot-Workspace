@@ -28,9 +28,9 @@ class ChangeSammlerForm(FlaskForm):
 
 class ChangeSammlerMCP(FlaskForm):
     btn = []
-    btn[0] = BooleanField('person')
-    btn[1] = BooleanField('umbrella')
-    btn[2] = BooleanField('handbag')
+    btn.append( BooleanField('person'))
+    btn.append(  BooleanField('umbrella'))
+    btn.append(  = BooleanField('handbag'))
     btn4 = BooleanField('bottle')
     btn5 = BooleanField('wine glass')
     btn6 = BooleanField('cup')
