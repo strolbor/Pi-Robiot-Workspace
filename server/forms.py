@@ -1,18 +1,28 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
-from numpy.core.fromnumeric import size
 from wtforms import SubmitField,SelectField
 from wtforms.fields.core import BooleanField, FloatField, SelectMultipleField
 from wtforms.fields.simple import TextField
 from wtforms.validators import DataRequired
 
 dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup','fork','knife','spoon','chair','mouse','book','vase','laptop']
+DARKNET = "/root/urs_robot/detect/data/coco.names"
+DARKNET_1 = ['None']
+DARKNET_2 = []
+datei = open(DARKNET,"a")
+for zeile in datei:
+    DARKNET_1.append(zeile)
+    DARKNET_2.append([zeile,zeile])
+
+print("1:",DARKNET_1)
+print("2:",DARKNET_2)
+
 
 class ChangeSammlerForm(FlaskForm):
-    textarea1= SelectField('Gegenstand 1', choices=dropdown_list, default=1)
-    textarea2= SelectField('Gegenstand 2', choices=dropdown_list, default=1)
-    textarea3= SelectField('Gegenstand 3', choices=dropdown_list, default=1)
-    textarea4= SelectField('Gegenstand 4', choices=dropdown_list, default=1)
+    textarea1= SelectField('Gegenstand 1', choices=DARKNET_1, default=1)
+    textarea2= SelectField('Gegenstand 2', choices=DARKNET_1, default=1)
+    textarea3= SelectField('Gegenstand 3', choices=DARKNET_1, default=1)
+    textarea4= SelectField('Gegenstand 4', choices=DARKNET_1, default=1)
     submit = SubmitField('Speichern')
 
 class ChangeSammlerMCP(FlaskForm):
@@ -61,7 +71,7 @@ dropdown_list_2 = [('person','person'),('umbrella','umbrella'),('handbag','handb
     ('fork','fork'),('knife','knife'), ('spoon','spoon'),('chair','chair'),('mouse','mouse'),('book','book'),('vase','vase'),('laptop','laptop')]
 
 class d_felder(FlaskForm):
-    ein = SelectMultipleField('Zur Verfügung stehende Objekte',choices=dropdown_list_2)
+    ein = SelectMultipleField('Zur Verfügung stehende Objekte',choices=DARKNET_2)
     submit2 = SubmitField("Hinzufügen")
     selected = SelectMultipleField('Ausgewählte Objekte',choices=[])
     submit3 = SubmitField("Entfernen")

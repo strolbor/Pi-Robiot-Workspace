@@ -452,7 +452,7 @@ def change_swip_swap(name):
             flash(c.SUC_DEL)
             return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
         else:
-            flash("A")
+            flash("Don't hack this!")
             return redirect(url_for('change_swip_swap',name=name))
 
     return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")#,label="label")
