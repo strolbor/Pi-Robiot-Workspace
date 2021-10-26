@@ -9,7 +9,7 @@ dropdown_list = ['None','person','umbrella','handbag','bottle','wine glass','cup
 DARKNET = "/root/urs_robot/detect/data/coco.names"
 DARKNET_1 = ['None']
 DARKNET_2 = []
-datei = open(DARKNET,"a")
+datei = open(DARKNET,"r")
 for zeile in datei:
     DARKNET_1.append(zeile)
     DARKNET_2.append([zeile,zeile])
