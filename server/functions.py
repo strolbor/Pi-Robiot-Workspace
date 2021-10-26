@@ -574,9 +574,9 @@ class Functions(threading.Thread):
 		print("Gloable Koordienaten", kordinate)
 		scGear.moveAngle(2, 10)
 		move.move(cof.ROBOT_SPEED,'forward','no',0.1)	
-		if kordinate[2] < 50:
+		if kordinate[2] <= 50:
 			time.sleep(3)
-		elif kordinate[2]	< 75:
+		elif kordinate[2]	<= 75:
 			time.sleep(2)
 		else:
 			time.sleep(1)	

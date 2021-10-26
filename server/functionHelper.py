@@ -177,7 +177,7 @@ def dist_redress():
 		if dist_value > 900:
 			mark +=  1
 		elif mark > 5 or dist_value < 900:
-				break
+			break
 		print(dist_value)
 	return round(dist_value,2)
 
