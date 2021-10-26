@@ -38,8 +38,12 @@
                   <td>{{ form.submit3(class="btn btn-danger") }} {{ form.submit2(class="btn btn-success") }}</td>
                   <td class="eingabe">{{ form.selected(size=15, class='form-control',  multiple="multiple") }}</td>
                 </tr>
+                <tr>
+                    <td class="save">{{ form.submit(class="btn btn-info") }}</td>
+                    <td></td>
+                    <td>{{ form.submit4(class="btn btn-info") }}</td>
+                </tr>
             </tbody>
         </table>
-    <p class="save">{{ form.submit(class="btn btn-info") }} {{ form.submit4(class="btn btn-info") }}</p>
 </form>
 {% endblock %}
