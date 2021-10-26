@@ -398,9 +398,12 @@ def change_swip_swap(name):
     
     form.selected.choices = choices_array.copy()
     if form.validate_on_submit():
-        print("Verfügbar:",form.ein.data)
-        print("Eingestellt:",form.selected.data)
+        ver = form.ein.data
+        eing = form.selected.data
+        print("Verfügbar:",ver)
+        print("Eingestellt:",eing)
         if form.submit.data:
+            # -> neue Datem speichern
             # Dateien löschen und öffnen
             delete_file(filename)
             datei = open(filename,"a")
@@ -436,7 +439,10 @@ def change_swip_swap(name):
             form.selected.choices = old_choices.copy()
             choices_array = old_choices.copy()
 
-            flash(c.SUC_ADD)
+            if len(eing) == 0:
+                flash(c.INPUT_ERROR)
+            else:
+                flash(c.SUC_ADD)
             # neues Template an Client senden
             return render_template(LISTENFELDER,form=form,label=title)
         
@@ -452,7 +458,10 @@ def change_swip_swap(name):
             form.selected.choices = array.copy()
             choices_array = array.copy()
 
-            flash(c.SUC_DEL)
+            if len(eing) == 0:
+                flash(c.INPUT_ERROR)
+            else:
+                flash(c.SUC_DEL)
             return render_template(LISTENFELDER,form=form,label=title+": Einstellungen")
         else:
             flash("Don't hack this!")
