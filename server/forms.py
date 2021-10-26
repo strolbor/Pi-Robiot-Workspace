@@ -1,5 +1,6 @@
 from flask.app import Flask
 from flask_wtf import FlaskForm
+from numpy.core.fromnumeric import size
 from wtforms import SubmitField,SelectField
 from wtforms.fields.core import BooleanField, FloatField, SelectMultipleField
 from wtforms.fields.simple import TextField
@@ -62,7 +63,7 @@ dropdown_list_2 = [('person','person'),('umbrella','umbrella'),('handbag','handb
 class d_felder(FlaskForm):
     ein = SelectMultipleField('Zur Verfügung',choices=dropdown_list_2)
     submit2 = SubmitField("Hinzufügen")
-    selected = SelectMultipleField('Ausgewählt',choices=[])
+    selected = SelectMultipleField('Ausgewählt',choices=[],size=12)
     submit3 = SubmitField("Entfernen")
     submit = SubmitField("Speichern")
 
