@@ -420,6 +420,7 @@ def change_swip_swap(name):
 
         elif form.submit2.data:
             # Item soll hinzugefügt werden
+            
             # Choices werden hart kopiert
             old_choices = form.selected.choices.copy()
 
@@ -436,7 +437,9 @@ def change_swip_swap(name):
             # neues Template an Client senden
             return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
         
-        elif form.submit3.data and 1 == 0:
+        elif form.submit3.data:
+            # Item soll aus choices entfernt werden
+
             # Aktuelle Auswahl kopieren
             array = form.selected.choices.copy()
             # Was wir entfernen wollen, kopieren
@@ -447,9 +450,6 @@ def change_swip_swap(name):
             choices_array = array.copy()
 
             flash(c.SUC_DEL)
-            return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
-        elif form.submit3.data:
-            flash("Button 3")
             return render_template(LISTEFELDER,form=form,label=title+": Einstellungen")
         else:
             flash("A")
