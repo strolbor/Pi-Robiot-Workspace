@@ -3,22 +3,20 @@
 
 {% block app_content %}
 
-<form action="" method="post" novalidate>
-    {{form.hidden_tag()}}
-<div class="form-group "><label class="control-label" for="selected">{{ form.ein.label }}</label>
-        
-            {{ form.ein(rows=12,size=12) }}
-</div>
-{{ form.submit3() }} {{ form.submit2() }}
-<div class="form-group "><label class="control-label" for="selected">{{ form.selected.label }}</label>
-
-    {{ form.selected(rows=12,size=12) }}
-</div>
-
-
-           
-
-            
+    {% if label %}<h2>{{label}}</h2>{% endif %}
+    <form action="" method="post" novalidate>
+        {{form.hidden_tag()}}
+    <div class="form-group ">
+        <p><label class="control-label" for="selected">{{ form.ein.label }}</label><br />
+                {{ form.ein(rows=12,size=12) }}
+        </p>
+    </div>
+    {{ form.submit3() }} {{ form.submit2() }}
+    <div class="form-group ">
+        <p><label class="control-label" for="selected">{{ form.selected.label }}</label><br />
+        {{ form.selected(rows=12,size=12) }}
+        </p>
+    </div>
 
     <p>{{ form.submit() }} </p>
 </form>
