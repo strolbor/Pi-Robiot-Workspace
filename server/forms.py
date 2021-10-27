@@ -15,6 +15,8 @@ for zeile in datei:
     DARKNET_1.append(zeile)
     DARKNET_2.append([zeile,zeile])
 datei.close()
+DARKNET_1.sort()
+DARKNET_2.sort()
 
 class ChangeSammlerForm(FlaskForm):
     """ Singel Choice Formular"""
