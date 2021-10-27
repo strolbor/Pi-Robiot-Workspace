@@ -120,7 +120,7 @@ def sammler_liste():
             if not raw.startswith('----'):
                 allmsg = raw.split(",")
                 for entry in allmsg:
-                    if len(entry) > 2:
+                    if len(entry) > 2 and entry not in messages:
                         messages.append(entry)
                     # Komplexität n^2
         datei.close()
@@ -189,7 +189,7 @@ def change_sc(name):
         datei.close()
 
         #GET-Request erfolgreich abgesetzt; bereit zum flashen
-        flash(c.sucess_msg(zu_setzen))
+        flash(c.SUC_MSG.format(zu_setzen))
         return redirect(url_for('change_sc',name=name))
 
     # Sammler Konfig laden 
@@ -292,7 +292,7 @@ def change_mcp(name):
         datei.flush()
         datei.close()
 
-        flash(c.sucess_msg(Arraystr))
+        flash(c.SUC_MSG.format(Arraystr))
         return redirect(url_for('change_mcp',name=name))
     # Konfig Datei öffnen im Lese Modus
     # Zum zeigen, das es gepeichert wurden ist
@@ -335,18 +335,6 @@ def change_mcp(name):
     except FileNotFoundError:
         flash(c.FILE_NOT_FOUND_MSG2.format(filename))
     return render_template(QUICK_FORM,form=form,label=title)
-
-# Mein Abschnitt mit meinen Funktionen
-@app.route("/api/test/<inter>")
-def test(inter):
-    """ Design Test"""
-    form = d_felder()
-    title = "Test"
-    zahl = int(inter)
-    if zahl == 0:
-        return render_template(QUICK_FORM,form=form,label=title+": Einstellungen")
-    else:
-        return render_template("Listenfelder.html",form=form,label=title+": Einstellungen")
 
 choices_array = []
 LISTENFELDER = "Listenfelder.html"
@@ -509,7 +497,7 @@ def yolo_sc():
         datei.flush()
         datei.close()
 
-        flash(c.sucess_msg(form.textarea1.data))
+        flash(c.SUC_MSG.format(form.textarea1.data))
         return redirect(url_for('yolo_sc'))
 
     # Datei laden, sodass der Eintrag aktuell ist
