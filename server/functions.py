@@ -594,8 +594,11 @@ class Functions(threading.Thread):
 		""" Sammelprozess Funktionen starter"""
 		global lastObject, Strategien,sammler_gefunden,sammler_target
 		fDrive.configure_head(scGear)
+		
+		# Sammel Liste einlesen
 		sammler_target = fH.sammler_read_conf()
 		print(sammler_target)
+		
 		try:
 			# Das zu suchende Objekt anzeigen
 			print("Suche: "+sammler_target[sammler_gefunden])
