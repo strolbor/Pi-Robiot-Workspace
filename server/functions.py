@@ -271,8 +271,6 @@ class Functions(threading.Thread):
 		global sammler_counter,sammler_gefunden,sammler_target
 		sammler_counter = 0 
 		sammler_gefunden = 0
-		sammler_target = fH.sammler_read_conf()
-		print(sammler_target)
 		self.yolo_init()
 		self.resume()
 
@@ -373,8 +371,6 @@ class Functions(threading.Thread):
 		else:
 			move.motorStop()
 	
-
-		
 	def konst_fahrmodus_processing(self):
 		""" Konstant fahren nach Vorne (Logik)"""
 		if not fDrive.konst_fahrmodus_processing(scGear,move):
@@ -428,6 +424,7 @@ class Functions(threading.Thread):
 		"""Der Alarm Process wird gestartet"""
 		gegenstand = []
 		try:
+			# Gegenstände einlesen
 			datei = open(cof.ALARM_CONF)
 			gegenstand = datei.readline().split(",")
 		except FileNotFoundError:
@@ -439,6 +436,8 @@ class Functions(threading.Thread):
 		
 		#Modus starten
 		fH.alarm_scan(scGear=scGear,self=self,move=move,alarm_object=gegenstand)
+
+		
 	def yolo_move(self):
 		""" Der Objekt Erkennungserweterung Modus. Der Roboter guckt sich die Umgebung an. (Logik)"""
 		global lastObject, Strategien,kordinate
@@ -447,8 +446,10 @@ class Functions(threading.Thread):
 		# Gegenstands Datei lesen und einspielen
 		gegenstand = ""
 		try:
+			# Gegenstände einlesen
 			datei = open(cof.YOLO_CONF)
 			gegenstand = datei.readline()
+			print(gegenstand)
 		except FileNotFoundError:
 			pass
 
@@ -574,7 +575,9 @@ class Functions(threading.Thread):
 		print("Gloable Koordienaten", kordinate)
 		scGear.moveAngle(2, 10)
 		move.move(cof.ROBOT_SPEED,'forward','no',0.1)	
-		if kordinate[2] <= 50:
+		if kordinate[2] <= 50: 
+			# kordinate[2] ist die width des Erkanntes Objektes
+			# je kleiner die Zahl, desto weiter entfernt ist das Objekt
 			time.sleep(3)
 		elif kordinate[2]	<= 75:
 			time.sleep(2)
@@ -587,11 +590,14 @@ class Functions(threading.Thread):
 		fH.drive_scan(scGear,move)
 
 	def sammel_process(self):
-		global kordinate
+		global kordinate,sammler_target
 		""" Sammelprozess Funktionen starter"""
 		global lastObject, Strategien,sammler_gefunden,sammler_target
 		fDrive.configure_head(scGear)
+		sammler_target = fH.sammler_read_conf()
+		print(sammler_target)
 		try:
+			# Das zu suchende Objekt anzeigen
 			print("Suche: "+sammler_target[sammler_gefunden])
 		except IndexError:
 			self.pause()

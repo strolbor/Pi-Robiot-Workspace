@@ -46,7 +46,7 @@ def init_strategien(self):
 	# YOLO Advance Strategien
 	# -1 bei den Integern beduetet, dass der letzte gesehen Ort uninteresant ist
 	strategien.append(RangeStrategie(-2,-2,"Nichts gefunden @ -1",		-1,"yoloAD",self.yolo_counter))
-	strategien.append(RangeStrategie(-1,-1,"Zunah dran @ -1",			-1,"yoloAD",self.pause))
+	strategien.append(RangeStrategie(-1,-1,"Zunah dran @ -1",			0,"yoloAD",self.pause))
 
 	# Sammler Modus
 	strategien.append(RangeStrategie(-2,-2,"Nichts gefunden @ 0",		-1,"Object",self.sammel_counter))
