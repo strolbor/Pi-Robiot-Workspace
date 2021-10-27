@@ -1,4 +1,5 @@
 class Entscheider():
+	""" Entscheider Klasse zum dynamischen Entscheiden """
 
 	def __init__(self, trigger_cmd: str, give_func):
 		self.trigger = trigger_cmd

@@ -26,24 +26,6 @@ class ChangeSammlerForm(FlaskForm):
     textarea4= SelectField('Gegenstand 4', choices=DARKNET_1, default=1)
     submit = SubmitField('Speichern')
 
-class ChangeSammlerMCP(FlaskForm):
-    """ Multiple Choice Formular """
-    btn1 = BooleanField('person')
-    btn2 = BooleanField('umbrella')
-    btn3 = BooleanField('handbag')
-    btn4 = BooleanField('bottle')
-    btn5 = BooleanField('wine glass')
-    btn6 = BooleanField('cup')
-    btn7 = BooleanField('fork')
-    btn7a = BooleanField('knife')
-    btn8 = BooleanField('spoon')
-    btn9 = BooleanField('chair')
-    btn10 = BooleanField('mouse')
-    btn11 = BooleanField('book')
-    btn12 = BooleanField('vase')
-    btn13 = BooleanField('laptop')
-    submit = SubmitField('Speichern')
-
 class YoloChangeSC(FlaskForm):
     """ Singel Singel Choice Formular für den Suchmodus (YOLO)"""
     textarea1 = SelectField('Gegenstand 1',choices=DARKNET_1, default=1)
