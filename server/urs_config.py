@@ -4,7 +4,7 @@ import base64
 PIC_PATH = '/root/urs_robot/server/pic.jpg'
 """Pfad, wo wir das Foto abgreifen können"""
 
-URL = 'http://192.168.1.103:5000'
+URL = 'http://192.168.99.6:5000'
 """URL für dem Objekterkennungs Server"""
 URL_OPTION = '/send-image/data:image/jpeg;base64,'
 """Wie wurde das Bild kodiert, inklusiv URL"""
