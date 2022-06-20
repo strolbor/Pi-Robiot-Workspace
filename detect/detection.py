@@ -8,8 +8,8 @@ from json import JSONEncoder
 ##DARKNET_PATH = 'D:/adeep_roboter/detect'
 #IMAGE_PATH = 'D:/adeep_roboter/'
 
-DARKNET_PATH = 'C:/Users/Schutz/Documents/adeep_roboter/detect'
-IMAGE_PATH = 'C:/Users/Schutz/Documents/adeep_roboter/'
+DARKNET_PATH = 'C:/Users/Schutz/git/adeept_picar-b/detect'
+IMAGE_PATH = 'C:/Users/Schutz/git/adeept_picar-b/'
 
 class seeObject():
     x = 0

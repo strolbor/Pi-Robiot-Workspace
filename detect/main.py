@@ -85,5 +85,10 @@ def image_check2(url):
     return status
 
 if __name__ == '__main__':
+    s =socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    s.connect(("1.1.1.1",80))
+    ipaddr_check=s.getsockname()[0]
+    s.close()
+    print("IP-Adresse:",ipaddr_check)
     app.run(host='0.0.0.0', threaded=True)
     
