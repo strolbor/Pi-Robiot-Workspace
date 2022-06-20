@@ -3,6 +3,8 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 
 import os
 
+import socket
+
 #pip install python-telegram-bot
 
 TELEGRAM_EMP_CONF = '/root/urs_robot/server/tg_empf.csv'
@@ -21,7 +23,12 @@ def hello(update: Update, context: CallbackContext) -> None:
 def id(update: Update, context: CallbackContext) -> None:
     id = update.effective_user.id
     print(id)
-    update.message.reply_text(f'Deine ID ist: {id}')
+    s =socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    s.connect(("1.1.1.1",80))
+    ipaddr_check=s.getsockname()[0]
+    s.close()
+    print(ipaddr_check)
+    update.message.reply_text(f'Deine ID ist: {id}. Deine IP ist {ipaddr_check}')
 
 def register(update: Update, context: CallbackContext) -> None:
     line = ""

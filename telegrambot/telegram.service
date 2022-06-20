@@ -1,0 +1,14 @@
+[Unit]
+Description=Telegram Bot
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Restart=on-failure
+RestartSec=5s
+PIDFile=/run/backup.pid
+ExecStart=/usr/bin/python3 /root/urs_robot/telegrambot/bot.py
+
+
+[Install]
+WantedBy=multi-user.target
